@@ -136,46 +136,25 @@ tiltCards.forEach((card) => {
   });
 });
 
-// --------- 4. STACKING CARDS (MÉTODO "FALSO PIN" - 100% FLUIDO) ---------
+// --------- 4. STACKING CARDS (CSS PURO + BLUR) ---------
 const sections = gsap.utils.toArray("section");
 
 sections.forEach((section, i) => {
-  // Define a ordem: a próxima seção sempre fica com o Z-Index maior para passar por cima
   section.style.zIndex = i;
 
   const nextSection = sections[i + 1];
-  
   if (nextSection) {
-    // A MÁGICA: Translada a seção atual para baixo na mesma velocidade do scroll.
-    // Assim ela parece "fixa" visualmente, mas o DOM continua fluindo normalmente, sem engasgos!
-    gsap.fromTo(section, 
-      { y: 0 },
-      { 
-        y: () => window.innerHeight, 
-        ease: "none",
-        scrollTrigger: { 
-          trigger: nextSection, 
-          start: "top bottom", 
-          end: "top top", 
-          scrub: true,
-          invalidateOnRefresh: true 
-        }
-      }
-    );
-
-    // O efeito de escurecer e borrar a seção de trás continua igual
+  
     gsap.fromTo(section, 
       { filter: "brightness(1) blur(0px)" },
-      { filter: "brightness(0.4) blur(4px)", ease: "none",
+      { filter: "brightness(0.3) blur(5px)", ease: "none",
         scrollTrigger: { 
           trigger: nextSection, 
           start: "top bottom", 
           end: "top top", 
-          scrub: true,
-          invalidateOnRefresh: true 
+          scrub: true 
         }
-      }
-    );
+      });
   }
 });
 

@@ -86,17 +86,19 @@ body.loading-active {
 }
 
 /* Base Section Styling */
+/* Base Section Styling */
 section {
+  position: sticky; /* A MÁGICA NATIVA AQUI */
+  top: 0;           /* TRAVA NO TOPO SEM JS */
   min-height: 100dvh;
   height: auto !important;
   width: 100%;
-  position: relative;
   padding: 0 20px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: rgba(12, 12, 14, 0.6);
+  background-color: transparent;
   backdrop-filter: blur(10px);
   transform-origin: top center;
   box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.8);
@@ -394,6 +396,7 @@ section {
   overflow: visible !important;
   display: block !important;
   padding-bottom: 100px;
+  position: relative;
 }
 
 .vertical-title-work {
