@@ -140,12 +140,10 @@ tiltCards.forEach((card) => {
 const sections = gsap.utils.toArray("section");
 
 sections.forEach((section, i) => {
-  // Garante que a próxima seção passe por cima
   section.style.zIndex = i;
-
   const nextSection = sections[i + 1];
   if (nextSection) {
-    // Apenas escurece e borra a seção que está congelada atrás
+    
     gsap.fromTo(section, 
       { filter: "brightness(1) blur(0px)" },
       { filter: "brightness(0.3) blur(5px)", ease: "none",
