@@ -5,31 +5,29 @@ const lenis = new Lenis({
   duration: 1.5,
   easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
   smooth: true,
+  smoothTouch: false, // Deixa o touch nativo liso no mobile
 });
 
 lenis.on("scroll", ScrollTrigger.update);
 gsap.ticker.add((time) => { lenis.raf(time * 500); });
 gsap.ticker.lagSmoothing(0);
+
+// Navegação Macia
 document.querySelectorAll('.bottom-nav a').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     e.preventDefault();
     const targetId = this.getAttribute('href');
+    
     if (targetId === '#hero') {
       lenis.scrollTo(0, { duration: 1.5 }); 
       return;
     }
-    const targetElement = document.querySelector(targetId);
-    if (!targetElement) return;
-    let targetScrollPosition = 0;
-    const allSections = document.querySelectorAll('section');
     
-    for (let i = 0; i < allSections.length; i++) {
-      if (allSections[i] === targetElement) {
-        break; 
-      }
-      targetScrollPosition += allSections[i].offsetHeight;
+    const targetElement = document.querySelector(targetId);
+    if (targetElement) {
+      // Como o pinSpacing é false, o offset natural do DOM é perfeito!
+      lenis.scrollTo(targetElement, { duration: 1.5 });
     }
-    lenis.scrollTo(targetScrollPosition, { duration: 1.5 });
   });
 });
 
@@ -53,9 +51,7 @@ function resetIdleTimer() {
   clearTimeout(idleTimer);
   idleTimer = setTimeout(() => { isIdle = true; updateWanderTargets(); }, 2000);
 }
-function onInputMove(x, y) {
-  mouseX = x; mouseY = y; resetIdleTimer();
-}
+function onInputMove(x, y) { mouseX = x; mouseY = y; resetIdleTimer(); }
 
 window.addEventListener("mousemove", (e) => onInputMove(e.clientX, e.clientY));
 window.addEventListener("touchstart", (e) => onInputMove(e.touches[0].clientX, e.touches[0].clientY));
@@ -103,23 +99,10 @@ links.forEach((link) => {
 
 // --------- 2. ABOUT SECTION: FLOATING GALLERY ---------
 const floatImages = document.querySelectorAll(".float-img");
-
 floatImages.forEach((img) => {
   let isExpanded = false;
-
-  const openImg = () => {
-    isExpanded = true;
-    gsap.to(img, {
-      scale: 1.2, height: 250, zIndex: 50, opacity: 1, filter: "grayscale(0%)", duration: 0.6, ease: "power3.out",
-    });
-  };
-
-  const closeImg = () => {
-    isExpanded = false;
-    gsap.to(img, {
-      scale: 1, height: 50, zIndex: 1, opacity: 0.5, filter: "grayscale(100%)", duration: 0.6, ease: "power3.out",
-    });
-  };
+  const openImg = () => { isExpanded = true; gsap.to(img, { scale: 1.2, height: 250, zIndex: 50, opacity: 1, filter: "grayscale(0%)", duration: 0.6, ease: "power3.out" }); };
+  const closeImg = () => { isExpanded = false; gsap.to(img, { scale: 1, height: 50, zIndex: 1, opacity: 0.5, filter: "grayscale(100%)", duration: 0.6, ease: "power3.out" }); };
 
   img.addEventListener("mouseenter", () => { if (!window.matchMedia("(pointer: coarse)").matches) openImg(); });
   img.addEventListener("mouseleave", () => { if (!window.matchMedia("(pointer: coarse)").matches) closeImg(); });
@@ -131,107 +114,85 @@ floatImages.forEach((img) => {
 
 document.addEventListener("click", () => {
   if (window.matchMedia("(pointer: coarse)").matches) {
-    floatImages.forEach((img) => {
-      gsap.to(img, { scale: 1, height: 50, zIndex: 1, opacity: 0.5, filter: "grayscale(100%)", duration: 0.6, ease: "power3.out" });
-    });
+    floatImages.forEach((img) => gsap.to(img, { scale: 1, height: 50, zIndex: 1, opacity: 0.5, filter: "grayscale(100%)", duration: 0.6, ease: "power3.out" }));
   }
 });
 
 // --------- 3. WORKSTATION SECTION: TILT 3D ---------
 const tiltCards = document.querySelectorAll(".tilt-card");
-
 tiltCards.forEach((card) => {
   const thumb = card.querySelector(".work-thumb");
   const info = card.querySelector(".work-info");
-
   if (!thumb || !info) return;
 
   gsap.set([thumb, info], { transformPerspective: 1000 });
-
   card.addEventListener("mousemove", (e) => {
     const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-
-    const rotateX = ((y - centerY) / centerY) * -2;
-    const rotateY = ((x - centerX) / centerX) * 2;
+    const x = e.clientX - rect.left; const y = e.clientY - rect.top;
+    const centerX = rect.width / 2; const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * -2; const rotateY = ((x - centerX) / centerX) * 2;
 
     gsap.to(thumb, { rotateX: rotateX, rotateY: rotateY, z: 5, scale: 1.02, boxShadow: `${-rotateY}px ${rotateX + 15}px 20px rgba(0,0,0,0.2)`, duration: 0.4, ease: "power2.out", overwrite: "auto" });
     gsap.to(info, { rotateX: rotateX, rotateY: rotateY, z: 10, scale: 1.02, duration: 0.4, ease: "power2.out", overwrite: "auto" });
   });
-
   card.addEventListener("mouseleave", () => {
     gsap.to(thumb, { rotateX: 0, rotateY: 0, z: 0, scale: 1, boxShadow: "0 5px 15px rgba(0,0,0,0.3)", duration: 1.5, ease: "power3.out" });
     gsap.to(info, { rotateX: 0, rotateY: 0, z: 0, scale: 1, duration: 0.8, ease: "power3.out" });
   });
 });
 
-// --------- 4. GLOBAL: STACKING CARDS ANIMATION (COM MATCHMEDIA) ---------
+// --------- 4. GLOBAL: STACKING CARDS ANIMATION (INTELIGENTE) ---------
 const sections = gsap.utils.toArray("section");
 
-// Define a ordem das cartas para não quebrar o layout
 sections.forEach((section, i) => {
   section.style.zIndex = i;
-});
 
-let mm = gsap.matchMedia();
-
-// APENAS PARA COMPUTADOR E TABLET (Onde o mouse funciona bem com pino)
-mm.add("(min-width: 768px)", () => {
-  sections.forEach((section, i) => {
+  // A última seção (Contact) NUNCA fixa. Ela apenas sobe macia como um rodapé normal.
+  if (i !== sections.length - 1) {
     ScrollTrigger.create({
       trigger: section,
-      start: "top top",
-      end: i === sections.length - 1 ? "+=10%" : "max",
+      // INTELIGÊNCIA: Se a seção for MAIOR que a tela (Workstation), deixa o usuário rolar até o fundo dela. Se for normal (Hero/About), fixa logo no topo.
+      start: () => section.offsetHeight > window.innerHeight ? "bottom bottom" : "top top",
+      end: "max", 
       pin: true,
       pinSpacing: false,
+      anticipatePin: 1, // Remove o engasgo no celular
       invalidateOnRefresh: true,
     });
+  }
 
-    const nextSection = sections[i + 1];
-    if (nextSection) {
-      gsap.fromTo(section, 
-        { filter: "brightness(1) blur(0px)" },
-        { filter: "brightness(0.5) blur(3px)", ease: "none",
-          scrollTrigger: { trigger: nextSection, start: "top bottom", end: "top top", scrub: true, invalidateOnRefresh: true }
-        });
-    }
-  });
+  // O efeito de Blur
+  const nextSection = sections[i + 1];
+  if (nextSection) {
+    gsap.fromTo(section, 
+      { filter: "brightness(1) blur(0px)" },
+      { filter: "brightness(0.5) blur(3px)", ease: "none",
+        scrollTrigger: { 
+          trigger: nextSection, 
+          start: "top bottom", 
+          end: "top top", 
+          scrub: true, 
+          invalidateOnRefresh: true 
+        }
+      });
+  }
 });
 
-// APENAS PARA CELULAR (Deixa o scroll liso livremente, apenas aplica o blur visual)
-mm.add("(max-width: 767px)", () => {
-  sections.forEach((section, i) => {
-    const nextSection = sections[i + 1];
-    if (nextSection) {
-      gsap.fromTo(section, 
-        { filter: "brightness(1) blur(0px)" },
-        { filter: "brightness(0.5) blur(3px)", ease: "none",
-          scrollTrigger: { trigger: nextSection, start: "top bottom", end: "top top", scrub: true, invalidateOnRefresh: true }
-        });
-    }
-  });
-});
-
-// --------- 5. INITIALIZATION & PRELOADER ---------
-// Trava o scroll adicionando a classe no body assim que o código roda
+// --------- 5. PRELOADER & INIT ---------
+// Trava o site enquanto estiver carregando
 document.body.classList.add('loading-active');
 
-// O 'load' espera TODAS as imagens e vídeos pesados terminarem de baixar
 window.addEventListener('load', () => {
   const preloader = document.getElementById('preloader');
   
-  // Pequeno delay elegante de meio segundo antes de abrir a cortina
+  // Meio segundo de delay para o suspense
   setTimeout(() => {
     preloader.style.opacity = '0';
     preloader.style.visibility = 'hidden';
-    document.body.classList.remove('loading-active'); // Libera o scroll
+    document.body.classList.remove('loading-active'); // Libera o site
     
-    ScrollTrigger.refresh(); // Recalcula as medidas para não dar bug
+    ScrollTrigger.refresh(); // Garante que a matemática do GSAP esteja perfeita após abrir a tela
     
-    // Tenta dar play no vídeo depois de carregar
     const video = document.getElementById("bgVideo");
     if (video) video.play().catch((e) => console.log("Autoplay bloqueado:", e));
   }, 500);
