@@ -168,39 +168,71 @@ tiltCards.forEach((card) => {
   });
 });
 
-// --------- 4. GLOBAL: STACKING CARDS ANIMATION ---------
+// --------- 4. GLOBAL: STACKING CARDS ANIMATION (COM MATCHMEDIA) ---------
 const sections = gsap.utils.toArray("section");
 
+// Define a ordem das cartas para não quebrar o layout
 sections.forEach((section, i) => {
   section.style.zIndex = i;
+});
 
-  if (i !== sections.length - 1) {
+let mm = gsap.matchMedia();
+
+// APENAS PARA COMPUTADOR E TABLET (Onde o mouse funciona bem com pino)
+mm.add("(min-width: 768px)", () => {
+  sections.forEach((section, i) => {
     ScrollTrigger.create({
       trigger: section,
-      start: () => section.offsetHeight > window.innerHeight ? "bottom bottom" : "top top",
+      start: "top top",
+      end: i === sections.length - 1 ? "+=10%" : "max",
       pin: true,
       pinSpacing: false,
       invalidateOnRefresh: true,
     });
-  }
 
-  const nextSection = sections[i + 1];
-  if (nextSection) {
-    gsap.fromTo(section, 
-      { filter: "brightness(1) blur(0px)" },
-      { filter: "brightness(0.5) blur(3px)", ease: "none",
-        scrollTrigger: { trigger: nextSection, start: "top bottom", end: "top top", scrub: true, invalidateOnRefresh: true }
-      });
-  }
+    const nextSection = sections[i + 1];
+    if (nextSection) {
+      gsap.fromTo(section, 
+        { filter: "brightness(1) blur(0px)" },
+        { filter: "brightness(0.5) blur(3px)", ease: "none",
+          scrollTrigger: { trigger: nextSection, start: "top bottom", end: "top top", scrub: true, invalidateOnRefresh: true }
+        });
+    }
+  });
 });
 
-ScrollTrigger.create({ trigger: "body", start: "top top", end: "bottom bottom", scrub: 1 });
+// APENAS PARA CELULAR (Deixa o scroll liso livremente, apenas aplica o blur visual)
+mm.add("(max-width: 767px)", () => {
+  sections.forEach((section, i) => {
+    const nextSection = sections[i + 1];
+    if (nextSection) {
+      gsap.fromTo(section, 
+        { filter: "brightness(1) blur(0px)" },
+        { filter: "brightness(0.5) blur(3px)", ease: "none",
+          scrollTrigger: { trigger: nextSection, start: "top bottom", end: "top top", scrub: true, invalidateOnRefresh: true }
+        });
+    }
+  });
+});
 
-// --------- 5. INITIALIZATION ---------
-document.addEventListener("DOMContentLoaded", () => {
-  const video = document.getElementById("bgVideo");
-  if (video) video.play().catch((e) => console.log("Autoplay bloqueado:", e));
+// --------- 5. INITIALIZATION & PRELOADER ---------
+// Trava o scroll adicionando a classe no body assim que o código roda
+document.body.classList.add('loading-active');
+
+// O 'load' espera TODAS as imagens e vídeos pesados terminarem de baixar
+window.addEventListener('load', () => {
+  const preloader = document.getElementById('preloader');
   
-  // Força uma atualização do Lenis no carregamento inicial para evitar bugs de scroll
-  ScrollTrigger.refresh();
+  // Pequeno delay elegante de meio segundo antes de abrir a cortina
+  setTimeout(() => {
+    preloader.style.opacity = '0';
+    preloader.style.visibility = 'hidden';
+    document.body.classList.remove('loading-active'); // Libera o scroll
+    
+    ScrollTrigger.refresh(); // Recalcula as medidas para não dar bug
+    
+    // Tenta dar play no vídeo depois de carregar
+    const video = document.getElementById("bgVideo");
+    if (video) video.play().catch((e) => console.log("Autoplay bloqueado:", e));
+  }, 500);
 });
