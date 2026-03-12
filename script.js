@@ -172,36 +172,29 @@ tiltCards.forEach((card) => {
 const sections = gsap.utils.toArray("section");
 
 sections.forEach((section, i) => {
-  // Define a ordem das "cartas" (quem fica por cima de quem)
   section.style.zIndex = i;
 
-  // Trava TODAS as seções na tela
-  ScrollTrigger.create({
-    trigger: section,
-    start: "top top",
-    // Para a última seção, o pino dura pouco para não travar o fim do site
-    end: i === sections.length - 1 ? "+=10%" : "max", 
-    pin: true,
-    pinSpacing: false,
-    invalidateOnRefresh: true,
-  });
+  if (i !== sections.length - 1) {
+    ScrollTrigger.create({
+      trigger: section,
+      start: () => section.offsetHeight > window.innerHeight ? "bottom bottom" : "top top",
+      pin: true,
+      pinSpacing: false,
+      invalidateOnRefresh: true,
+    });
+  }
 
-  // Efeito de escurecer e embaçar a seção que ficou para trás
   const nextSection = sections[i + 1];
   if (nextSection) {
     gsap.fromTo(section, 
       { filter: "brightness(1) blur(0px)" },
       { filter: "brightness(0.5) blur(3px)", ease: "none",
-        scrollTrigger: { 
-          trigger: nextSection, 
-          start: "top bottom", 
-          end: "top top", 
-          scrub: true, 
-          invalidateOnRefresh: true 
-        }
+        scrollTrigger: { trigger: nextSection, start: "top bottom", end: "top top", scrub: true, invalidateOnRefresh: true }
       });
   }
 });
+
+ScrollTrigger.create({ trigger: "body", start: "top top", end: "bottom bottom", scrub: 1 });
 
 // --------- 5. INITIALIZATION ---------
 document.addEventListener("DOMContentLoaded", () => {
