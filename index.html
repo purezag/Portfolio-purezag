@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="pt-br">
+ <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guilherme Pureza | Art and Tech</title>
+    
+    <meta name="description" content="Portfolio of Guilherme Pureza. I bridge the gap between aesthetic design and robust software architecture." />
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" media="print" onload="this.media='all'" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.0.0/css/flag-icons.min.css" media="print" onload="this.media='all'" />
+
+    <noscript>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.0.0/css/flag-icons.min.css" />
+    </noscript>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    
+    <div id="cursor-container">
+      <div class="cursor-blob"></div>
+      <div class="cursor-blob"></div>
+      <div class="cursor-blob"></div>
+    </div>
+
+    <nav class="bottom-nav">
+      <ul>
+        <li><a href="#hero">home</a></li>
+        <li><a href="#about">about</a></li>
+        <li><a href="#workstation">workspace</a></li>
+        <li><a href="#contact">contact</a></li>
+      </ul>
+    </nav>
+
+    <section id="hero">
+      <div class="hero-container">
+        <img src="./assets/logo-gp.png" alt="Guilherme Pureza Art and Tech Logo" width="150" height="150" />
+        <p class="trace">|</p>
+        <p class="hero-subtitle">
+          <strong>art</strong> <br />
+          and <br />
+          <strong>tech</strong>
+        </p>
+      </div>
+      <video autoplay muted loop playsinline class="hero-bg-video" id="bgVideo" aria-hidden="true" tabindex="-1">
+        <source src="./assets/bg.mp4" type="video/mp4" />
+      </video>
+
+      <div class="video-overlay"></div>
+    </section>
+
+    <section id="about">
+      <h1 class="vertical-title">about<strong>me</strong></h1>
+      
+      <div class="relative-container">
+        <div class="floating-gallery">
+          <div class="float-img img1" style="background-image: url('./assets/profile-photo.webp');" aria-label="Profile Photo of Guilherme"></div>
+        </div>
+
+        <div class="about-content">
+          <h2>Guilherme<strong>Pureza</strong></h2>
+
+          <div class="social-icons-wrapper">
+            <a href="https://instagram.com" target="_blank" aria-label="Instagram">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="https://github.com" target="_blank" aria-label="GitHub">
+              <i class="fa-brands fa-github"></i>
+            </a>
+            <a href="https://behance.net" target="_blank" aria-label="Behance">
+              <i class="fa-brands fa-behance"></i>
+            </a>
+          </div>
+          
+          <p>
+            At 29 years old, I am driven by the desire to build digital experiences that are both visually striking and structurally sound. My roots are in graphic design, but as a Systems Analysis and Development student, coding has become my catalyst to merge creative vision with high-performance logic. Drawing from my past as an international high-level athlete, I apply the same relentless discipline and focus from my competitive career to my professional journey.
+          </p>
+
+          <h2>my<strong>skills</strong></h2>
+
+          <div class="skills-layout">
+            <div class="skill-group">
+              <div class="skill-item">
+                <i class="devicon-html5-plain skill-icon"></i>
+                <span class="skill-name">HTML5</span>
+                <div class="skill-rating">
+                  <span class="skill-dot filled"></span>
+                  <span class="skill-dot filled"></span>
+                  <span class="skill-dot filled"></span>
+                  <span class="skill-dot filled"></span>
+                  <span class="skill-dot filled"></span>
+                </div>
+              </div>
+
+              <div class="skill-item">
+                <i class="devicon-css3-plain skill-icon"></i>
+                <span class="skill-name">CSS3</span>
+                <div class="skill-rating">
+                  <span class="skill-dot filled"></span>
+                  <span class="skill-dot filled"></span>
+                  <span class="skill-dot filled"></span>
+                  <span class="skill-dot filled"></span>
+                  <span class="skill-dot filled"></span>
+                </div>
+              </div>
+
+              <div class="skill-item">
+                <i class="devicon-javascript-plain skill-icon"></i>
+                <span class="skill-name">JavaScript</span>
+                <div class="skill-rating">
+                  <span class="skill-dot filled"></span>
+                  <span class="skill-dot filled"></span>
+                  <span class="skill-dot filled"></span>
+                  <span class="skill-dot filled"></span>
+                  <span class="skill-dot"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="skill-group">
+              <div class="skill-item">
+                <i class="devicon-figma-plain skill-icon"></i>
+                <span class="skill-name">Figma</span>
+                <div class="skill-rating">
+                  <span class="skill-dot filled"></span>
+                  <span class="skill-dot filled"></span>
+                  <span class="skill-dot filled"></span>
+                  <span class="skill-dot"></span>
+                  <span class="skill-dot"></span>
+                </div>
+              </div>
+
+              <div class="skill-item">
+                <i class="devicon-illustrator-plain skill-icon"></i>
+                <span class="skill-name">Illustrator</span>
+                <div class="skill-rating">
+                  <span class="skill-dot filled"></span>
+                  <span class="skill-dot filled"></span>
+                  <span class="skill-dot filled"></span>
+                  <span class="skill-dot filled"></span>
+                  <span class="skill-dot"></span>
+                </div>
+              </div>
+
+              <div class="skill-item">
+                <i class="devicon-photoshop-plain skill-icon"></i>
+                <span class="skill-name">Photoshop</span>
+                <div class="skill-rating">
+                  <span class="skill-dot filled"></span>
+                  <span class="skill-dot filled"></span>
+                  <span class="skill-dot filled"></span>
+                  <span class="skill-dot filled"></span>
+                  <span class="skill-dot"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="skill-group">
+              <div class="skill-item">
+                <span class="fi fi-br skill-flag"></span>
+                <span class="skill-name" style="white-space: nowrap;">Portuguese</span>
+                <div class="skill-rating">
+                  <span class="skill-dot filled"></span>
+                  <span class="skill-dot filled"></span>
+                  <span class="skill-dot filled"></span>
+                  <span class="skill-dot filled"></span>
+                  <span class="skill-dot filled"></span>
+                </div>
+              </div>
+
+              <div class="skill-item">
+                <span class="fi fi-us skill-flag"></span>
+                <span class="skill-name">English</span>
+                <div class="skill-rating">
+                  <span class="skill-dot filled"></span>
+                  <span class="skill-dot filled"></span>
+                  <span class="skill-dot filled"></span>
+                  <span class="skill-dot"></span>
+                  <span class="skill-dot"></span>
+                </div>
+              </div>
+
+              <div class="skill-item">
+                <span class="fi fi-es skill-flag"></span>
+                <span class="skill-name">Spanish</span>
+                <div class="skill-rating">
+                  <span class="skill-dot filled"></span>
+                  <span class="skill-dot filled"></span>
+                  <span class="skill-dot"></span>
+                  <span class="skill-dot"></span>
+                  <span class="skill-dot"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="workstation">
+      <div class="container">
+        <div class="work-header">
+          <div class="toggle-buttons">
+            <span class="work-title"><strong>Work</strong>space</span>
+            <p class="work-sub">
+              <strong>art</strong> and <strong>tech</strong>
+            </p>
+          </div>
+        </div>
+
+        <div class="work-grid">
+          <a href="https://www.behance.net/gallery/245339401/AI-Art-Digital-Manipulation" target="_blank" class="work-item design tilt-card">
+            <div class="work-thumb" style="background-image: url('./assets/creative-art-1.webp')"></div>
+            <div class="work-info">
+              <h3>Colonial</h3>
+              <span>Social Media Design</span>
+              <div class="work-tech">
+                <i class="devicon-photoshop-plain"></i>
+                <i class="devicon-canva-original"></i>
+              </div>
+            </div>
+          </a>
+
+          <a href="https://www.behance.net/gallery/245339401/AI-Art-Digital-Manipulation" target="_blank" class="work-item design tilt-card">
+            <div class="work-thumb" style="background-image: url('./assets/creative-art-2.webp')"></div>
+            <div class="work-info">
+              <h3>Colonial</h3>
+              <span>Social Media Design</span>
+              <div class="work-tech">
+                <i class="devicon-photoshop-plain"></i>
+                <i class="devicon-canva-original"></i>
+              </div>
+            </div>
+          </a>
+
+          <a href="https://www.behance.net/gallery/245339401/AI-Art-Digital-Manipulation" target="_blank" class="work-item design tilt-card">
+            <div class="work-thumb" style="background-image: url('./assets/creative-art-3.webp')"></div>
+            <div class="work-info">
+              <h3>Colonial</h3>
+              <span>Social Media Design</span>
+              <div class="work-tech">
+                <i class="devicon-photoshop-plain"></i>
+                <i class="devicon-canva-original"></i>
+              </div>
+            </div>
+          </a>
+
+          <a href="https://www.behance.net/gallery/230518185/Social-Medias-Visual-Creative" target="_blank" class="work-item design tilt-card">
+            <div class="work-thumb" style="background-image: url('./assets/creative-art-7.webp')"></div>
+            <div class="work-info">
+              <h3>Colonial</h3>
+              <span>Social Media Design</span>
+              <div class="work-tech">
+                <i class="devicon-photoshop-plain"></i>
+                <i class="devicon-canva-original"></i>
+              </div>
+            </div>
+          </a>
+
+          <a href="https://www.behance.net/gallery/242391919/Personal-Concept-Study" target="_blank" class="work-item design tilt-card">
+            <div class="work-thumb" style="background-image: url('./assets/creative-art-5.webp')"></div>
+            <div class="work-info">
+              <h3>Mister Burguer</h3>
+              <span>Personal Concept Study</span>
+              <div class="work-tech">
+                <i class="devicon-photoshop-plain"></i>
+                <i class="devicon-canva-original"></i>
+              </div>
+            </div>
+          </a>
+
+          <a href="https://www.behance.net/gallery/242391919/Personal-Concept-Study" target="_blank" class="work-item design tilt-card">
+            <div class="work-thumb" style="background-image: url('./assets/creative-art-4.webp')"></div>
+            <div class="work-info">
+              <h3>Smart Fit</h3>
+              <span>Personal Concept Study</span>
+              <div class="work-tech">
+                <i class="devicon-photoshop-plain"></i>
+                <i class="devicon-canva-original"></i>
+              </div>
+            </div>
+          </a>
+
+          <a href="https://www.behance.net/gallery/242391919/Personal-Concept-Study" target="_blank" class="work-item design tilt-card">
+            <div class="work-thumb" style="background-image: url('./assets/creative-art-6.webp')"></div>
+            <div class="work-info">
+              <h3>Food and Drinks</h3>
+              <span>Personal Concept Study</span>
+              <div class="work-tech">
+                <i class="devicon-photoshop-plain"></i>
+                <i class="devicon-canva-original"></i>
+              </div>
+            </div>
+          </a>
+
+          <a href="https://www.laboratoriocriativo.com" target="_blank" class="work-item design tilt-card">
+            <div class="work-thumb" style="background-image: url('./assets/creative-art-8.webp')"></div>
+            <div class="work-info">
+              <h3>Laboratório Criativo</h3>
+              <span>E-Commerce Website<br>UX/UI and Code</span>
+              <div class="work-tech">
+                <i class="devicon-photoshop-plain"></i>
+                <i class="devicon-canva-original"></i>
+                <i class="devicon-html5-plain"></i>
+                <i class="devicon-css3-plain"></i>
+                <i class="devicon-javascript-plain"></i>
+                <i class="devicon-wordpress-plain"></i>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="contact-container">
+        <img src="./assets/logo-gp.png" alt="Guilherme Pureza Brand Logo" class="brand-logo" width="150" height="150" />
+        <p class="trace">|</p>
+        <p class="hero-subtitle">
+          <strong>art</strong> <br />
+            and <br />
+          <strong>tech</strong>
+        </p>
+      </div>
+
+        <div class="content-footer">
+          <div class="status-row">
+            <div class="status-indicator">
+              <span class="dot"></span>
+              <p>Available</p>
+            </div>
+            <span class="divider">-</span>
+            <p class="email">glhrmpureza@gmail.com</p>
+          </div>
+
+          <div class="social-row">
+            <a href="https://instagram.com/purezag" target="_blank" aria-label="Instagram">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="https://behance.net/purezag" target="_blank" aria-label="Behance">
+              <i class="fa-brands fa-behance"></i>
+            </a>
+            <a href="https://github.com/purezag" target="_blank" aria-label="GitHub">
+              <i class="fa-brands fa-github"></i>
+            </a>
+            <a href="www.linkedin.com/in/purezag" target="_blank" aria-label="LinkedIn">
+              <i class="fa-brands fa-linkedin"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
