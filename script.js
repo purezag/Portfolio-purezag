@@ -5,14 +5,13 @@ const lenis = new Lenis({
   duration: 1.5,
   easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
   smooth: true,
-  smoothTouch: false, // Deixa o touch nativo liso no mobile
+  smoothTouch: false,
 });
 
 lenis.on("scroll", ScrollTrigger.update);
 gsap.ticker.add((time) => { lenis.raf(time * 500); });
 gsap.ticker.lagSmoothing(0);
 
-// Navegação Macia
 document.querySelectorAll('.bottom-nav a').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     e.preventDefault();
@@ -20,13 +19,8 @@ document.querySelectorAll('.bottom-nav a').forEach(anchor => {
     
     if (targetId === '#hero') {
       lenis.scrollTo(0, { duration: 1.5 }); 
-      return;
-    }
-    
-    const targetElement = document.querySelector(targetId);
-    if (targetElement) {
-      // Como o pinSpacing é false, o offset natural do DOM é perfeito!
-      lenis.scrollTo(targetElement, { duration: 1.5 });
+    } else {
+      lenis.scrollTo(targetId, { duration: 1.5 });
     }
   });
 });
@@ -141,27 +135,12 @@ tiltCards.forEach((card) => {
   });
 });
 
-// --------- 4. GLOBAL: STACKING CARDS ANIMATION (INTELIGENTE) ---------
+// --------- 4. TRANSIÇÃO DE CORES (SEM TRAVAR O SCROLL) ---------
 const sections = gsap.utils.toArray("section");
 
 sections.forEach((section, i) => {
   section.style.zIndex = i;
 
-  // A última seção (Contact) NUNCA fixa. Ela apenas sobe macia como um rodapé normal.
-  if (i !== sections.length - 1) {
-    ScrollTrigger.create({
-      trigger: section,
-      // INTELIGÊNCIA: Se a seção for MAIOR que a tela (Workstation), deixa o usuário rolar até o fundo dela. Se for normal (Hero/About), fixa logo no topo.
-      start: () => section.offsetHeight > window.innerHeight ? "bottom bottom" : "top top",
-      end: "max", 
-      pin: true,
-      pinSpacing: false,
-      anticipatePin: 1, // Remove o engasgo no celular
-      invalidateOnRefresh: true,
-    });
-  }
-
-  // O efeito de Blur
   const nextSection = sections[i + 1];
   if (nextSection) {
     gsap.fromTo(section, 
@@ -171,27 +150,24 @@ sections.forEach((section, i) => {
           trigger: nextSection, 
           start: "top bottom", 
           end: "top top", 
-          scrub: true, 
-          invalidateOnRefresh: true 
+          scrub: true 
         }
       });
   }
 });
 
 // --------- 5. PRELOADER & INIT ---------
-// Trava o site enquanto estiver carregando
 document.body.classList.add('loading-active');
 
 window.addEventListener('load', () => {
   const preloader = document.getElementById('preloader');
   
-  // Meio segundo de delay para o suspense
   setTimeout(() => {
     preloader.style.opacity = '0';
     preloader.style.visibility = 'hidden';
-    document.body.classList.remove('loading-active'); // Libera o site
+    document.body.classList.remove('loading-active'); 
     
-    ScrollTrigger.refresh(); // Garante que a matemática do GSAP esteja perfeita após abrir a tela
+    ScrollTrigger.refresh(); 
     
     const video = document.getElementById("bgVideo");
     if (video) video.play().catch((e) => console.log("Autoplay bloqueado:", e));
