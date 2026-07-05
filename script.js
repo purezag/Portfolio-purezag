@@ -1,8 +1,7 @@
+"use strict";
+
 /* ================= PROJECT DATA ================= */
-const CATEGORY_LABELS = {
-  web: "Web & Interface",
-  visual: "Motion & Visual",
-};
+const CATEGORY_LABELS = { web: "Web & Interface", visual: "Motion & Visual" };
 
 const PROJECTS = [
   {
@@ -11,15 +10,9 @@ const PROJECTS = [
     eyebrow: "E-commerce · UX/UI & Code",
     title: "Laboratório Criativo",
     description:
-      "Full e-commerce experience designed and built end to end — from brand-aligned interface design in Photoshop to a responsive, performance-focused front-end running on WordPress. Clear product hierarchy, fast navigation and a checkout flow with zero friction.",
+      "Full e-commerce experience designed and built end to end — from brand-aligned interface design in Photoshop to a responsive, performance-focused front-end running on WordPress. Clear product hierarchy, fast navigation and a frictionless checkout flow.",
     images: ["./assets/creative-art-8.webp"],
-    tools: [
-      "devicon-photoshop-plain",
-      "devicon-html5-plain",
-      "devicon-css3-plain",
-      "devicon-javascript-plain",
-      "devicon-wordpress-plain",
-    ],
+    tools: ["devicon-photoshop-plain", "devicon-html5-plain", "devicon-css3-plain", "devicon-javascript-plain", "devicon-wordpress-plain"],
     date: "2025",
     role: "Design & Development",
     link: "https://www.laboratoriocriativo.com",
@@ -31,12 +24,7 @@ const PROJECTS = [
     title: "Colonial",
     description:
       "Ongoing visual production for social media: campaign artwork, product highlights and AI-assisted digital manipulation. A consistent visual system built to keep the feed cohesive while every piece stays individually striking.",
-    images: [
-      "./assets/creative-art-1.webp",
-      "./assets/creative-art-2.webp",
-      "./assets/creative-art-3.webp",
-      "./assets/creative-art-7.webp",
-    ],
+    images: ["./assets/creative-art-1.webp", "./assets/creative-art-2.webp", "./assets/creative-art-3.webp", "./assets/creative-art-7.webp"],
     tools: ["devicon-photoshop-plain", "devicon-canva-original"],
     date: "2025",
     role: "Art Direction & Design",
@@ -83,126 +71,282 @@ const PROJECTS = [
   },
 ];
 
-/* ================= RENDER CARDS ================= */
-const grid = document.getElementById("workGrid");
+/* ================= DOM ================= */
+const panels = Array.from(document.querySelectorAll(".panel"));
+const navLinks = Array.from(document.querySelectorAll("[data-nav]"));
+const liquid = document.getElementById("liquid");
+const drop = liquid.querySelector(".drop");
+const track = document.getElementById("workTrack");
+const modal = document.getElementById("caseModal");
+const video = document.getElementById("bgVideo");
+const REDUCED = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-function renderCards() {
-  grid.innerHTML = PROJECTS.map(
-    (p, i) => `
-    <button class="card reveal" style="--d:${(i % 3) * 0.08}s" data-category="${p.category}" data-id="${p.id}" aria-haspopup="dialog" aria-label="Open case study: ${p.title}">
-      <span class="card-thumb"><img src="${p.images[0]}" alt="${p.title} — project preview" loading="lazy" /></span>
-      <span class="card-body">
-        <span class="card-eyebrow">${p.eyebrow}</span>
-        <span class="card-title">${p.title}</span>
-        <span class="card-tools">${p.tools.map((t) => `<i class="${t}" aria-hidden="true"></i>`).join("")}</span>
-        <span class="card-cta">View case <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
-      </span>
-    </button>`
-  ).join("");
+const WORK_INDEX = panels.findIndex((p) => p.id === "work");
+const CONTACT_INDEX = panels.findIndex((p) => p.id === "contact");
+
+/* ================= RENDER CARDS ================= */
+track.innerHTML = PROJECTS.map(
+  (p) => `
+  <button class="card" data-category="${p.category}" data-id="${p.id}" aria-haspopup="dialog" aria-label="Open case study: ${p.title}">
+    <span class="card-thumb"><img src="${p.images[0]}" alt="${p.title} — project preview" loading="lazy" decoding="async" width="380" height="285" /></span>
+    <span class="card-body">
+      <span class="card-eyebrow">${p.eyebrow}</span>
+      <span class="card-title">${p.title}</span>
+      <span class="card-tools">${p.tools.map((t) => `<i class="${t}" aria-hidden="true"></i>`).join("")}</span>
+      <span class="card-cta">View case <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+    </span>
+  </button>`
+).join("");
+
+/* ================= PANEL CONTROLLER ================= */
+let index = 0;
+let animating = false;
+let lastNavTime = 0;
+
+function setActive(i) {
+  panels.forEach((p, n) => p.classList.toggle("is-active", n === i));
+  navLinks.forEach((a) => {
+    const active = Number(a.dataset.goto) === i;
+    a.classList.toggle("is-active", active);
+    if (active) a.setAttribute("aria-current", "true");
+    else a.removeAttribute("aria-current");
+  });
+  document.body.classList.toggle("theme-dark", i === CONTACT_INDEX);
+  if (video) {
+    if (i === 0) video.play().catch(() => {});
+    else video.pause();
+  }
 }
-renderCards();
+
+function goTo(i) {
+  i = Math.max(0, Math.min(panels.length - 1, i));
+  if (i === index || animating) return;
+  animating = true;
+  const next = i;
+
+  if (REDUCED) {
+    index = next;
+    setActive(next);
+    animating = false;
+    lastNavTime = performance.now();
+    return;
+  }
+
+  liquid.classList.add("on");
+  // swap panels while the drop fully covers the screen (~50% of a 1050ms run)
+  setTimeout(() => {
+    index = next;
+    setActive(next);
+    if (next === WORK_INDEX) resetTrack();
+  }, 500);
+
+  drop.addEventListener(
+    "animationend",
+    () => {
+      liquid.classList.remove("on");
+      animating = false;
+      lastNavTime = performance.now();
+    },
+    { once: true }
+  );
+}
+
+/* ================= WORK TRACK (horizontal, rAF lerp) ================= */
+let trackTarget = 0;
+let trackRAF = null;
+
+function trackMax() {
+  return Math.max(0, track.scrollWidth - track.clientWidth);
+}
+function resetTrack() {
+  trackTarget = track.scrollLeft;
+}
+function trackLoop() {
+  const diff = trackTarget - track.scrollLeft;
+  if (Math.abs(diff) < 0.5) {
+    track.scrollLeft = trackTarget;
+    trackRAF = null;
+    return;
+  }
+  track.scrollLeft += diff * 0.14;
+  trackRAF = requestAnimationFrame(trackLoop);
+}
+function nudgeTrack(delta) {
+  trackTarget = Math.max(0, Math.min(trackMax(), trackTarget + delta));
+  if (!trackRAF) trackRAF = requestAnimationFrame(trackLoop);
+}
+
+/* ================= INPUT: WHEEL ================= */
+let edgeAccum = 0;
+let edgeTimer = null;
+
+function cooling() {
+  return animating || performance.now() - lastNavTime < 450;
+}
+
+window.addEventListener(
+  "wheel",
+  (e) => {
+    if (!modal.hidden) return; // let the modal scroll natively
+    if (animating) {
+      e.preventDefault();
+      return;
+    }
+    const dir = e.deltaY > 0 ? 1 : -1;
+    const panel = panels[index];
+
+    if (index === WORK_INDEX) {
+      e.preventDefault();
+      const atEnd = trackTarget >= trackMax() - 1;
+      const atStart = trackTarget <= 1;
+      if ((dir > 0 && !atEnd) || (dir < 0 && !atStart)) {
+        edgeAccum = 0;
+        nudgeTrack(e.deltaY * 1.6);
+        return;
+      }
+      if (cooling()) return;
+      edgeAccum += Math.abs(e.deltaY);
+      clearTimeout(edgeTimer);
+      edgeTimer = setTimeout(() => (edgeAccum = 0), 300);
+      if (edgeAccum > 140) {
+        edgeAccum = 0;
+        goTo(index + dir);
+      }
+      return;
+    }
+
+    // vertical panels: allow inner scrolling when the panel overflows (About on mobile)
+    const scrollable = panel.scrollHeight - panel.clientHeight > 4;
+    if (scrollable) {
+      const atTop = panel.scrollTop <= 1;
+      const atBottom = panel.scrollTop >= panel.scrollHeight - panel.clientHeight - 1;
+      if ((dir > 0 && !atBottom) || (dir < 0 && !atTop)) return; // native scroll
+    }
+    e.preventDefault();
+    if (cooling() || Math.abs(e.deltaY) < 12) return;
+    goTo(index + dir);
+  },
+  { passive: false }
+);
+
+/* ================= INPUT: TOUCH ================= */
+let touchY = 0;
+let touchX = 0;
+
+window.addEventListener("touchstart", (e) => {
+  touchY = e.touches[0].clientY;
+  touchX = e.touches[0].clientX;
+}, { passive: true });
+
+window.addEventListener("touchend", (e) => {
+  if (!modal.hidden || animating || cooling()) return;
+  const dy = touchY - e.changedTouches[0].clientY;
+  const dx = touchX - e.changedTouches[0].clientX;
+  if (Math.abs(dy) < 60 || Math.abs(dx) > Math.abs(dy)) return; // horizontal or tiny gesture
+  const dir = dy > 0 ? 1 : -1;
+  const panel = panels[index];
+
+  if (index === WORK_INDEX) {
+    const atEnd = track.scrollLeft >= trackMax() - 2;
+    const atStart = track.scrollLeft <= 2;
+    if ((dir > 0 && atEnd) || (dir < 0 && atStart)) goTo(index + dir);
+    return;
+  }
+  const scrollable = panel.scrollHeight - panel.clientHeight > 4;
+  if (scrollable) {
+    const atTop = panel.scrollTop <= 1;
+    const atBottom = panel.scrollTop >= panel.scrollHeight - panel.clientHeight - 2;
+    if ((dir > 0 && !atBottom) || (dir < 0 && !atTop)) return;
+  }
+  goTo(index + dir);
+}, { passive: true });
+
+/* ================= INPUT: KEYBOARD & NAV ================= */
+document.addEventListener("keydown", (e) => {
+  if (!modal.hidden) {
+    if (e.key === "Escape") closeModal();
+    if (e.key === "Tab") trapFocus(e);
+    return;
+  }
+  if (["ArrowDown", "PageDown"].includes(e.key)) { e.preventDefault(); goTo(index + 1); }
+  if (["ArrowUp", "PageUp"].includes(e.key)) { e.preventDefault(); goTo(index - 1); }
+});
+
+document.addEventListener("click", (e) => {
+  const trigger = e.target.closest("[data-goto]");
+  if (trigger) {
+    e.preventDefault();
+    goTo(Number(trigger.dataset.goto));
+  }
+});
 
 /* ================= FILTERS ================= */
-const filterBtns = document.querySelectorAll(".filter");
-
-filterBtns.forEach((btn) => {
+document.querySelectorAll(".filter").forEach((btn) => {
   btn.addEventListener("click", () => {
-    filterBtns.forEach((b) => {
+    document.querySelectorAll(".filter").forEach((b) => {
       b.classList.toggle("is-active", b === btn);
       b.setAttribute("aria-selected", b === btn ? "true" : "false");
     });
     const f = btn.dataset.filter;
-    grid.querySelectorAll(".card").forEach((card) => {
+    track.querySelectorAll(".card").forEach((card) => {
       card.classList.toggle("hide", f !== "all" && card.dataset.category !== f);
     });
+    track.scrollLeft = 0;
+    trackTarget = 0;
   });
 });
 
-/* ================= SCROLL REVEAL (replays on re-entry) ================= */
-const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-const revealObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      entry.target.classList.toggle("in", entry.isIntersecting);
-    });
-  },
-  { threshold: 0.12, rootMargin: "0px 0px -6% 0px" }
-);
-
-function observeReveals() {
-  document.querySelectorAll(".reveal").forEach((el) => {
-    if (prefersReduced) el.classList.add("in");
-    else revealObserver.observe(el);
-  });
-}
-observeReveals();
-
-/* ================= NAV ACTIVE STATE ================= */
-const navLinks = document.querySelectorAll("[data-nav]");
-const sections = document.querySelectorAll("main section");
-
-const navObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      const id = `#${entry.target.id}`;
-      navLinks.forEach((a) => {
-        const active = a.getAttribute("href") === id;
-        a.classList.toggle("is-active", active);
-        if (active) a.setAttribute("aria-current", "true");
-        else a.removeAttribute("aria-current");
-      });
-    });
-  },
-  { threshold: 0.45 }
-);
-sections.forEach((s) => navObserver.observe(s));
-
-/* ================= CASE MODAL ================= */
-const modal = document.getElementById("caseModal");
-const modalTitle = document.getElementById("modalTitle");
-const modalEyebrow = document.getElementById("modalEyebrow");
-const modalDesc = document.getElementById("modalDesc");
-const modalGallery = document.getElementById("modalGallery");
-const modalTools = document.getElementById("modalTools");
-const modalDate = document.getElementById("modalDate");
-const modalRole = document.getElementById("modalRole");
-const modalLink = document.getElementById("modalLink");
-
+/* ================= MODAL ================= */
+const refs = {
+  eyebrow: document.getElementById("modalEyebrow"),
+  title: document.getElementById("modalTitle"),
+  desc: document.getElementById("modalDesc"),
+  gallery: document.getElementById("modalGallery"),
+  tools: document.getElementById("modalTools"),
+  date: document.getElementById("modalDate"),
+  role: document.getElementById("modalRole"),
+  link: document.getElementById("modalLink"),
+};
 let lastFocused = null;
 
-function openModal(project) {
-  modalEyebrow.textContent = `${CATEGORY_LABELS[project.category]} — ${project.eyebrow}`;
-  modalTitle.textContent = project.title;
-  modalDesc.textContent = project.description;
-  modalGallery.innerHTML = project.images
-    .map((src) => `<img src="${src}" alt="${project.title} — project image" loading="lazy" />`)
+function openModal(p) {
+  refs.eyebrow.textContent = `${CATEGORY_LABELS[p.category]} — ${p.eyebrow}`;
+  refs.title.textContent = p.title;
+  refs.desc.textContent = p.description;
+  refs.gallery.innerHTML = p.images
+    .map((src) => `<img src="${src}" alt="${p.title} — project image" loading="lazy" decoding="async" />`)
     .join("");
-  modalTools.innerHTML = project.tools
-    .map((t) => `<i class="${t}" aria-hidden="true"></i>`)
-    .join("");
-  modalDate.textContent = project.date;
-  modalRole.textContent = project.role;
-  modalLink.href = project.link;
+  refs.tools.innerHTML = p.tools.map((t) => `<i class="${t}" aria-hidden="true"></i>`).join("");
+  refs.date.textContent = p.date;
+  refs.role.textContent = p.role;
+  refs.link.href = p.link;
 
   lastFocused = document.activeElement;
   modal.hidden = false;
-  requestAnimationFrame(() => modal.classList.add("open"));
-  document.body.classList.add("modal-open");
+  requestAnimationFrame(() => requestAnimationFrame(() => modal.classList.add("open")));
   modal.querySelector(".modal-close").focus();
 }
 
 function closeModal() {
   modal.classList.remove("open");
-  document.body.classList.remove("modal-open");
-  setTimeout(() => {
+  const panel = modal.querySelector(".modal-panel");
+  const done = () => {
     modal.hidden = true;
     if (lastFocused) lastFocused.focus();
-  }, prefersReduced ? 0 : 350);
+  };
+  if (REDUCED) done();
+  else panel.addEventListener("transitionend", done, { once: true });
 }
 
-grid.addEventListener("click", (e) => {
+function trapFocus(e) {
+  const focusables = modal.querySelectorAll("button, a[href]");
+  const first = focusables[0];
+  const last = focusables[focusables.length - 1];
+  if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+  else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+}
+
+track.addEventListener("click", (e) => {
   const card = e.target.closest(".card");
   if (!card) return;
   const project = PROJECTS.find((p) => p.id === card.dataset.id);
@@ -213,32 +357,53 @@ modal.addEventListener("click", (e) => {
   if (e.target.closest("[data-close]")) closeModal();
 });
 
-document.addEventListener("keydown", (e) => {
-  if (modal.hidden) return;
-  if (e.key === "Escape") closeModal();
-  if (e.key === "Tab") {
-    const focusables = modal.querySelectorAll("button, a[href]");
-    const first = focusables[0];
-    const last = focusables[focusables.length - 1];
-    if (e.shiftKey && document.activeElement === first) {
-      e.preventDefault();
-      last.focus();
-    } else if (!e.shiftKey && document.activeElement === last) {
-      e.preventDefault();
-      first.focus();
-    }
-  }
-});
+/* ================= INTRO SEQUENCE ================= */
+const curtain = document.getElementById("curtain");
+const introLogo = document.getElementById("introLogo");
+const brandImg = document.getElementById("brandImg");
 
-/* ================= PRELOADER ================= */
-document.body.classList.add("loading");
+function finishIntro() {
+  curtain.classList.add("gone");
+  introLogo.classList.add("gone");
+  document.body.classList.remove("intro");
+  document.body.classList.add("ready");
+}
+
+function runIntro() {
+  if (REDUCED) {
+    setActive(0);
+    finishIntro();
+    return;
+  }
+  introLogo.classList.add("pulsing");
+
+  setTimeout(() => introLogo.classList.remove("pulsing"), 3000); // logo settles at center
+  setTimeout(() => curtain.classList.add("up"), 3300);           // curtain rises
+  setTimeout(() => setActive(0), 3600);                          // "Guilherme Pureza" fades into place
+  setTimeout(() => {
+    // FLIP: fly the centered logo into its header slot
+    const from = introLogo.getBoundingClientRect();
+    const to = brandImg.getBoundingClientRect();
+    const dx = to.left + to.width / 2 - (from.left + from.width / 2);
+    const dy = to.top + to.height / 2 - (from.top + from.height / 2);
+    const scale = to.width / from.width;
+    introLogo.classList.add("fly");
+    introLogo.style.transform = `translate(${dx}px, ${dy}px) scale(${scale})`;
+    introLogo.addEventListener("transitionend", finishIntro, { once: true });
+    setTimeout(finishIntro, 1400); // safety fallback
+  }, 4500);
+}
 
 window.addEventListener("load", () => {
-  const preloader = document.getElementById("preloader");
-  setTimeout(() => {
-    preloader.classList.add("done");
-    document.body.classList.remove("loading");
-    const video = document.getElementById("bgVideo");
-    if (video) video.play().catch(() => {});
-  }, 400);
+  if (video) video.play().catch(() => {});
+  runIntro();
+});
+
+/* Recalculate track bounds on resize (cheap, debounced) */
+let resizeTimer;
+window.addEventListener("resize", () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    trackTarget = Math.min(trackTarget, trackMax());
+  }, 150);
 });
