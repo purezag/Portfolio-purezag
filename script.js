@@ -74,8 +74,6 @@ const PROJECTS = [
 /* ================= DOM ================= */
 const panels = Array.from(document.querySelectorAll(".panel"));
 const navLinks = Array.from(document.querySelectorAll("[data-nav]"));
-const liquid = document.getElementById("liquid");
-const drop = liquid.querySelector(".drop");
 const track = document.getElementById("workTrack");
 const modal = document.getElementById("caseModal");
 const video = document.getElementById("bgVideo");
@@ -88,7 +86,7 @@ const CONTACT_INDEX = panels.findIndex((p) => p.id === "contact");
 track.innerHTML = PROJECTS.map(
   (p) => `
   <button class="card" data-category="${p.category}" data-id="${p.id}" aria-haspopup="dialog" aria-label="Open case study: ${p.title}">
-    <span class="card-thumb"><img src="${p.images[0]}" alt="${p.title} — project preview" loading="lazy" decoding="async" width="380" height="285" /></span>
+    <span class="card-thumb"><img src="${p.images[0]}" alt="${p.title} — project preview" loading="lazy" decoding="async" width="370" height="278" /></span>
     <span class="card-body">
       <span class="card-eyebrow">${p.eyebrow}</span>
       <span class="card-title">${p.title}</span>
@@ -98,13 +96,13 @@ track.innerHTML = PROJECTS.map(
   </button>`
 ).join("");
 
-/* ================= PANEL CONTROLLER ================= */
+/* ================= PANEL CONTROLLER (element swap) ================= */
 let index = 0;
 let animating = false;
 let lastNavTime = 0;
+const SWAP_MS = 980;
 
-function setActive(i) {
-  panels.forEach((p, n) => p.classList.toggle("is-active", n === i));
+function syncChrome(i) {
   navLinks.forEach((a) => {
     const active = Number(a.dataset.goto) === i;
     a.classList.toggle("is-active", active);
@@ -121,46 +119,39 @@ function setActive(i) {
 function goTo(i) {
   i = Math.max(0, Math.min(panels.length - 1, i));
   if (i === index || animating) return;
-  animating = true;
-  const next = i;
+
+  const outgoing = panels[index];
+  const incoming = panels[i];
+  index = i;
+  syncChrome(i);
+  if (i === WORK_INDEX) resetTrack();
 
   if (REDUCED) {
-    index = next;
-    setActive(next);
-    animating = false;
+    outgoing.classList.remove("is-active", "is-leaving");
+    incoming.classList.add("is-active");
     lastNavTime = performance.now();
     return;
   }
 
-  liquid.classList.add("on");
-  // swap panels while the drop fully covers the screen (~50% of a 1050ms run)
-  setTimeout(() => {
-    index = next;
-    setActive(next);
-    if (next === WORK_INDEX) resetTrack();
-  }, 500);
+  animating = true;
+  outgoing.classList.remove("is-active");
+  outgoing.classList.add("is-leaving"); // its elements slide out to the right
+  incoming.classList.add("is-active");  // its elements slide in from the left
 
-  drop.addEventListener(
-    "animationend",
-    () => {
-      liquid.classList.remove("on");
-      animating = false;
-      lastNavTime = performance.now();
-    },
-    { once: true }
-  );
+  setTimeout(() => {
+    outgoing.classList.remove("is-leaving");
+    animating = false;
+    lastNavTime = performance.now();
+  }, SWAP_MS);
 }
 
 /* ================= WORK TRACK (horizontal, rAF lerp) ================= */
 let trackTarget = 0;
 let trackRAF = null;
 
-function trackMax() {
-  return Math.max(0, track.scrollWidth - track.clientWidth);
-}
-function resetTrack() {
-  trackTarget = track.scrollLeft;
-}
+const trackMax = () => Math.max(0, track.scrollWidth - track.clientWidth);
+const resetTrack = () => { trackTarget = track.scrollLeft; };
+
 function trackLoop() {
   const diff = trackTarget - track.scrollLeft;
   if (Math.abs(diff) < 0.5) {
@@ -179,19 +170,13 @@ function nudgeTrack(delta) {
 /* ================= INPUT: WHEEL ================= */
 let edgeAccum = 0;
 let edgeTimer = null;
-
-function cooling() {
-  return animating || performance.now() - lastNavTime < 450;
-}
+const cooling = () => animating || performance.now() - lastNavTime < 450;
 
 window.addEventListener(
   "wheel",
   (e) => {
-    if (!modal.hidden) return; // let the modal scroll natively
-    if (animating) {
-      e.preventDefault();
-      return;
-    }
+    if (!modal.hidden) return;
+    if (animating) { e.preventDefault(); return; }
     const dir = e.deltaY > 0 ? 1 : -1;
     const panel = panels[index];
 
@@ -215,12 +200,11 @@ window.addEventListener(
       return;
     }
 
-    // vertical panels: allow inner scrolling when the panel overflows (About on mobile)
     const scrollable = panel.scrollHeight - panel.clientHeight > 4;
     if (scrollable) {
       const atTop = panel.scrollTop <= 1;
       const atBottom = panel.scrollTop >= panel.scrollHeight - panel.clientHeight - 1;
-      if ((dir > 0 && !atBottom) || (dir < 0 && !atTop)) return; // native scroll
+      if ((dir > 0 && !atBottom) || (dir < 0 && !atTop)) return;
     }
     e.preventDefault();
     if (cooling() || Math.abs(e.deltaY) < 12) return;
@@ -242,7 +226,7 @@ window.addEventListener("touchend", (e) => {
   if (!modal.hidden || animating || cooling()) return;
   const dy = touchY - e.changedTouches[0].clientY;
   const dx = touchX - e.changedTouches[0].clientX;
-  if (Math.abs(dy) < 60 || Math.abs(dx) > Math.abs(dy)) return; // horizontal or tiny gesture
+  if (Math.abs(dy) < 60 || Math.abs(dx) > Math.abs(dy)) return;
   const dir = dy > 0 ? 1 : -1;
   const panel = panels[index];
 
@@ -357,13 +341,14 @@ modal.addEventListener("click", (e) => {
   if (e.target.closest("[data-close]")) closeModal();
 });
 
-/* ================= INTRO SEQUENCE ================= */
+/* ================= INTRO SEQUENCE (bubble) ================= */
+const curtainWrap = document.getElementById("curtainWrap");
 const curtain = document.getElementById("curtain");
 const introLogo = document.getElementById("introLogo");
 const brandImg = document.getElementById("brandImg");
 
 function finishIntro() {
-  curtain.classList.add("gone");
+  curtainWrap.classList.add("gone");
   introLogo.classList.add("gone");
   document.body.classList.remove("intro");
   document.body.classList.add("ready");
@@ -371,27 +356,44 @@ function finishIntro() {
 
 function runIntro() {
   if (REDUCED) {
-    setActive(0);
+    panels[0].classList.add("is-active");
+    syncChrome(0);
     finishIntro();
     return;
   }
+
   introLogo.classList.add("pulsing");
 
-  setTimeout(() => introLogo.classList.remove("pulsing"), 3000); // logo settles at center
-  setTimeout(() => curtain.classList.add("up"), 3300);           // curtain rises
-  setTimeout(() => setActive(0), 3600);                          // "Guilherme Pureza" fades into place
+  // bubble target: shrink the 165vmax square to a ~120px circle hugging the logo
+  const vmax = Math.max(window.innerWidth, window.innerHeight);
+  curtain.style.setProperty("--bs", (120 / (1.65 * vmax)).toFixed(4));
+
   setTimeout(() => {
-    // FLIP: fly the centered logo into its header slot
+    introLogo.classList.remove("pulsing");
+    curtain.classList.add("bubble"); // sides squeeze in, radius grows, becomes a bubble around the logo
+  }, 1900);
+
+  setTimeout(() => {
+    panels[0].classList.add("is-active"); // hero elements enter one by one
+    syncChrome(0);
+  }, 2500);
+
+  setTimeout(() => {
+    // bubble + logo rise together to the top-center brand slot
     const from = introLogo.getBoundingClientRect();
     const to = brandImg.getBoundingClientRect();
     const dx = to.left + to.width / 2 - (from.left + from.width / 2);
     const dy = to.top + to.height / 2 - (from.top + from.height / 2);
     const scale = to.width / from.width;
+
+    curtainWrap.style.transform = `translate(${dx}px, ${dy}px)`;
+    curtainWrap.classList.add("rise"); // fades as it merges with the logo
     introLogo.classList.add("fly");
     introLogo.style.transform = `translate(${dx}px, ${dy}px) scale(${scale})`;
+
     introLogo.addEventListener("transitionend", finishIntro, { once: true });
     setTimeout(finishIntro, 1400); // safety fallback
-  }, 4500);
+  }, 3250);
 }
 
 window.addEventListener("load", () => {
@@ -399,7 +401,7 @@ window.addEventListener("load", () => {
   runIntro();
 });
 
-/* Recalculate track bounds on resize (cheap, debounced) */
+/* ================= RESIZE (debounced) ================= */
 let resizeTimer;
 window.addEventListener("resize", () => {
   clearTimeout(resizeTimer);
