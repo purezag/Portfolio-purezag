@@ -1,176 +1,244 @@
-gsap.registerPlugin(ScrollTrigger);
+/* ================= PROJECT DATA ================= */
+const CATEGORY_LABELS = {
+  web: "Web & Interface",
+  visual: "Motion & Visual",
+};
 
-// --------- 0. SMOOTH SCROLL (LENIS) & NAV SCROLL ---------
-const lenis = new Lenis({
-  duration: 1.5,
-  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-  smooth: true,
-  smoothTouch: false, // Deixa a rolagem do celular 100% nativa e solta
-});
+const PROJECTS = [
+  {
+    id: "laboratorio-criativo",
+    category: "web",
+    eyebrow: "E-commerce · UX/UI & Code",
+    title: "Laboratório Criativo",
+    description:
+      "Full e-commerce experience designed and built end to end — from brand-aligned interface design in Photoshop to a responsive, performance-focused front-end running on WordPress. Clear product hierarchy, fast navigation and a checkout flow with zero friction.",
+    images: ["./assets/creative-art-8.webp"],
+    tools: [
+      "devicon-photoshop-plain",
+      "devicon-html5-plain",
+      "devicon-css3-plain",
+      "devicon-javascript-plain",
+      "devicon-wordpress-plain",
+    ],
+    date: "2025",
+    role: "Design & Development",
+    link: "https://www.laboratoriocriativo.com",
+  },
+  {
+    id: "colonial",
+    category: "visual",
+    eyebrow: "Social Media Design",
+    title: "Colonial",
+    description:
+      "Ongoing visual production for social media: campaign artwork, product highlights and AI-assisted digital manipulation. A consistent visual system built to keep the feed cohesive while every piece stays individually striking.",
+    images: [
+      "./assets/creative-art-1.webp",
+      "./assets/creative-art-2.webp",
+      "./assets/creative-art-3.webp",
+      "./assets/creative-art-7.webp",
+    ],
+    tools: ["devicon-photoshop-plain", "devicon-canva-original"],
+    date: "2025",
+    role: "Art Direction & Design",
+    link: "https://www.behance.net/gallery/245339401/AI-Art-Digital-Manipulation",
+  },
+  {
+    id: "mister-burguer",
+    category: "visual",
+    eyebrow: "Concept Artwork",
+    title: "Mister Burguer",
+    description:
+      "Personal concept artwork exploring appetite-driven composition, dramatic lighting and bold typography for a fictional burger brand — a study in making food photography feel cinematic.",
+    images: ["./assets/creative-art-5.webp"],
+    tools: ["devicon-photoshop-plain", "devicon-canva-original"],
+    date: "2025",
+    role: "Concept & Design",
+    link: "https://www.behance.net/gallery/242726891/Mister-Burguer-Concept-Artwork",
+  },
+  {
+    id: "smart-fit",
+    category: "visual",
+    eyebrow: "Concept Study",
+    title: "Smart Fit",
+    description:
+      "Unofficial concept study reimagining fitness-brand communication: high-energy composition, strong contrast and motion-inspired treatment applied to static social pieces.",
+    images: ["./assets/creative-art-4.webp"],
+    tools: ["devicon-photoshop-plain", "devicon-canva-original"],
+    date: "2025",
+    role: "Concept & Design",
+    link: "https://www.behance.net/gallery/242391919/Personal-Concept-Study",
+  },
+  {
+    id: "food-and-drinks",
+    category: "visual",
+    eyebrow: "Concept Study",
+    title: "Food & Drinks",
+    description:
+      "A visual exploration of food and beverage art direction — texture, color grading and layout studies designed to translate flavor into imagery.",
+    images: ["./assets/creative-art-6.webp"],
+    tools: ["devicon-photoshop-plain", "devicon-canva-original"],
+    date: "2025",
+    role: "Concept & Design",
+    link: "https://www.behance.net/gallery/242391919/Personal-Concept-Study",
+  },
+];
 
-lenis.on("scroll", ScrollTrigger.update);
-gsap.ticker.add((time) => { lenis.raf(time * 500); });
-gsap.ticker.lagSmoothing(0);
+/* ================= RENDER CARDS ================= */
+const grid = document.getElementById("workGrid");
 
-// Navegação Macia - Como o scroll está solto, a matemática não falha
-document.querySelectorAll('.bottom-nav a').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    e.preventDefault();
-    const targetId = this.getAttribute('href');
-    
-    if (targetId === '#hero') {
-      lenis.scrollTo(0, { duration: 1.5 }); 
-    } else {
-      lenis.scrollTo(targetId, { duration: 1.5 });
-    }
-  });
-});
-
-// --------- 1. CURSOR HYBRID ---------
-const blobs = document.querySelectorAll(".cursor-blob");
-let mouseX = window.innerWidth / 2;
-let mouseY = window.innerHeight / 2;
-let isIdle = false;
-let idleTimer = null;
-const positions = [];
-const wanderTargets = [];
-const speeds = [0.15, 0.2, 0.3];
-
-blobs.forEach(() => {
-  positions.push({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
-  wanderTargets.push({ x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight });
-});
-
-function resetIdleTimer() {
-  isIdle = false;
-  clearTimeout(idleTimer);
-  idleTimer = setTimeout(() => { isIdle = true; updateWanderTargets(); }, 2000);
+function renderCards() {
+  grid.innerHTML = PROJECTS.map(
+    (p, i) => `
+    <button class="card reveal" style="--d:${(i % 3) * 0.08}s" data-category="${p.category}" data-id="${p.id}" aria-haspopup="dialog" aria-label="Open case study: ${p.title}">
+      <span class="card-thumb"><img src="${p.images[0]}" alt="${p.title} — project preview" loading="lazy" /></span>
+      <span class="card-body">
+        <span class="card-eyebrow">${p.eyebrow}</span>
+        <span class="card-title">${p.title}</span>
+        <span class="card-tools">${p.tools.map((t) => `<i class="${t}" aria-hidden="true"></i>`).join("")}</span>
+        <span class="card-cta">View case <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+      </span>
+    </button>`
+  ).join("");
 }
-function onInputMove(x, y) { mouseX = x; mouseY = y; resetIdleTimer(); }
+renderCards();
 
-window.addEventListener("mousemove", (e) => onInputMove(e.clientX, e.clientY));
-window.addEventListener("touchstart", (e) => onInputMove(e.touches[0].clientX, e.touches[0].clientY));
-window.addEventListener("touchmove", (e) => onInputMove(e.touches[0].clientX, e.touches[0].clientY));
-window.addEventListener("scroll", resetIdleTimer);
-resetIdleTimer();
+/* ================= FILTERS ================= */
+const filterBtns = document.querySelectorAll(".filter");
 
-function updateWanderTargets() {
-  blobs.forEach((_, i) => {
-    const dx = wanderTargets[i].x - positions[i].x;
-    const dy = wanderTargets[i].y - positions[i].y;
-    if (Math.sqrt(dx * dx + dy * dy) < 100 || !isIdle) {
-      const marginX = window.innerWidth * 0.1;
-      const marginY = window.innerHeight * 0.1;
-      wanderTargets[i].x = marginX + Math.random() * (window.innerWidth - marginX * 2);
-      wanderTargets[i].y = marginY + Math.random() * (window.innerHeight - marginY * 2);
-    }
+filterBtns.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    filterBtns.forEach((b) => {
+      b.classList.toggle("is-active", b === btn);
+      b.setAttribute("aria-selected", b === btn ? "true" : "false");
+    });
+    const f = btn.dataset.filter;
+    grid.querySelectorAll(".card").forEach((card) => {
+      card.classList.toggle("hide", f !== "all" && card.dataset.category !== f);
+    });
+  });
+});
+
+/* ================= SCROLL REVEAL (replays on re-entry) ================= */
+const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+const revealObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      entry.target.classList.toggle("in", entry.isIntersecting);
+    });
+  },
+  { threshold: 0.12, rootMargin: "0px 0px -6% 0px" }
+);
+
+function observeReveals() {
+  document.querySelectorAll(".reveal").forEach((el) => {
+    if (prefersReduced) el.classList.add("in");
+    else revealObserver.observe(el);
   });
 }
+observeReveals();
 
-gsap.ticker.add(() => {
-  if (isIdle) updateWanderTargets();
-  blobs.forEach((blob, i) => {
-    let targetX, targetY, speedFactor;
-    if (isIdle) {
-      targetX = wanderTargets[i].x; targetY = wanderTargets[i].y;
-      speedFactor = 0.005 + i * 0.002;
-    } else {
-      if (i === 0) { targetX = mouseX; targetY = mouseY; } 
-      else { targetX = positions[i - 1].x; targetY = positions[i - 1].y; }
-      const dt = 1.0 - Math.pow(1.0 - speeds[i], gsap.ticker.deltaRatio());
-      speedFactor = i === 0 ? 0.25 : 0.15;
-    }
-    positions[i].x += (targetX - positions[i].x) * speedFactor;
-    positions[i].y += (targetY - positions[i].y) * speedFactor;
-    gsap.set(blob, { x: positions[i].x, y: positions[i].y });
-  });
-});
+/* ================= NAV ACTIVE STATE ================= */
+const navLinks = document.querySelectorAll("[data-nav]");
+const sections = document.querySelectorAll("main section");
 
-const links = document.querySelectorAll("a, button, .float-img, .work-item");
-links.forEach((link) => {
-  link.addEventListener("mouseenter", () => gsap.to(blobs, { opacity: 0, ease: "back.out(1.7)" }));
-  link.addEventListener("mouseleave", () => gsap.to(blobs, { opacity: 1 }));
-});
-
-// --------- 2. ABOUT SECTION: FLOATING GALLERY ---------
-const floatImages = document.querySelectorAll(".float-img");
-floatImages.forEach((img) => {
-  let isExpanded = false;
-  const openImg = () => { isExpanded = true; gsap.to(img, { scale: 1.2, height: 250, zIndex: 50, opacity: 1, filter: "grayscale(0%)", duration: 0.6, ease: "power3.out" }); };
-  const closeImg = () => { isExpanded = false; gsap.to(img, { scale: 1, height: 50, zIndex: 1, opacity: 0.5, filter: "grayscale(100%)", duration: 0.6, ease: "power3.out" }); };
-
-  img.addEventListener("mouseenter", () => { if (!window.matchMedia("(pointer: coarse)").matches) openImg(); });
-  img.addEventListener("mouseleave", () => { if (!window.matchMedia("(pointer: coarse)").matches) closeImg(); });
-  img.addEventListener("click", (e) => {
-    e.stopPropagation();
-    if (window.matchMedia("(pointer: coarse)").matches) { isExpanded ? closeImg() : openImg(); }
-  });
-});
-
-document.addEventListener("click", () => {
-  if (window.matchMedia("(pointer: coarse)").matches) {
-    floatImages.forEach((img) => gsap.to(img, { scale: 1, height: 50, zIndex: 1, opacity: 0.5, filter: "grayscale(100%)", duration: 0.6, ease: "power3.out" }));
-  }
-});
-
-// --------- 3. WORKSTATION SECTION: TILT 3D ---------
-const tiltCards = document.querySelectorAll(".tilt-card");
-tiltCards.forEach((card) => {
-  const thumb = card.querySelector(".work-thumb");
-  const info = card.querySelector(".work-info");
-  if (!thumb || !info) return;
-
-  gsap.set([thumb, info], { transformPerspective: 1000 });
-  card.addEventListener("mousemove", (e) => {
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left; const y = e.clientY - rect.top;
-    const centerX = rect.width / 2; const centerY = rect.height / 2;
-    const rotateX = ((y - centerY) / centerY) * -2; const rotateY = ((x - centerX) / centerX) * 2;
-
-    gsap.to(thumb, { rotateX: rotateX, rotateY: rotateY, z: 5, scale: 1.02, boxShadow: `${-rotateY}px ${rotateX + 15}px 20px rgba(0,0,0,0.2)`, duration: 0.4, ease: "power2.out", overwrite: "auto" });
-    gsap.to(info, { rotateX: rotateX, rotateY: rotateY, z: 10, scale: 1.02, duration: 0.4, ease: "power2.out", overwrite: "auto" });
-  });
-  card.addEventListener("mouseleave", () => {
-    gsap.to(thumb, { rotateX: 0, rotateY: 0, z: 0, scale: 1, boxShadow: "0 5px 15px rgba(0,0,0,0.3)", duration: 1.5, ease: "power3.out" });
-    gsap.to(info, { rotateX: 0, rotateY: 0, z: 0, scale: 1, duration: 0.8, ease: "power3.out" });
-  });
-});
-
-// --------- 4. STACKING CARDS (CSS PURO + BLUR) ---------
-const sections = gsap.utils.toArray("section");
-
-sections.forEach((section, i) => {
-  section.style.zIndex = i;
-  const nextSection = sections[i + 1];
-  if (nextSection) {
-    
-    gsap.fromTo(section, 
-      { filter: "brightness(1) blur(0px)" },
-      { filter: "brightness(0.3) blur(5px)", ease: "none",
-        scrollTrigger: { 
-          trigger: nextSection, 
-          start: "top bottom", 
-          end: "top top", 
-          scrub: true 
-        }
+const navObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const id = `#${entry.target.id}`;
+      navLinks.forEach((a) => {
+        const active = a.getAttribute("href") === id;
+        a.classList.toggle("is-active", active);
+        if (active) a.setAttribute("aria-current", "true");
+        else a.removeAttribute("aria-current");
       });
+    });
+  },
+  { threshold: 0.45 }
+);
+sections.forEach((s) => navObserver.observe(s));
+
+/* ================= CASE MODAL ================= */
+const modal = document.getElementById("caseModal");
+const modalTitle = document.getElementById("modalTitle");
+const modalEyebrow = document.getElementById("modalEyebrow");
+const modalDesc = document.getElementById("modalDesc");
+const modalGallery = document.getElementById("modalGallery");
+const modalTools = document.getElementById("modalTools");
+const modalDate = document.getElementById("modalDate");
+const modalRole = document.getElementById("modalRole");
+const modalLink = document.getElementById("modalLink");
+
+let lastFocused = null;
+
+function openModal(project) {
+  modalEyebrow.textContent = `${CATEGORY_LABELS[project.category]} — ${project.eyebrow}`;
+  modalTitle.textContent = project.title;
+  modalDesc.textContent = project.description;
+  modalGallery.innerHTML = project.images
+    .map((src) => `<img src="${src}" alt="${project.title} — project image" loading="lazy" />`)
+    .join("");
+  modalTools.innerHTML = project.tools
+    .map((t) => `<i class="${t}" aria-hidden="true"></i>`)
+    .join("");
+  modalDate.textContent = project.date;
+  modalRole.textContent = project.role;
+  modalLink.href = project.link;
+
+  lastFocused = document.activeElement;
+  modal.hidden = false;
+  requestAnimationFrame(() => modal.classList.add("open"));
+  document.body.classList.add("modal-open");
+  modal.querySelector(".modal-close").focus();
+}
+
+function closeModal() {
+  modal.classList.remove("open");
+  document.body.classList.remove("modal-open");
+  setTimeout(() => {
+    modal.hidden = true;
+    if (lastFocused) lastFocused.focus();
+  }, prefersReduced ? 0 : 350);
+}
+
+grid.addEventListener("click", (e) => {
+  const card = e.target.closest(".card");
+  if (!card) return;
+  const project = PROJECTS.find((p) => p.id === card.dataset.id);
+  if (project) openModal(project);
+});
+
+modal.addEventListener("click", (e) => {
+  if (e.target.closest("[data-close]")) closeModal();
+});
+
+document.addEventListener("keydown", (e) => {
+  if (modal.hidden) return;
+  if (e.key === "Escape") closeModal();
+  if (e.key === "Tab") {
+    const focusables = modal.querySelectorAll("button, a[href]");
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
   }
 });
 
-// --------- 5. PRELOADER & INIT ---------
-document.body.classList.add('loading-active');
+/* ================= PRELOADER ================= */
+document.body.classList.add("loading");
 
-window.addEventListener('load', () => {
-  const preloader = document.getElementById('preloader');
-  
+window.addEventListener("load", () => {
+  const preloader = document.getElementById("preloader");
   setTimeout(() => {
-    preloader.style.opacity = '0';
-    preloader.style.visibility = 'hidden';
-    document.body.classList.remove('loading-active'); 
-    
-    ScrollTrigger.refresh(); 
-    
+    preloader.classList.add("done");
+    document.body.classList.remove("loading");
     const video = document.getElementById("bgVideo");
-    if (video) video.play().catch((e) => console.log("Autoplay bloqueado:", e));
-  }, 500);
+    if (video) video.play().catch(() => {});
+  }, 400);
 });
