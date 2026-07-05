@@ -24,8 +24,8 @@
 </head>
 <body class="intro">
 
-  <!-- ============ PRELOADER (bubble) ============ -->
-  <div id="curtainWrap" aria-hidden="true"><div id="curtain"></div></div>
+  <!-- ============ PRELOADER (rising curtain) ============ -->
+  <div id="curtain" aria-hidden="true"></div>
   <img id="introLogo" src="./assets/logo-gp.png" alt="" width="76" height="76" aria-hidden="true" />
 
   <!-- ============ BRAND (top center) ============ -->
@@ -37,8 +37,8 @@
   <nav class="dock" aria-label="Primary">
     <ul>
       <li><a href="#hero" data-goto="0" data-nav>Home</a></li>
-      <li><a href="#about" data-goto="1" data-nav>About</a></li>
-      <li><a href="#work" data-goto="2" data-nav>Work</a></li>
+      <li><a href="#work" data-goto="1" data-nav>Work</a></li>
+      <li><a href="#about" data-goto="2" data-nav>About</a></li>
       <li><a href="#contact" data-goto="3" data-nav>Contact</a></li>
     </ul>
   </nav>
@@ -46,95 +46,10 @@
   <main id="stage">
     <!-- ============ HERO ============ -->
     <section class="panel" id="hero" aria-label="Introduction">
-      <div class="shell hero-inner">
-        <div class="hero-copy">
-          <p class="hero-kicker reveal" style="--d:.05s">Portfolio — <em class="serif">2026</em></p>
-          <h1 class="hero-title">
-            <span class="reveal" style="--d:.12s">Guilherme</span>
-            <span class="reveal" style="--d:.2s">Pureza<em class="serif">.</em></span>
-          </h1>
-          <p class="hero-line reveal serif" style="--d:.28s"><em>art</em> <span class="amp">&amp;</span> <em>tech</em></p>
-          <p class="hero-sub reveal" style="--d:.34s">
-            Designer and developer building digital experiences that are visually striking and structurally sound.
-          </p>
-          <p class="hero-meta reveal" style="--d:.4s">
-            <span>Porto Alegre, BR</span><span class="meta-dot" aria-hidden="true"></span><span>Available for projects</span>
-          </p>
-        </div>
-
-        <figure class="hero-media reveal" style="--d:.24s">
-          <div class="arch">
-            <video muted loop playsinline preload="metadata" id="bgVideo" aria-hidden="true" tabindex="-1" disablepictureinpicture>
-              <source src="./assets/bg.mp4" type="video/mp4" />
-            </video>
-          </div>
-          <span class="arch-ghost" aria-hidden="true"></span>
-        </figure>
-
-        <button class="scroll-hint reveal" data-goto="1" style="--d:.48s" aria-label="Go to about section">
-          <span>Scroll</span><i class="fa-solid fa-arrow-down" aria-hidden="true"></i>
-        </button>
-      </div>
-    </section>
-
-    <!-- ============ ABOUT ============ -->
-    <section class="panel" id="about" aria-labelledby="about-title">
-      <div class="shell about-inner">
-        <div class="about-copy">
-          <p class="eyebrow reveal">About</p>
-          <h2 class="section-title reveal" id="about-title" style="--d:.08s">
-            Design roots,<br /><em class="serif">engineering</em> mindset.
-          </h2>
-          <p class="lead reveal" style="--d:.16s">
-            At 29, I build digital experiences that are both beautiful and reliable. My roots are in graphic
-            design; as a Systems Analysis &amp; Development student, code became the catalyst to merge creative
-            vision with high-performance logic — with the discipline of a former international athlete.
-          </p>
-
-          <dl class="capabilities reveal" style="--d:.24s">
-            <div class="cap-row">
-              <dt>Development</dt>
-              <dd class="cap-tools"><i class="devicon-html5-plain" aria-hidden="true"></i><i class="devicon-css3-plain" aria-hidden="true"></i><i class="devicon-javascript-plain" aria-hidden="true"></i></dd>
-              <dd class="cap-level serif">advanced</dd>
-            </div>
-            <div class="cap-row">
-              <dt>Design</dt>
-              <dd class="cap-tools"><i class="devicon-photoshop-plain" aria-hidden="true"></i><i class="devicon-illustrator-plain" aria-hidden="true"></i><i class="devicon-figma-plain" aria-hidden="true"></i></dd>
-              <dd class="cap-level serif">advanced</dd>
-            </div>
-            <div class="cap-row">
-              <dt>Languages</dt>
-              <dd class="cap-langs">
-                <span><span class="fi fi-br" aria-hidden="true"></span>Portuguese <em class="serif">native</em></span>
-                <span><span class="fi fi-us" aria-hidden="true"></span>English <em class="serif">advanced</em></span>
-                <span><span class="fi fi-es" aria-hidden="true"></span>Spanish <em class="serif">working</em></span>
-              </dd>
-            </div>
-          </dl>
-
-          <div class="about-socials reveal" style="--d:.32s">
-            <a class="icon-btn" href="https://instagram.com/purezag" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
-            <a class="icon-btn" href="https://github.com/purezag" target="_blank" rel="noopener" aria-label="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>
-            <a class="icon-btn" href="https://behance.net/purezag" target="_blank" rel="noopener" aria-label="Behance"><i class="fa-brands fa-behance" aria-hidden="true"></i></a>
-            <a class="icon-btn" href="https://www.linkedin.com/in/purezag/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i></a>
-          </div>
-        </div>
-
-        <figure class="about-media reveal" style="--d:.2s">
-          <div class="arch photo">
-            <img src="./assets/profile-photo.webp" alt="Portrait of Guilherme Pureza" loading="lazy" decoding="async" />
-          </div>
-          <span class="arch-ghost" aria-hidden="true"></span>
-          <figcaption class="about-tag serif">the person <em>behind</em> the pixels</figcaption>
-        </figure>
-      </div>
-
-      <div class="marquee" aria-hidden="true">
-        <div class="marquee-inner">
-          <span>design <em class="serif">&amp;</em> code — discipline — detail — </span>
-          <span>design <em class="serif">&amp;</em> code — discipline — detail — </span>
-        </div>
-      </div>
+      <video muted loop playsinline preload="metadata" id="bgVideo" class="hero-video" aria-hidden="true" tabindex="-1" disablepictureinpicture>
+        <source src="./assets/bg.mp4" type="video/mp4" />
+      </video>
+      <h1 class="hero-title reveal" style="--d:.1s"><em class="serif">art</em> <span class="amp">&amp;</span> <em class="serif">tech</em></h1>
     </section>
 
     <!-- ============ WORK ============ -->
@@ -152,9 +67,51 @@
           </div>
         </header>
 
-        <div class="track reveal" id="workTrack" style="--d:.22s" tabindex="0" aria-label="Projects, scroll horizontally"></div>
+        <div class="track reveal" id="workTrack" style="--d:.22s" tabindex="0" aria-label="Projects, scroll to browse"></div>
 
         <p class="track-hint reveal shell" style="--d:.3s"><i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i> Scroll to explore cases</p>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section class="panel" id="about" aria-labelledby="about-name">
+      <div class="shell about-wrap">
+        <article class="person-card reveal" style="--d:.06s">
+          <div class="person-photo">
+            <img src="./assets/profile-photo.webp" alt="Portrait of Guilherme Pureza" loading="lazy" decoding="async" />
+          </div>
+          <div class="person-body">
+            <p class="eyebrow">About</p>
+            <h2 class="person-name" id="about-name">Guilherme<br /><em class="serif">Pureza</em></h2>
+            <p class="person-statement">
+              I <em class="serif">design</em> interfaces<br />
+              &amp; <em class="serif">build</em> the code<br />
+              behind them.
+            </p>
+            <p class="person-bio">
+              Graphic design roots, a Systems Analysis &amp; Development degree in progress, and the
+              discipline of a former international athlete — turned into digital experiences that are
+              beautiful and reliable.
+            </p>
+            <div class="person-langs" aria-label="Spoken languages">
+              <span><span class="fi fi-br" aria-hidden="true"></span>Portuguese <em class="serif">native</em></span>
+              <span><span class="fi fi-us" aria-hidden="true"></span>English <em class="serif">advanced</em></span>
+              <span><span class="fi fi-es" aria-hidden="true"></span>Spanish <em class="serif">working</em></span>
+            </div>
+          </div>
+        </article>
+
+        <div class="person-extras reveal" style="--d:.2s">
+          <span class="pill"><i class="fa-solid fa-location-dot" aria-hidden="true"></i>Porto Alegre, BR</span>
+          <span class="pill"><i class="fa-solid fa-medal" aria-hidden="true"></i>Former international athlete</span>
+          <span class="pill"><span class="pulse-dot" aria-hidden="true"></span>Available for projects</span>
+          <span class="pill-group">
+            <a class="icon-btn" href="https://instagram.com/purezag" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+            <a class="icon-btn" href="https://github.com/purezag" target="_blank" rel="noopener" aria-label="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>
+            <a class="icon-btn" href="https://behance.net/purezag" target="_blank" rel="noopener" aria-label="Behance"><i class="fa-brands fa-behance" aria-hidden="true"></i></a>
+            <a class="icon-btn" href="https://www.linkedin.com/in/purezag/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i></a>
+          </span>
+        </div>
       </div>
     </section>
 
@@ -169,7 +126,7 @@
           glhrmpureza@gmail.com <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
         </a>
         <div class="contact-foot reveal" style="--d:.24s">
-          <p class="status"><span class="pulse" aria-hidden="true"></span>Available for new projects</p>
+          <p class="status"><span class="pulse-dot" aria-hidden="true"></span>Available for new projects</p>
           <div class="contact-socials">
             <a class="icon-btn" href="https://instagram.com/purezag" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
             <a class="icon-btn" href="https://behance.net/purezag" target="_blank" rel="noopener" aria-label="Behance"><i class="fa-brands fa-behance" aria-hidden="true"></i></a>
@@ -182,7 +139,7 @@
     </section>
   </main>
 
-  <!-- ============ CASE MODAL ============ -->
+  <!-- ============ CASE MODAL (gallery) ============ -->
   <div class="modal" id="caseModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
     <div class="modal-overlay" data-close></div>
     <article class="modal-panel">
@@ -193,7 +150,12 @@
         <p class="eyebrow" id="modalEyebrow"></p>
         <h2 id="modalTitle"></h2>
         <p class="modal-desc" id="modalDesc"></p>
-        <div class="modal-gallery" id="modalGallery"></div>
+
+        <div class="gallery">
+          <div class="g-main"><img id="galleryMain" alt="" decoding="async" /></div>
+          <div class="g-thumbs" id="galleryThumbs" role="listbox" aria-label="Project images"></div>
+        </div>
+
         <dl class="modal-meta">
           <div><dt>Tools</dt><dd class="modal-tools" id="modalTools"></dd></div>
           <div><dt>Year</dt><dd id="modalDate"></dd></div>

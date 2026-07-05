@@ -135,8 +135,8 @@ function goTo(i) {
 
   animating = true;
   outgoing.classList.remove("is-active");
-  outgoing.classList.add("is-leaving"); // its elements slide out to the right
-  incoming.classList.add("is-active");  // its elements slide in from the left
+  outgoing.classList.add("is-leaving");
+  incoming.classList.add("is-active");
 
   setTimeout(() => {
     outgoing.classList.remove("is-leaving");
@@ -214,28 +214,46 @@ window.addEventListener(
 );
 
 /* ================= INPUT: TOUCH ================= */
-let touchY = 0;
-let touchX = 0;
+/* On mobile the user always drags vertically; inside Work that vertical
+   gesture is converted into horizontal movement of the cases. */
+let startY = 0;
+let startX = 0;
+let lastY = 0;
+let lastX = 0;
 
 window.addEventListener("touchstart", (e) => {
-  touchY = e.touches[0].clientY;
-  touchX = e.touches[0].clientX;
+  startY = lastY = e.touches[0].clientY;
+  startX = lastX = e.touches[0].clientX;
 }, { passive: true });
+
+window.addEventListener("touchmove", (e) => {
+  if (!modal.hidden) return;
+  if (index !== WORK_INDEX) return;
+  e.preventDefault(); // we drive the track ourselves
+  const t = e.touches[0];
+  const dy = lastY - t.clientY;
+  const dx = lastX - t.clientX;
+  lastY = t.clientY;
+  lastX = t.clientX;
+  nudgeTrack((dy + dx) * 2.1); // vertical drag (and any horizontal) moves the cases sideways
+}, { passive: false });
 
 window.addEventListener("touchend", (e) => {
   if (!modal.hidden || animating || cooling()) return;
-  const dy = touchY - e.changedTouches[0].clientY;
-  const dx = touchX - e.changedTouches[0].clientX;
-  if (Math.abs(dy) < 60 || Math.abs(dx) > Math.abs(dy)) return;
+  const dy = startY - e.changedTouches[0].clientY;
+  const dx = startX - e.changedTouches[0].clientX;
   const dir = dy > 0 ? 1 : -1;
   const panel = panels[index];
 
   if (index === WORK_INDEX) {
-    const atEnd = track.scrollLeft >= trackMax() - 2;
-    const atStart = track.scrollLeft <= 2;
+    if (Math.abs(dy) < 60) return;
+    const atEnd = trackTarget >= trackMax() - 2;
+    const atStart = trackTarget <= 2;
     if ((dir > 0 && atEnd) || (dir < 0 && atStart)) goTo(index + dir);
     return;
   }
+
+  if (Math.abs(dy) < 60 || Math.abs(dx) > Math.abs(dy)) return;
   const scrollable = panel.scrollHeight - panel.clientHeight > 4;
   if (scrollable) {
     const atTop = panel.scrollTop <= 1;
@@ -280,30 +298,55 @@ document.querySelectorAll(".filter").forEach((btn) => {
   });
 });
 
-/* ================= MODAL ================= */
+/* ================= MODAL (gallery) ================= */
 const refs = {
   eyebrow: document.getElementById("modalEyebrow"),
   title: document.getElementById("modalTitle"),
   desc: document.getElementById("modalDesc"),
-  gallery: document.getElementById("modalGallery"),
+  gallery: document.querySelector(".gallery"),
+  main: document.getElementById("galleryMain"),
+  thumbs: document.getElementById("galleryThumbs"),
   tools: document.getElementById("modalTools"),
   date: document.getElementById("modalDate"),
   role: document.getElementById("modalRole"),
   link: document.getElementById("modalLink"),
 };
 let lastFocused = null;
+let swapTimer = null;
+
+function setMainImage(src, alt) {
+  if (refs.main.src.endsWith(src.replace("./", "/"))) return;
+  clearTimeout(swapTimer);
+  refs.main.classList.add("swapping");
+  swapTimer = setTimeout(() => {
+    refs.main.src = src;
+    refs.main.alt = alt;
+    if (refs.main.complete) refs.main.classList.remove("swapping");
+    else refs.main.onload = () => refs.main.classList.remove("swapping");
+  }, 220);
+}
 
 function openModal(p) {
   refs.eyebrow.textContent = `${CATEGORY_LABELS[p.category]} — ${p.eyebrow}`;
   refs.title.textContent = p.title;
   refs.desc.textContent = p.description;
-  refs.gallery.innerHTML = p.images
-    .map((src) => `<img src="${src}" alt="${p.title} — project image" loading="lazy" decoding="async" />`)
-    .join("");
   refs.tools.innerHTML = p.tools.map((t) => `<i class="${t}" aria-hidden="true"></i>`).join("");
   refs.date.textContent = p.date;
   refs.role.textContent = p.role;
   refs.link.href = p.link;
+
+  refs.main.classList.remove("swapping");
+  refs.main.src = p.images[0];
+  refs.main.alt = `${p.title} — project image`;
+  refs.gallery.classList.toggle("single", p.images.length < 2);
+  refs.thumbs.innerHTML = p.images
+    .map(
+      (src, i) => `
+      <button class="g-thumb${i === 0 ? " is-active" : ""}" data-src="${src}" role="option" aria-selected="${i === 0}" aria-label="Image ${i + 1} of ${p.images.length}">
+        <img src="${src}" alt="" loading="lazy" decoding="async" />
+      </button>`
+    )
+    .join("");
 
   lastFocused = document.activeElement;
   modal.hidden = false;
@@ -330,6 +373,17 @@ function trapFocus(e) {
   else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
 }
 
+refs.thumbs.addEventListener("click", (e) => {
+  const thumb = e.target.closest(".g-thumb");
+  if (!thumb) return;
+  refs.thumbs.querySelectorAll(".g-thumb").forEach((t) => {
+    const active = t === thumb;
+    t.classList.toggle("is-active", active);
+    t.setAttribute("aria-selected", active ? "true" : "false");
+  });
+  setMainImage(thumb.dataset.src, refs.main.alt);
+});
+
 track.addEventListener("click", (e) => {
   const card = e.target.closest(".card");
   if (!card) return;
@@ -341,14 +395,13 @@ modal.addEventListener("click", (e) => {
   if (e.target.closest("[data-close]")) closeModal();
 });
 
-/* ================= INTRO SEQUENCE (bubble) ================= */
-const curtainWrap = document.getElementById("curtainWrap");
+/* ================= INTRO (rising curtain) ================= */
 const curtain = document.getElementById("curtain");
 const introLogo = document.getElementById("introLogo");
 const brandImg = document.getElementById("brandImg");
 
 function finishIntro() {
-  curtainWrap.classList.add("gone");
+  curtain.classList.add("gone");
   introLogo.classList.add("gone");
   document.body.classList.remove("intro");
   document.body.classList.add("ready");
@@ -364,36 +417,28 @@ function runIntro() {
 
   introLogo.classList.add("pulsing");
 
-  // bubble target: shrink the 165vmax square to a ~120px circle hugging the logo
-  const vmax = Math.max(window.innerWidth, window.innerHeight);
-  curtain.style.setProperty("--bs", (120 / (1.65 * vmax)).toFixed(4));
-
   setTimeout(() => {
     introLogo.classList.remove("pulsing");
-    curtain.classList.add("bubble"); // sides squeeze in, radius grows, becomes a bubble around the logo
-  }, 1900);
+    curtain.classList.add("up"); // curtain rises, bottom radius grows toward the logo
+  }, 1800);
 
   setTimeout(() => {
-    panels[0].classList.add("is-active"); // hero elements enter one by one
+    panels[0].classList.add("is-active"); // hero revealed underneath
     syncChrome(0);
-  }, 2500);
+  }, 2350);
 
   setTimeout(() => {
-    // bubble + logo rise together to the top-center brand slot
+    // the curtain's bottom edge reaches the logo — they rise together
     const from = introLogo.getBoundingClientRect();
     const to = brandImg.getBoundingClientRect();
     const dx = to.left + to.width / 2 - (from.left + from.width / 2);
     const dy = to.top + to.height / 2 - (from.top + from.height / 2);
     const scale = to.width / from.width;
-
-    curtainWrap.style.transform = `translate(${dx}px, ${dy}px)`;
-    curtainWrap.classList.add("rise"); // fades as it merges with the logo
     introLogo.classList.add("fly");
     introLogo.style.transform = `translate(${dx}px, ${dy}px) scale(${scale})`;
-
     introLogo.addEventListener("transitionend", finishIntro, { once: true });
-    setTimeout(finishIntro, 1400); // safety fallback
-  }, 3250);
+    setTimeout(finishIntro, 1300); // safety fallback
+  }, 2550);
 }
 
 window.addEventListener("load", () => {
