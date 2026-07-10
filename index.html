@@ -63,7 +63,8 @@
           <div class="filters reveal" role="tablist" aria-label="Filter projects" style="--d:.16s">
             <button class="filter is-active" role="tab" aria-selected="true" data-filter="all">All</button>
             <button class="filter" role="tab" aria-selected="false" data-filter="web">Web &amp; Interface</button>
-            <button class="filter" role="tab" aria-selected="false" data-filter="visual">Motion &amp; Visual</button>
+            <button class="filter" role="tab" aria-selected="false" data-filter="design">Design</button>
+            <button class="filter" role="tab" aria-selected="false" data-filter="motion">Motion</button>
           </div>
         </header>
 
@@ -102,6 +103,8 @@
         </article>
 
         <div class="person-extras reveal" style="--d:.2s">
+          <span class="pill"><i class="fa-solid fa-location-dot" aria-hidden="true"></i>Porto Alegre, BR</span>
+          <span class="pill"><i class="fa-solid fa-medal" aria-hidden="true"></i>Former international athlete</span>
           <span class="pill"><span class="pulse-dot" aria-hidden="true"></span>Available for projects</span>
           <span class="pill-group">
             <a class="icon-btn" href="https://instagram.com/purezag" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
@@ -117,11 +120,12 @@
     <section class="panel dark" id="contact" aria-labelledby="contact-title">
       <div class="shell contact-inner">
         <p class="eyebrow reveal">Contact</p>
-        
+        <h2 class="contact-title swap-font reveal" id="contact-title" style="--d:.08s" tabindex="0">
+          <span class="ct a">Let's build<br /><em class="serif">something</em> great.</span>
+          <span class="ct b" aria-hidden="true"><em class="serif">Let's build</em><br />something <em class="serif">great.</em></span>
+        </h2>
         <a class="contact-email reveal" href="mailto:glhrmpureza@gmail.com" style="--d:.16s">
-          <h2 class="contact-title reveal" id="contact-title" style="--d:.08s">
-          Let's build<br /><em class="serif">something</em> great.
-        </h2> 
+          glhrmpureza@gmail.com <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
         </a>
         <div class="contact-foot reveal" style="--d:.24s">
           <p class="status"><span class="pulse-dot" aria-hidden="true"></span>Available for new projects</p>
@@ -136,6 +140,9 @@
       </div>
     </section>
   </main>
+
+  <!-- ============ EDGE INTENT METER ============ -->
+  <div id="edgeMeter" aria-hidden="true"><i></i></div>
 
   <!-- ============ CASE MODAL (gallery) ============ -->
   <div class="modal" id="caseModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>

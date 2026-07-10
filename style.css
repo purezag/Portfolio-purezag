@@ -636,6 +636,100 @@ body.theme-dark .dock a.is-active { color: #fff; background: rgba(255, 255, 255,
   .g-thumb { width: 68px; }
 }
 
+/* ================= CONTACT TITLE FONT SWAP ================= */
+.swap-font { position: relative; cursor: pointer; user-select: none; }
+.swap-font .ct { display: block; transition: opacity 0.55s var(--ease); }
+.swap-font .ct.b { position: absolute; inset: 0; opacity: 0; }
+@media (hover: hover) {
+  .swap-font:hover .ct.a { opacity: 0; }
+  .swap-font:hover .ct.b { opacity: 1; }
+}
+.swap-font.flip .ct.a { opacity: 0; }
+.swap-font.flip .ct.b { opacity: 1; }
+
+/* ================= FILTER SWAP (same language as page transitions) ================= */
+.track.leaving .card {
+  opacity: 0;
+  transform: translateX(60px);
+  transition: opacity 0.32s cubic-bezier(0.55, 0, 0.55, 0.2) calc(var(--i, 0) * 35ms),
+              transform 0.32s cubic-bezier(0.55, 0, 0.55, 0.2) calc(var(--i, 0) * 35ms);
+  pointer-events: none;
+}
+.track.pre .card { opacity: 0; transform: translateX(-44px); transition: none; }
+.track.entering .card {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.55s var(--ease) calc(var(--i, 0) * 70ms),
+              transform 0.55s var(--ease) calc(var(--i, 0) * 70ms);
+}
+
+/* ================= EDGE INTENT METER ================= */
+#edgeMeter {
+  position: fixed;
+  bottom: calc(var(--dock-h) + 30px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 290;
+  width: 92px;
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(16, 16, 18, 0.15);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  overflow: hidden;
+}
+#edgeMeter.show { opacity: 1; }
+#edgeMeter i {
+  display: block;
+  height: 100%;
+  background: var(--ink);
+  transform: scaleX(var(--p, 0));
+  transform-origin: left;
+  transition: transform 0.12s linear;
+}
+body.theme-dark #edgeMeter { background: rgba(255, 255, 255, 0.2); }
+body.theme-dark #edgeMeter i { background: #fff; }
+
+/* ================= TOOL TAGS (tools without icons) ================= */
+.tool-tag {
+  font-size: 0.56rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 3px 8px;
+  align-self: center;
+  white-space: nowrap;
+}
+.card-tools { flex-wrap: wrap; align-items: center; row-gap: 6px; }
+.modal-tools { flex-wrap: wrap; align-items: center; row-gap: 8px; }
+.modal-tools .tool-tag { font-size: 0.62rem; }
+
+/* ================= GALLERY VIDEO SUPPORT ================= */
+.g-main { position: relative; }
+.g-main video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: var(--dark);
+}
+.g-main.swapping .g-media { opacity: 0; }
+.g-media { width: 100%; height: 100%; opacity: 1; transition: opacity 0.25s ease; }
+.g-thumb { position: relative; }
+.g-thumb video { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+.g-thumb .play-badge {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 0.7rem;
+  color: #fff;
+  background: rgba(10, 10, 11, 0.35);
+}
+
 /* ================= REDUCED MOTION ================= */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
