@@ -680,8 +680,8 @@ function stopTrackAnims() {
 /* render loop: a posicao real persegue o alvo — nunca escrevemos scrollLeft "seco" */
 function trackLoop() {
   const diff = trackTarget - track.scrollLeft;
-  const ease = dragging ? 0.28 : 0.16;
-  if (!dragging && Math.abs(diff) < 0.4) {
+  const ease = dragging ? 0.22 : 0.11;
+  if (!dragging && Math.abs(diff) < 0.25) {
     track.scrollLeft = trackTarget;
     trackRAF = null;
     return;
@@ -704,65 +704,26 @@ function trackPadLeft() {
   return parseFloat(getComputedStyle(track).paddingLeft) || 0;
 }
 
-/* alvo de snap: card mais proximo, com leve peso na direcao do movimento */
-function snapPosition(bias) {
-  const cards = visibleCards();
-  if (!cards.length) return null;
-  const padLeft = trackPadLeft();
-  const ref = trackTarget + padLeft + (bias || 0);
-  let best = cards[0].offsetLeft;
-  let bestD = Infinity;
-  cards.forEach((c) => {
-    const d = Math.abs(c.offsetLeft - ref);
-    if (d < bestD) { bestD = d; best = c.offsetLeft; }
-  });
-  return clampTrack(best - padLeft);
-}
-
-const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
 /* acelera e desacelera como uma mão arrastando o carrossel */
 const easeInOutCubic = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
-/* snap por tween (nao por lerp) — chegada macia, sem "puxao" no fim */
-function snapTrack(bias, duration) {
-  stopTrackAnims();
-  const to = snapPosition(bias);
-  if (to === null) return;
-  const from = track.scrollLeft;
-  const dist = to - from;
-  const dur = Math.max(240, Math.min(duration || 520, 200 + Math.abs(dist) * 0.6));
-  if (Math.abs(dist) < 1) { trackTarget = to; return; }
-  const t0 = performance.now();
-  const step = (now) => {
-    const p = Math.min(1, (now - t0) / dur);
-    const v = from + dist * easeOutCubic(p);
-    track.scrollLeft = v;
-    trackTarget = v;
-    if (p < 1) snapRAF = requestAnimationFrame(step);
-    else { trackTarget = to; snapRAF = null; updateTrackButtons(); }
-  };
-  snapRAF = requestAnimationFrame(step);
-}
-
-/* inercia: desacelera com atrito e entrega no snap sem corte */
+/* inercia livre: desacelera longo e para onde parar for natural — sem snap */
 function runMomentum(velocity) {
   stopTrackAnims();
   let v = velocity;
-  if (Math.abs(v) < 0.8) { snapTrack(0, 420); return; }
-  let projected = trackTarget;
+  if (Math.abs(v) < 0.4) return;
   const step = () => {
-    v *= 0.945;
-    projected = trackTarget + v;
+    v *= 0.962;                       /* atrito suave = deslize longo */
+    const projected = trackTarget + v;
     const clamped = clampTrack(projected);
-    /* resistencia elastica ao passar das bordas */
-    if (projected !== clamped) v *= 0.4;
+    if (projected !== clamped) v *= 0.35;   /* freia macio nas pontas */
     trackTarget = clamped;
     track.scrollLeft = trackTarget;
-    if (Math.abs(v) > 1.1 && trackTarget > 0 && trackTarget < trackMax()) {
+    if (Math.abs(v) > 0.25 && trackTarget > 0 && trackTarget < trackMax()) {
       momentumRAF = requestAnimationFrame(step);
     } else {
       momentumRAF = null;
-      snapTrack(v * 6, 480);
+      updateTrackButtons();
     }
   };
   momentumRAF = requestAnimationFrame(step);
@@ -865,7 +826,7 @@ function endPointerDrag(e) {
   track.classList.remove("dragging");
   if (e && track.hasPointerCapture && track.hasPointerCapture(e.pointerId)) track.releasePointerCapture(e.pointerId);
   suppressCardClick = pointerMoved > 6;
-  runMomentum(velocity * 1.6);
+  runMomentum(velocity * 1.9);
   setTimeout(() => { suppressCardClick = false; }, 60);
 }
 track.addEventListener("pointerup", endPointerDrag);
@@ -938,7 +899,7 @@ window.addEventListener(
       e.preventDefault();
       if (!atBoundary(dir)) {
         gestureEligible = false;
-        nudgeTrack(e.deltaY * 1.7);
+        nudgeTrack(e.deltaY * 1.25);
         return;
       }
       if (gestureConsumed || cooling()) return;
@@ -966,7 +927,7 @@ window.addEventListener(
 
 /* ---- touch ---- */
 const TOUCH_SPEED = 1.35;   /* arrasto quase 1:1 no dedo — a suavidade vem do lerp */
-const TOUCH_BOOST = 1.9;    /* ganho aplicado a inercia, nao ao arrasto */
+const TOUCH_BOOST = 2.3;    /* ganho aplicado a inercia, nao ao arrasto */
 let startY = 0, startX = 0, lastY = 0, lastX = 0, lastT = 0, velocity = 0;
 let touchEligibleDown = false, touchEligibleUp = false;
 
