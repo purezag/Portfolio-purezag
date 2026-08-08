@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Guilherme Pureza — Art and Tech</title>
   <link rel="icon" type="image/png" href="./assets/logo-gp.png" />
-  <meta name="description" content="Portfolio of Guilherme Pureza. Bridging aesthetic design and robust software architecture." />
+  <meta name="description" content="Portfólio de Guilherme Pureza. Design gráfico e desenvolvimento front-end." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -29,23 +29,42 @@
   <img id="introLogo" src="./assets/logo-gp.png" alt="" width="76" height="76" aria-hidden="true" />
 
   <!-- ============ BRAND (top center) ============ -->
-  <a class="brand" href="#hero" data-goto="0" aria-label="Back to home">
-    <img id="brandImg" src="./assets/logo-gp.png" alt="Guilherme Pureza logo" width="34" height="34" />
+  <a class="brand" href="#hero" data-goto="0" data-i18n-aria="nav.homeAria" aria-label="Voltar ao início">
+    <img id="brandImg" src="./assets/logo-gp.png" alt="Guilherme Pureza" width="34" height="34" />
   </a>
 
-  <!-- ============ NAV (bottom dock) ============ -->
-  <nav class="dock" aria-label="Primary">
-    <ul>
-      <li><a href="#hero" data-goto="0" data-nav>Home</a></li>
-      <li><a href="#work" data-goto="1" data-nav>Work</a></li>
-      <li><a href="#about" data-goto="2" data-nav>About</a></li>
-      <li><a href="#contact" data-goto="3" data-nav>Contact</a></li>
-    </ul>
-  </nav>
+  <!-- ============ BOTTOM BAR: NAV + LANGUAGE ============ -->
+  <div class="bottom-bar">
+    <nav class="dock" data-i18n-aria="nav.primaryAria" aria-label="Navegação principal">
+      <ul>
+        <li><a href="#hero" data-goto="0" data-nav data-i18n="nav.home">Home</a></li>
+        <li><a href="#work" data-goto="1" data-nav data-i18n="nav.work">Work</a></li>
+        <li><a href="#about" data-goto="2" data-nav data-i18n="nav.about">About</a></li>
+        <li><a href="#contact" data-goto="3" data-nav data-i18n="nav.contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="lang" id="lang">
+      <div class="lang-drawer" id="langDrawer" role="listbox" data-i18n-aria="lang.listAria" aria-label="Selecionar idioma" hidden>
+        <button class="lang-opt is-active" role="option" aria-selected="true" data-lang="pt">
+          <span class="fi fi-br" aria-hidden="true"></span><span class="lang-name">Português</span>
+        </button>
+        <button class="lang-opt" role="option" aria-selected="false" data-lang="en">
+          <span class="fi fi-us" aria-hidden="true"></span><span class="lang-name">English</span>
+        </button>
+        <button class="lang-opt" role="option" aria-selected="false" data-lang="es">
+          <span class="fi fi-es" aria-hidden="true"></span><span class="lang-name">Español</span>
+        </button>
+      </div>
+      <button class="lang-btn" id="langBtn" aria-haspopup="listbox" aria-expanded="false" aria-controls="langDrawer" data-i18n-aria="lang.btnAria" aria-label="Idioma">
+        <i class="fa-solid fa-language" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
 
   <main id="stage">
     <!-- ============ HERO ============ -->
-    <section class="panel" id="hero" aria-label="Introduction">
+    <section class="panel" id="hero" data-i18n-aria="hero.aria" aria-label="Introdução">
       <video muted loop playsinline preload="metadata" id="bgVideo" class="hero-video" aria-hidden="true" tabindex="-1" disablepictureinpicture>
         <source src="./assets/bg.mp4" type="video/mp4" />
       </video>
@@ -57,20 +76,25 @@
       <div class="work-inner">
         <header class="work-head shell">
           <div>
-            <p class="eyebrow reveal">Selected work</p>
-            <h2 class="section-title reveal" id="work-title" style="--d:.08s"><em class="serif">Work</em>space</h2>
+            <p class="eyebrow reveal" data-i18n="work.eyebrow">Trabalhos selecionados</p>
+            <h2 class="section-title reveal" id="work-title" style="--d:.08s" data-i18n-html="work.title"><em class="serif">Work</em>space</h2>
           </div>
-          <div class="filters reveal" role="tablist" aria-label="Filter projects" style="--d:.16s">
-            <button class="filter is-active" role="tab" aria-selected="true" data-filter="all">All</button>
-            <button class="filter" role="tab" aria-selected="false" data-filter="web">Web &amp; Interface</button>
-            <button class="filter" role="tab" aria-selected="false" data-filter="design">Design</button>
-            <button class="filter" role="tab" aria-selected="false" data-filter="motion">Motion</button>
+          <div class="filters reveal" role="tablist" data-i18n-aria="work.filterAria" aria-label="Filtrar projetos" style="--d:.16s">
+            <button class="filter is-active" role="tab" aria-selected="true" data-filter="all" data-i18n="work.all">Todos</button>
+            <button class="filter" role="tab" aria-selected="false" data-filter="web" data-i18n="work.web">Web &amp; Interface</button>
+            <button class="filter" role="tab" aria-selected="false" data-filter="design" data-i18n="work.design">Design</button>
+            <button class="filter" role="tab" aria-selected="false" data-filter="motion" data-i18n="work.motion">Motion</button>
           </div>
         </header>
 
-        <div class="track reveal" id="workTrack" style="--d:.22s" tabindex="0" aria-label="Projects, scroll to browse"></div>
+        <div class="track-wrap">
+          <div class="track reveal" id="workTrack" style="--d:.22s" tabindex="0" data-i18n-aria="work.trackAria" aria-label="Projetos, role para navegar"></div>
+        </div>
 
-        <p class="track-hint reveal shell" style="--d:.3s"><i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i> Scroll to explore cases</p>
+        <p class="track-hint reveal shell" style="--d:.3s">
+          <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
+          <span data-i18n="work.hint">Role para explorar os cases</span>
+        </p>
       </div>
     </section>
 
@@ -79,38 +103,37 @@
       <div class="shell about-wrap">
         <article class="person-card reveal" style="--d:.06s">
           <div class="person-photo">
-            <img src="./assets/profile-photo.webp" alt="Portrait of Guilherme Pureza" loading="lazy" decoding="async" />
+            <img src="./assets/profile-photo.webp" alt="Guilherme Pureza" loading="lazy" decoding="async" />
           </div>
           <div class="person-body">
-            <p class="eyebrow">About</p>
+            <p class="eyebrow" data-i18n="about.eyebrow">Sobre</p>
             <h2 class="person-name" id="about-name">Guilherme<br /><em class="serif">Pureza</em></h2>
-            <p class="person-statement">
-              I <em class="serif">design</em> interfaces<br />
-              &amp; <em class="serif">build</em> the code<br />
-              behind them.
+            <p class="person-statement" data-i18n-html="about.statement">
+              Eu <em class="serif">desenho</em> interfaces<br />
+              &amp; <em class="serif">construo</em> o código<br />
+              por trás delas.
             </p>
-            <p class="person-bio">
-              Graphic design roots, a Systems Analysis &amp; Development degree in progress, and the
-              discipline of a former international athlete — turned into digital experiences that are
-              beautiful and reliable.
+            <p class="person-bio" data-i18n="about.bio">
+              Raízes no design gráfico, graduação em Análise e Desenvolvimento de Sistemas em andamento e a
+              disciplina de um ex-atleta internacional — transformadas em experiências digitais bonitas e confiáveis.
             </p>
-            <div class="person-langs" aria-label="Spoken languages">
-              <span><span class="fi fi-br" aria-hidden="true"></span>Portuguese <em class="serif">native</em></span>
-              <span><span class="fi fi-us" aria-hidden="true"></span>English <em class="serif">advanced</em></span>
-              <span><span class="fi fi-es" aria-hidden="true"></span>Spanish <em class="serif">working</em></span>
+            <div class="person-langs" data-i18n-aria="about.langsAria" aria-label="Idiomas">
+              <span><span class="fi fi-br" aria-hidden="true"></span><span data-i18n="about.pt">Português</span> <em class="serif" data-i18n="about.native">nativo</em></span>
+              <span><span class="fi fi-us" aria-hidden="true"></span><span data-i18n="about.en">Inglês</span> <em class="serif" data-i18n="about.advanced">avançado</em></span>
+              <span><span class="fi fi-es" aria-hidden="true"></span><span data-i18n="about.es">Espanhol</span> <em class="serif" data-i18n="about.working">intermediário</em></span>
             </div>
           </div>
         </article>
 
         <div class="person-extras reveal" style="--d:.2s">
-          <span class="pill"><i class="fa-solid fa-location-dot" aria-hidden="true"></i>Porto Alegre, BR</span>
-          <span class="pill"><i class="fa-solid fa-medal" aria-hidden="true"></i>Former international athlete</span>
-          <span class="pill"><span class="pulse-dot" aria-hidden="true"></span>Available for projects</span>
+          <span class="pill"><i class="fa-solid fa-location-dot" aria-hidden="true"></i><span data-i18n="about.location">Porto Alegre, BR</span></span>
+          <span class="pill"><i class="fa-solid fa-medal" aria-hidden="true"></i><span data-i18n="about.athlete">Ex-atleta internacional</span></span>
+          <span class="pill"><span class="pulse-dot" aria-hidden="true"></span><span data-i18n="about.available">Disponível para projetos</span></span>
           <span class="pill-group">
-            <a class="icon-btn" href="https://instagram.com/purezag" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
-            <a class="icon-btn" href="https://github.com/purezag" target="_blank" rel="noopener" aria-label="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>
-            <a class="icon-btn" href="https://behance.net/purezag" target="_blank" rel="noopener" aria-label="Behance"><i class="fa-brands fa-behance" aria-hidden="true"></i></a>
-            <a class="icon-btn" href="https://www.linkedin.com/in/purezag/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i></a>
+            <a class="icon-btn" href="https://instagram.com/purezag" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+            <a class="icon-btn" href="https://github.com/purezag" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>
+            <a class="icon-btn" href="https://behance.net/purezag" target="_blank" rel="noopener noreferrer" aria-label="Behance"><i class="fa-brands fa-behance" aria-hidden="true"></i></a>
+            <a class="icon-btn" href="https://www.linkedin.com/in/purezag/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i></a>
           </span>
         </div>
       </div>
@@ -119,21 +142,36 @@
     <!-- ============ CONTACT ============ -->
     <section class="panel dark" id="contact" aria-labelledby="contact-title">
       <div class="shell contact-inner">
-        <p class="eyebrow reveal">Contact</p>
-        <h2 class="contact-title swap-font reveal" id="contact-title" style="--d:.08s" tabindex="0">
-          <span class="ct a">Let's build<br /><em class="serif">something</em> great.</span>
-          <span class="ct b" aria-hidden="true"><em class="serif">Let's build</em><br />something <em class="serif">great.</em></span>
+        <p class="eyebrow reveal" data-i18n="contact.eyebrow">Contato</p>
+
+        <h2 class="contact-title reveal" id="contact-title" style="--d:.08s">
+          <a class="cta-flip" id="ctaFlip" href="mailto:glhrmpureza@gmail.com" data-i18n-aria="contact.ctaAria" aria-label="Enviar e-mail para glhrmpureza@gmail.com">
+            <span class="flip-box">
+              <span class="flip-face front" id="ctaFront" data-i18n-html="contact.ctaFront">Vamos criar<br />algo <em class="serif">incrível</em>.</span>
+              <span class="flip-face back" id="ctaBack" aria-hidden="true" data-i18n-html="contact.ctaBack"><em class="serif">Vamos criar</em><br /><em class="serif">algo</em> incrível.</span>
+            </span>
+            <span class="flip-arrow" aria-hidden="true">
+              <span class="flip-face front">
+                <svg viewBox="0 0 40 24" width="1em" height="0.6em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h28M24 4l8 8-8 8" /></svg>
+              </span>
+              <span class="flip-face back">
+                <svg viewBox="0 0 40 24" width="1em" height="0.6em" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h34M27 3.5c1.6 5 4.4 7.4 9 8.5-4.6 1.1-7.4 3.5-9 8.5" /></svg>
+              </span>
+            </span>
+          </a>
         </h2>
+
         <a class="contact-email reveal" href="mailto:glhrmpureza@gmail.com" style="--d:.16s">
           glhrmpureza@gmail.com <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
         </a>
+
         <div class="contact-foot reveal" style="--d:.24s">
-          <p class="status"><span class="pulse-dot" aria-hidden="true"></span>Available for new projects</p>
+          <p class="status"><span class="pulse-dot" aria-hidden="true"></span><span data-i18n="contact.status">Disponível para novos projetos</span></p>
           <div class="contact-socials">
-            <a class="icon-btn" href="https://instagram.com/purezag" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
-            <a class="icon-btn" href="https://behance.net/purezag" target="_blank" rel="noopener" aria-label="Behance"><i class="fa-brands fa-behance" aria-hidden="true"></i></a>
-            <a class="icon-btn" href="https://github.com/purezag" target="_blank" rel="noopener" aria-label="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>
-            <a class="icon-btn" href="https://www.linkedin.com/in/purezag/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i></a>
+            <a class="icon-btn" href="https://instagram.com/purezag" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+            <a class="icon-btn" href="https://behance.net/purezag" target="_blank" rel="noopener noreferrer" aria-label="Behance"><i class="fa-brands fa-behance" aria-hidden="true"></i></a>
+            <a class="icon-btn" href="https://github.com/purezag" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>
+            <a class="icon-btn" href="https://www.linkedin.com/in/purezag/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i></a>
           </div>
           <p class="copyright">© 2026 Guilherme Pureza — <em class="serif">art</em> &amp; <em class="serif">tech</em></p>
         </div>
@@ -148,7 +186,7 @@
   <div class="modal" id="caseModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
     <div class="modal-overlay" data-close></div>
     <article class="modal-panel">
-      <button class="modal-close icon-btn" data-close aria-label="Close case study">
+      <button class="modal-close icon-btn" data-close data-i18n-aria="modal.closeAria" aria-label="Fechar case">
         <i class="fa-solid fa-xmark" aria-hidden="true"></i>
       </button>
       <div class="modal-scroll">
@@ -157,17 +195,18 @@
         <p class="modal-desc" id="modalDesc"></p>
 
         <div class="gallery">
-          <div class="g-main"><img id="galleryMain" alt="" decoding="async" /></div>
-          <div class="g-thumbs" id="galleryThumbs" role="listbox" aria-label="Project images"></div>
+          <div class="g-main"></div>
+          <div class="g-thumbs" id="galleryThumbs" role="listbox" data-i18n-aria="modal.mediaAria" aria-label="Mídias do projeto"></div>
         </div>
 
         <dl class="modal-meta">
-          <div><dt>Tools</dt><dd class="modal-tools" id="modalTools"></dd></div>
-          <div><dt>Year</dt><dd id="modalDate"></dd></div>
-          <div><dt>Role</dt><dd id="modalRole"></dd></div>
+          <div><dt data-i18n="modal.tools">Ferramentas</dt><dd class="modal-tools" id="modalTools"></dd></div>
+          <div><dt data-i18n="modal.year">Ano</dt><dd id="modalDate"></dd></div>
+          <div><dt data-i18n="modal.role">Atuação</dt><dd id="modalRole"></dd></div>
         </dl>
-        <a class="btn-primary" id="modalLink" href="#" target="_blank" rel="noopener">
-          View live project <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+
+        <a class="btn-primary" id="modalLink" href="#" target="_blank" rel="noopener noreferrer">
+          <span data-i18n="modal.live">Ver projeto online</span> <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
         </a>
       </div>
     </article>

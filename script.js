@@ -1,273 +1,492 @@
 "use strict";
 
-/* ================= PROJECT DATA ================= */
-const CATEGORY_LABELS = { web: "Web & Interface", design: "Design", motion: "Motion" };
+/* =========================================================
+   1. I18N — dicionário central (pt padrão, en, es)
+   ========================================================= */
+const I18N = {
+  pt: {
+    "nav.home": "Home", "nav.work": "Work", "nav.about": "Sobre", "nav.contact": "Contato",
+    "nav.homeAria": "Voltar ao início", "nav.primaryAria": "Navegação principal",
+    "lang.btnAria": "Idioma", "lang.listAria": "Selecionar idioma",
+    "hero.aria": "Introdução",
+    "work.eyebrow": "Trabalhos selecionados", "work.title": "<em class='serif'>Work</em>space",
+    "work.all": "Todos", "work.web": "Web & Interface", "work.design": "Design", "work.motion": "Motion",
+    "work.hint": "Role para explorar os cases", "work.filterAria": "Filtrar projetos",
+    "work.trackAria": "Projetos, role para navegar", "work.cta": "Ver case",
+    "about.eyebrow": "Sobre",
+    "about.statement": "Eu <em class='serif'>desenho</em> interfaces<br />&amp; <em class='serif'>construo</em> o código<br />por trás delas.",
+    "about.bio": "Raízes no design gráfico, graduação em Análise e Desenvolvimento de Sistemas em andamento e a disciplina de um ex-atleta internacional — transformadas em experiências digitais bonitas e confiáveis.",
+    "about.langsAria": "Idiomas", "about.pt": "Português", "about.en": "Inglês", "about.es": "Espanhol",
+    "about.native": "nativo", "about.advanced": "avançado", "about.working": "intermediário",
+    "about.location": "Porto Alegre, BR", "about.athlete": "Ex-atleta internacional", "about.available": "Disponível para projetos",
+    "contact.eyebrow": "Contato",
+    "contact.ctaFront": "Vamos criar<br />algo <em class='serif'>incrível</em>.",
+    "contact.ctaBack": "<em class='serif'>Vamos criar</em><br /><em class='serif'>algo</em> incrível.",
+    "contact.ctaAria": "Enviar e-mail para glhrmpureza@gmail.com",
+    "contact.status": "Disponível para novos projetos",
+    "modal.tools": "Ferramentas", "modal.year": "Ano", "modal.role": "Atuação",
+    "modal.live": "Ver projeto online", "modal.closeAria": "Fechar case", "modal.mediaAria": "Mídias do projeto",
+  },
+  en: {
+    "nav.home": "Home", "nav.work": "Work", "nav.about": "About", "nav.contact": "Contact",
+    "nav.homeAria": "Back to home", "nav.primaryAria": "Primary navigation",
+    "lang.btnAria": "Language", "lang.listAria": "Select language",
+    "hero.aria": "Introduction",
+    "work.eyebrow": "Selected work", "work.title": "<em class='serif'>Work</em>space",
+    "work.all": "All", "work.web": "Web & Interface", "work.design": "Design", "work.motion": "Motion",
+    "work.hint": "Scroll to explore cases", "work.filterAria": "Filter projects",
+    "work.trackAria": "Projects, scroll to browse", "work.cta": "View case",
+    "about.eyebrow": "About",
+    "about.statement": "I <em class='serif'>design</em> interfaces<br />&amp; <em class='serif'>build</em> the code<br />behind them.",
+    "about.bio": "Graphic design roots, a Systems Analysis & Development degree in progress and the discipline of a former international athlete — turned into digital experiences that are beautiful and reliable.",
+    "about.langsAria": "Spoken languages", "about.pt": "Portuguese", "about.en": "English", "about.es": "Spanish",
+    "about.native": "native", "about.advanced": "advanced", "about.working": "working",
+    "about.location": "Porto Alegre, BR", "about.athlete": "Former international athlete", "about.available": "Available for projects",
+    "contact.eyebrow": "Contact",
+    "contact.ctaFront": "Let's build<br />something <em class='serif'>great</em>.",
+    "contact.ctaBack": "<em class='serif'>Let's build</em><br /><em class='serif'>something</em> great.",
+    "contact.ctaAria": "Send an email to glhrmpureza@gmail.com",
+    "contact.status": "Available for new projects",
+    "modal.tools": "Tools", "modal.year": "Year", "modal.role": "Role",
+    "modal.live": "View live project", "modal.closeAria": "Close case study", "modal.mediaAria": "Project media",
+  },
+  es: {
+    "nav.home": "Inicio", "nav.work": "Work", "nav.about": "Sobre mí", "nav.contact": "Contacto",
+    "nav.homeAria": "Volver al inicio", "nav.primaryAria": "Navegación principal",
+    "lang.btnAria": "Idioma", "lang.listAria": "Seleccionar idioma",
+    "hero.aria": "Introducción",
+    "work.eyebrow": "Trabajos seleccionados", "work.title": "<em class='serif'>Work</em>space",
+    "work.all": "Todos", "work.web": "Web e Interfaz", "work.design": "Diseño", "work.motion": "Motion",
+    "work.hint": "Desplaza para explorar los casos", "work.filterAria": "Filtrar proyectos",
+    "work.trackAria": "Proyectos, desplaza para navegar", "work.cta": "Ver caso",
+    "about.eyebrow": "Sobre mí",
+    "about.statement": "Yo <em class='serif'>diseño</em> interfaces<br />y <em class='serif'>construyo</em> el código<br />detrás de ellas.",
+    "about.bio": "Raíces en el diseño gráfico, estudios de Análisis y Desarrollo de Sistemas en curso y la disciplina de un exatleta internacional — convertidos en experiencias digitales bonitas y confiables.",
+    "about.langsAria": "Idiomas", "about.pt": "Portugués", "about.en": "Inglés", "about.es": "Español",
+    "about.native": "nativo", "about.advanced": "avanzado", "about.working": "intermedio",
+    "about.location": "Porto Alegre, BR", "about.athlete": "Exatleta internacional", "about.available": "Disponible para proyectos",
+    "contact.eyebrow": "Contacto",
+    "contact.ctaFront": "Vamos a crear<br />algo <em class='serif'>increíble</em>.",
+    "contact.ctaBack": "<em class='serif'>Vamos a crear</em><br /><em class='serif'>algo</em> increíble.",
+    "contact.ctaAria": "Enviar un correo a glhrmpureza@gmail.com",
+    "contact.status": "Disponible para nuevos proyectos",
+    "modal.tools": "Herramientas", "modal.year": "Año", "modal.role": "Rol",
+    "modal.live": "Ver proyecto online", "modal.closeAria": "Cerrar caso", "modal.mediaAria": "Medios del proyecto",
+  },
+};
+
+const LANG_HTML = { pt: "pt-BR", en: "en", es: "es" };
+let LANG = "pt";
+const t = (key) => (I18N[LANG] && I18N[LANG][key]) || I18N.pt[key] || "";
+const tx = (obj) => (obj ? obj[LANG] || obj.pt : "");
+
+/* =========================================================
+   2. CASES
+   ========================================================= */
+const CAT_LABELS = {
+  web: { pt: "Web & Interface", en: "Web & Interface", es: "Web e Interfaz" },
+  design: { pt: "Design", en: "Design", es: "Diseño" },
+  motion: { pt: "Motion", en: "Motion", es: "Motion" },
+};
+const LIVE_LINK_CATEGORIES = ["web", "interface"]; // regra do botão "Ver projeto online"
+
 const C = "./assets/cases";
-const img = (s) => ({ t: "img", src: s });
-const vid = (s) => ({ t: "vid", src: s });
-const seq = (dir, n) => Array.from({ length: n }, (_, i) => img(`${C}/${dir}/${String(i + 1).padStart(2, "0")}.webp`));
+const im = (s) => ({ t: "img", src: s });
+const vd = (s, poster) => ({ t: "vid", src: s, poster });
+const imgs = (dir, slug, n, from = 1) =>
+  Array.from({ length: n }, (_, i) => im(`${C}/${dir}/${slug}-${String(i + from).padStart(2, "0")}.webp`));
 
 const PROJECTS = [
-  /* ---------- WEB ---------- */
-  {
-    id: "laboratorio-criativo",
-    category: "web",
-    eyebrow: "E-commerce · UX/UI & Code",
-    title: "Laboratório Criativo",
-    description:
-      "Full e-commerce experience designed and built end to end — from brand-aligned interface design in Photoshop to a responsive, performance-focused front-end running on WordPress. Clear product hierarchy, fast navigation and a frictionless checkout flow.",
-    thumb: "./assets/creative-art-8.webp",
-    media: [img("./assets/creative-art-8.webp"), ...seq("laboratorio-criativo", 3)],
-    tools: ["devicon-photoshop-plain", "devicon-html5-plain", "devicon-css3-plain", "devicon-javascript-plain", "devicon-wordpress-plain"],
-    date: "2025",
-    role: "Design & Development",
-    link: "https://www.laboratoriocriativo.com",
-  },
+  /* ---------------- WEB ---------------- */
   {
     id: "euvatar-landing",
     category: "web",
-    eyebrow: "Landing Page · Real Estate & Events",
     title: "Euvatar — Landing Page",
-    description:
-      "Conversion-focused landing page for Euvatar's real estate and events vertical: clear value proposition above the fold, fast loading, and a layout engineered to guide visitors straight to contact.",
-    thumb: `${C}/euvatar-landing/01.webp`,
-    media: seq("euvatar-landing", 6),
+    eyebrow: { pt: "Landing Page · Imobiliário & Eventos", en: "Landing Page · Real Estate & Events", es: "Landing Page · Inmobiliario y Eventos" },
+    note: {
+      pt: "Landing page de conversão para o mercado imobiliário e de eventos.",
+      en: "Conversion landing page for the real estate and events market.",
+      es: "Landing page de conversión para el mercado inmobiliario y de eventos.",
+    },
+    description: {
+      pt: "Landing page focada em conversão para a vertical de mercado imobiliário e eventos: proposta de valor clara logo no primeiro bloco, carregamento rápido e um layout desenhado para levar o visitante direto ao contato.\n\nProjeto da Euvatar, agência onde atuo hoje. O crédito criativo é integralmente da Euvatar — meu papel foi a execução do design e do front-end. O cliente é da agência, não meu.",
+      en: "Conversion-focused landing page for the real estate and events vertical: a clear value proposition above the fold, fast loading and a layout engineered to guide the visitor straight to contact.\n\nA Euvatar project — the agency I currently work for. Full creative credit goes to Euvatar; my role was executing the design and front-end. The client belongs to the agency, not to me.",
+      es: "Landing page enfocada en conversión para el sector inmobiliario y de eventos: propuesta de valor clara desde el primer bloque, carga rápida y un layout diseñado para llevar al visitante directo al contacto.\n\nProyecto de Euvatar, la agencia donde trabajo actualmente. El crédito creativo es totalmente de Euvatar; mi rol fue la ejecución del diseño y del front-end. El cliente es de la agencia, no mío.",
+    },
+    thumb: `${C}/euvatar-landing/euvatar-landing-cover.webp`,
+    media: imgs("euvatar-landing", "euvatar-landing", 6),
     tools: ["devicon-html5-plain", "devicon-css3-plain", "devicon-javascript-plain"],
     date: "2025",
-    role: "Design & Development",
+    role: { pt: "Execução de design & front-end", en: "Design & front-end execution", es: "Ejecución de diseño y front-end" },
   },
   {
     id: "euvatar-institucional",
     category: "web",
-    eyebrow: "Institutional Website",
-    title: "Euvatar — Institutional",
-    description:
-      "Euvatar's institutional website, built with a modern Tailwind + Vite stack. Brand imagery produced in Photoshop and Premiere, enhanced with AI-generated visuals via OpenAI and Kling AI for a distinctive presence.",
-    thumb: `${C}/euvatar-institucional/01.webp`,
-    media: seq("euvatar-institucional", 6),
+    title: "Euvatar — Site Institucional",
+    eyebrow: { pt: "Site Institucional", en: "Institutional Website", es: "Sitio Institucional" },
+    note: {
+      pt: "Site institucional com stack moderna e visual de marca reforçado por IA.",
+      en: "Institutional site on a modern stack with AI-enhanced brand visuals.",
+      es: "Sitio institucional con stack moderno y visual de marca reforzado con IA.",
+    },
+    description: {
+      pt: "Site institucional da Euvatar, construído com stack moderna (Tailwind + Vite). Imagens de marca tratadas em Photoshop e Premiere e complementadas por visuais gerados com OpenAI e Kling AI.\n\nProjeto da Euvatar, agência onde atuo hoje. O crédito criativo é integralmente da Euvatar — meu papel foi a execução. O cliente é da agência, não meu.",
+      en: "Euvatar's institutional website, built on a modern stack (Tailwind + Vite). Brand imagery treated in Photoshop and Premiere, complemented by visuals generated with OpenAI and Kling AI.\n\nA Euvatar project — the agency I currently work for. Full creative credit goes to Euvatar; my role was execution. The client belongs to the agency, not to me.",
+      es: "Sitio institucional de Euvatar, construido con stack moderna (Tailwind + Vite). Imágenes de marca tratadas en Photoshop y Premiere y complementadas con visuales generados con OpenAI y Kling AI.\n\nProyecto de Euvatar, la agencia donde trabajo actualmente. El crédito creativo es totalmente de Euvatar; mi rol fue la ejecución. El cliente es de la agencia, no mío.",
+    },
+    thumb: `${C}/euvatar-institucional/euvatar-institucional-cover.webp`,
+    media: imgs("euvatar-institucional", "euvatar-institucional", 6),
     tools: ["devicon-tailwindcss-original", "devicon-vitejs-plain", "devicon-photoshop-plain", "devicon-premierepro-plain", "OpenAI", "Kling AI"],
     date: "2025",
-    role: "Design & Development",
+    role: { pt: "Execução de design & front-end", en: "Design & front-end execution", es: "Ejecución de diseño y front-end" },
+  },
+  {
+    id: "colonial-site",
+    category: "web",
+    title: "Colonial — Site",
+    eyebrow: { pt: "Site Institucional · Máquinas Agrícolas", en: "Institutional Website · Agricultural Machinery", es: "Sitio Institucional · Maquinaria Agrícola" },
+    note: {
+      pt: "Site de concessionária agrícola com hero cinematográfico e catálogo claro.",
+      en: "Agricultural dealership site with a cinematic hero and a clear catalogue.",
+      es: "Sitio de concesionaria agrícola con hero cinematográfico y catálogo claro.",
+    },
+    description: {
+      pt: "Site institucional para concessionária de máquinas agrícolas: hero cinematográfico com a força do campo, navegação direta para linhas de produto e serviços, e uma hierarquia pensada para um público que decide por confiança.",
+      en: "Institutional website for an agricultural machinery dealership: a cinematic hero carrying the strength of the field, direct navigation to product lines and services, and a hierarchy designed for an audience that decides on trust.",
+      es: "Sitio institucional para concesionaria de maquinaria agrícola: hero cinematográfico con la fuerza del campo, navegación directa a líneas de producto y servicios, y una jerarquía pensada para un público que decide por confianza.",
+    },
+    thumb: `${C}/colonial/site/colonial-site-cover.webp`,
+    media: imgs("colonial/site", "colonial-site", 4),
+    tools: ["devicon-html5-plain", "devicon-css3-plain", "devicon-javascript-plain"],
+    date: "2025",
+    role: { pt: "Design & desenvolvimento", en: "Design & development", es: "Diseño y desarrollo" },
   },
   {
     id: "super-tratores-site",
     category: "web",
-    eyebrow: "Institutional Website · Unofficial Study",
     title: "Super Tratores New Holland",
-    description:
-      "Unofficial concept study for a New Holland dealership website: heavy-machinery product showcase, bold hero treatment and motion-enhanced media produced in Photoshop and Premiere.",
-    thumb: `${C}/super-tratores-site/01.webp`,
-    media: seq("super-tratores-site", 4),
+    eyebrow: { pt: "Site Institucional · Estudo não oficial", en: "Institutional Website · Unofficial study", es: "Sitio Institucional · Estudio no oficial" },
+    note: {
+      pt: "Proposta de site para a marca — projeto de estudo, sem vínculo oficial.",
+      en: "Website proposal for the brand — a study project, no official ties.",
+      es: "Propuesta de sitio para la marca — proyecto de estudio, sin vínculo oficial.",
+    },
+    description: {
+      pt: "Proposta de site institucional para concessionária New Holland: vitrine de máquinas pesadas, hero de alto impacto e mídia tratada em Photoshop e Premiere.\n\nProjeto de estudo, criado para apresentar uma ideia à marca. Não é um trabalho oficial e não possui qualquer vínculo com a New Holland ou a Super Tratores.",
+      en: "Institutional website proposal for a New Holland dealership: heavy-machinery showcase, high-impact hero and media treated in Photoshop and Premiere.\n\nA study project, created to present an idea to the brand. It is not official work and has no affiliation with New Holland or Super Tratores.",
+      es: "Propuesta de sitio institucional para concesionaria New Holland: vitrina de maquinaria pesada, hero de alto impacto y medios tratados en Photoshop y Premiere.\n\nProyecto de estudio, creado para presentar una idea a la marca. No es un trabajo oficial y no tiene vínculo con New Holland ni Super Tratores.",
+    },
+    thumb: `${C}/super-tratores-site/super-tratores-site-cover.webp`,
+    media: imgs("super-tratores-site", "super-tratores-site", 4),
     tools: ["devicon-html5-plain", "devicon-css3-plain", "devicon-javascript-plain", "devicon-photoshop-plain", "devicon-premierepro-plain"],
     date: "2025",
-    role: "Concept, Design & Development",
+    role: { pt: "Conceito, design & desenvolvimento", en: "Concept, design & development", es: "Concepto, diseño y desarrollo" },
   },
   {
-    id: "qual-a-boa",
+    id: "laboratorio-criativo",
     category: "web",
-    eyebrow: "Mobile App · UX/UI & Code",
-    title: "Qual a Boa?",
-    description:
-      "App for discovering what's happening around you — events, bars and experiences in one place. Designed and built as a lightweight, responsive web app with a fast, mobile-first interface.",
-    thumb: `${C}/qual-a-boa/01.webp`,
-    media: seq("qual-a-boa", 10),
-    tools: ["devicon-html5-plain", "devicon-css3-plain", "devicon-javascript-plain"],
+    title: "Laboratório Criativo",
+    eyebrow: { pt: "E-commerce · UX/UI & Código", en: "E-commerce · UX/UI & Code", es: "E-commerce · UX/UI y Código" },
+    note: {
+      pt: "E-commerce completo, do design da interface ao front-end em WordPress.",
+      en: "Full e-commerce, from interface design to the WordPress front-end.",
+      es: "E-commerce completo, del diseño de interfaz al front-end en WordPress.",
+    },
+    description: {
+      pt: "Experiência de e-commerce desenhada e construída de ponta a ponta — do design de interface alinhado à marca até um front-end responsivo e focado em performance rodando em WordPress. Hierarquia de produto clara, navegação rápida e checkout sem atrito.",
+      en: "E-commerce experience designed and built end to end — from brand-aligned interface design to a responsive, performance-focused front-end running on WordPress. Clear product hierarchy, fast navigation and a frictionless checkout.",
+      es: "Experiencia de e-commerce diseñada y construida de punta a punta — del diseño de interfaz alineado a la marca hasta un front-end responsivo y enfocado en rendimiento sobre WordPress. Jerarquía de producto clara, navegación rápida y checkout sin fricción.",
+    },
+    thumb: `${C}/laboratorio-criativo/laboratorio-criativo-cover.webp`,
+    media: imgs("laboratorio-criativo", "laboratorio-criativo", 3),
+    tools: ["devicon-photoshop-plain", "devicon-html5-plain", "devicon-css3-plain", "devicon-javascript-plain", "devicon-wordpress-plain"],
     date: "2025",
-    role: "Design & Development",
-  },
-  {
-    id: "euvatar-360",
-    category: "web",
-    eyebrow: "Interactive App · Immersive 360",
-    title: "Euvatar — 360 Around Europe",
-    description:
-      "Immersive 360° experience taking users on a virtual trip through Europe. Web front-end paired with Lens Studio interactions, with visual assets refined in Photoshop and Premiere.",
-    thumb: `${C}/euvatar-360/01.webp`,
-    media: seq("euvatar-360", 6),
-    tools: ["devicon-html5-plain", "devicon-css3-plain", "devicon-javascript-plain", "Lens Studio", "devicon-photoshop-plain", "devicon-premierepro-plain"],
-    date: "2025",
-    role: "Design & Development",
+    role: { pt: "Design & desenvolvimento", en: "Design & development", es: "Diseño y desarrollo" },
+    link: "https://www.laboratoriocriativo.com",
   },
 
-  /* ---------- DESIGN ---------- */
+  /* ---------------- DESIGN ---------------- */
   {
-    id: "colonial",
+    id: "colonial-design",
     category: "design",
-    eyebrow: "Social Media Design",
-    title: "Colonial",
-    description:
-      "Ongoing visual production for social media: campaign artwork, product highlights and AI-assisted digital manipulation. A consistent visual system built to keep the feed cohesive while every piece stays individually striking.",
-    thumb: "./assets/creative-art-1.webp",
-    media: [img("./assets/creative-art-1.webp"), img("./assets/creative-art-2.webp"), img("./assets/creative-art-3.webp"), img("./assets/creative-art-7.webp")],
+    title: "Colonial — Redes Sociais",
+    eyebrow: { pt: "Social Media Design", en: "Social Media Design", es: "Diseño para Redes Sociales" },
+    note: {
+      pt: "Sistema visual para o feed: campanhas, produtos e manipulação digital.",
+      en: "Visual system for the feed: campaigns, products and digital manipulation.",
+      es: "Sistema visual para el feed: campañas, productos y manipulación digital.",
+    },
+    description: {
+      pt: "Produção visual contínua para redes sociais: peças de campanha, destaques de produto e manipulação digital assistida por IA. Um sistema visual construído para manter o feed coeso, com cada peça funcionando individualmente.",
+      en: "Ongoing visual production for social media: campaign pieces, product highlights and AI-assisted digital manipulation. A visual system built to keep the feed cohesive while every piece stands on its own.",
+      es: "Producción visual continua para redes sociales: piezas de campaña, destacados de producto y manipulación digital asistida por IA. Un sistema visual para mantener el feed cohesivo con cada pieza funcionando por sí sola.",
+    },
+    thumb: `${C}/colonial/design/colonial-design-cover.webp`,
+    media: imgs("colonial/design", "colonial-design", 4),
     tools: ["devicon-photoshop-plain", "devicon-canva-original"],
     date: "2025",
-    role: "Art Direction & Design",
-    link: "https://www.behance.net/gallery/245339401/AI-Art-Digital-Manipulation",
-  },
-  {
-    id: "super-tratores-social",
-    category: "design",
-    eyebrow: "Social Media · Study Content",
-    title: "Super Tratores",
-    description:
-      "Social media study content for the agricultural machinery segment: strong product presence, bold typography and a feed system designed to feel premium in a traditionally functional market.",
-    thumb: `${C}/super-tratores-social/01.webp`,
-    media: seq("super-tratores-social", 3),
-    tools: ["devicon-canva-original", "devicon-photoshop-plain"],
-    date: "2025",
-    role: "Design",
+    role: { pt: "Direção de arte & design", en: "Art direction & design", es: "Dirección de arte y diseño" },
   },
   {
     id: "euvatar-social",
     category: "design",
-    eyebrow: "Social Media Design",
-    title: "Euvatar — Social Media",
-    description:
-      "Continuous social media production for Euvatar: campaign pieces, product communication and brand-consistent visual assets across the whole feed.",
-    thumb: `${C}/euvatar-social/01.webp`,
-    media: seq("euvatar-social", 10),
+    title: "Euvatar — Redes Sociais",
+    eyebrow: { pt: "Social Media Design", en: "Social Media Design", es: "Diseño para Redes Sociales" },
+    note: {
+      pt: "Peças de campanha e comunicação de marca para o feed da Euvatar.",
+      en: "Campaign pieces and brand communication for Euvatar's feed.",
+      es: "Piezas de campaña y comunicación de marca para el feed de Euvatar.",
+    },
+    description: {
+      pt: "Produção contínua de social media: lançamentos, comunicação de produto e peças alinhadas à identidade da marca — tipografia expressiva, verde-limão característico e tratamento de imagem forte.\n\nProjeto da Euvatar, agência onde atuo hoje. O crédito criativo é integralmente da Euvatar — meu papel foi a execução das peças.",
+      en: "Ongoing social media production: launches, product communication and pieces aligned with the brand identity — expressive typography, the signature lime green and strong image treatment.\n\nA Euvatar project — the agency I currently work for. Full creative credit goes to Euvatar; my role was executing the pieces.",
+      es: "Producción continua de social media: lanzamientos, comunicación de producto y piezas alineadas a la identidad de marca — tipografía expresiva, el verde lima característico y tratamiento de imagen potente.\n\nProyecto de Euvatar, la agencia donde trabajo actualmente. El crédito creativo es totalmente de Euvatar; mi rol fue la ejecución de las piezas.",
+    },
+    thumb: `${C}/euvatar-social/euvatar-social-cover.webp`,
+    media: imgs("euvatar-social", "euvatar-social", 4),
     tools: ["devicon-canva-original", "devicon-photoshop-plain"],
     date: "2025",
-    role: "Design",
+    role: { pt: "Execução de design", en: "Design execution", es: "Ejecución de diseño" },
   },
   {
-    id: "mister-burguer",
+    id: "super-tratores-social",
     category: "design",
-    eyebrow: "Concept Artwork",
-    title: "Mister Burguer",
-    description:
-      "Personal concept artwork exploring appetite-driven composition, dramatic lighting and bold typography for a fictional burger brand — a study in making food photography feel cinematic.",
-    thumb: "./assets/creative-art-5.webp",
-    media: [img("./assets/creative-art-5.webp")],
+    title: "Super Tratores — Redes Sociais",
+    eyebrow: { pt: "Social Media · Conteúdo de estudo", en: "Social Media · Study content", es: "Redes Sociales · Contenido de estudio" },
+    note: {
+      pt: "Estudo de feed para o agro: máquina em destaque e tipografia pesada.",
+      en: "Feed study for agribusiness: machinery in focus and heavy typography.",
+      es: "Estudio de feed para el agro: maquinaria destacada y tipografía pesada.",
+    },
+    description: {
+      pt: "Conteúdo de estudo para o segmento de máquinas agrícolas: presença forte do produto, tipografia pesada e um sistema de feed pensado para trazer sofisticação a um mercado tradicionalmente funcional.\n\nEstudo pessoal, sem vínculo com a Super Tratores ou a New Holland.",
+      en: "Study content for the agricultural machinery segment: strong product presence, heavy typography and a feed system designed to bring sophistication to a traditionally functional market.\n\nA personal study, with no affiliation to Super Tratores or New Holland.",
+      es: "Contenido de estudio para el segmento de maquinaria agrícola: presencia fuerte del producto, tipografía pesada y un sistema de feed pensado para dar sofisticación a un mercado tradicionalmente funcional.\n\nEstudio personal, sin vínculo con Super Tratores ni New Holland.",
+    },
+    thumb: `${C}/super-tratores-social/super-tratores-social-cover.webp`,
+    media: imgs("super-tratores-social", "super-tratores-social", 3),
+    tools: ["devicon-canva-original", "devicon-photoshop-plain"],
+    date: "2025",
+    role: { pt: "Design", en: "Design", es: "Diseño" },
+  },
+  {
+    id: "clothes",
+    category: "design",
+    title: "Clothes",
+    eyebrow: { pt: "Moda · Estudo de design", en: "Fashion · Design study", es: "Moda · Estudio de diseño" },
+    note: {
+      pt: "Estudo editorial de moda: tipografia serifada sobre fotografia urbana.",
+      en: "Fashion editorial study: serif typography over urban photography.",
+      es: "Estudio editorial de moda: tipografía serif sobre fotografía urbana.",
+    },
+    description: {
+      pt: "Estudo de direção de arte para moda: composição editorial, tipografia serifada em itálico sobre fotografia urbana e um sistema de peças que atravessa collection, lifestyle e performance.\n\nDesign de estudo, sem qualquer vínculo com as marcas eventualmente retratadas.",
+      en: "Art direction study for fashion: editorial composition, italic serif typography over urban photography and a set of pieces spanning collection, lifestyle and performance.\n\nA study design, with no affiliation to any brand that may appear.",
+      es: "Estudio de dirección de arte para moda: composición editorial, tipografía serif en cursiva sobre fotografía urbana y un conjunto de piezas entre collection, lifestyle y performance.\n\nDiseño de estudio, sin vínculo con las marcas que puedan aparecer.",
+    },
+    thumb: `${C}/clothes/clothes-cover.webp`,
+    media: imgs("clothes", "clothes", 3),
     tools: ["devicon-photoshop-plain", "devicon-canva-original"],
     date: "2025",
-    role: "Concept & Design",
-    link: "https://www.behance.net/gallery/242726891/Mister-Burguer-Concept-Artwork",
+    role: { pt: "Conceito & design", en: "Concept & design", es: "Concepto y diseño" },
+  },
+  {
+    id: "food-drinks",
+    category: "design",
+    title: "Food & Drinks",
+    eyebrow: { pt: "Food · Estudo de design", en: "Food · Design study", es: "Food · Estudio de diseño" },
+    note: {
+      pt: "Cor, textura e apetite: estudo de direção de arte para food.",
+      en: "Colour, texture and appetite: an art direction study for food.",
+      es: "Color, textura y apetito: estudio de dirección de arte para food.",
+    },
+    description: {
+      pt: "Exploração visual de direção de arte para comidas e bebidas — textura, gradação de cor e estudos de layout para traduzir sabor em imagem.\n\nDesign de estudo, sem vínculo com as marcas eventualmente retratadas.",
+      en: "Visual exploration of food and beverage art direction — texture, colour grading and layout studies to translate flavour into imagery.\n\nA study design, with no affiliation to any brand that may appear.",
+      es: "Exploración visual de dirección de arte para comidas y bebidas — textura, gradación de color y estudios de layout para traducir el sabor en imagen.\n\nDiseño de estudio, sin vínculo con las marcas que puedan aparecer.",
+    },
+    thumb: `${C}/food-drinks/food-drinks-cover.webp`,
+    media: imgs("food-drinks", "food-drinks", 3),
+    tools: ["devicon-photoshop-plain", "devicon-canva-original"],
+    date: "2025",
+    role: { pt: "Conceito & design", en: "Concept & design", es: "Concepto y diseño" },
   },
   {
     id: "smart-fit",
     category: "design",
-    eyebrow: "Concept Study",
     title: "Smart Fit",
-    description:
-      "Unofficial concept study reimagining fitness-brand communication: high-energy composition, strong contrast and motion-inspired treatment applied to static social pieces.",
-    thumb: "./assets/creative-art-4.webp",
-    media: [img("./assets/creative-art-4.webp")],
+    eyebrow: { pt: "Fitness · Estudo não oficial", en: "Fitness · Unofficial study", es: "Fitness · Estudio no oficial" },
+    note: {
+      pt: "Estudo de comunicação fitness: alto contraste e frases de impacto.",
+      en: "Fitness communication study: high contrast and punchy copy.",
+      es: "Estudio de comunicación fitness: alto contraste y frases de impacto.",
+    },
+    description: {
+      pt: "Estudo conceitual reimaginando a comunicação de uma marca fitness: composição de alta energia, contraste forte, frases de impacto e tratamento inspirado em motion aplicado a peças estáticas.\n\nEstudo de design com uso da marca apenas para fins de exercício criativo. Não possui qualquer vínculo com a Smart Fit.",
+      en: "Concept study reimagining fitness brand communication: high-energy composition, strong contrast, punchy copy and motion-inspired treatment applied to static pieces.\n\nA design study using the brand purely as a creative exercise. It has no affiliation with Smart Fit.",
+      es: "Estudio conceptual reimaginando la comunicación de una marca fitness: composición de alta energía, contraste fuerte, frases de impacto y tratamiento inspirado en motion aplicado a piezas estáticas.\n\nEstudio de diseño con uso de la marca solo como ejercicio creativo. No tiene vínculo con Smart Fit.",
+    },
+    thumb: `${C}/smart-fit/smart-fit-cover.webp`,
+    media: imgs("smart-fit", "smart-fit", 3),
     tools: ["devicon-photoshop-plain", "devicon-canva-original"],
     date: "2025",
-    role: "Concept & Design",
-    link: "https://www.behance.net/gallery/242391919/Personal-Concept-Study",
+    role: { pt: "Conceito & design", en: "Concept & design", es: "Concepto y diseño" },
   },
   {
-    id: "food-and-drinks",
+    id: "mister-burguer",
     category: "design",
-    eyebrow: "Concept Study",
-    title: "Food & Drinks",
-    description:
-      "A visual exploration of food and beverage art direction — texture, color grading and layout studies designed to translate flavor into imagery.",
-    thumb: "./assets/creative-art-6.webp",
-    media: [img("./assets/creative-art-6.webp")],
-    tools: ["devicon-photoshop-plain", "devicon-canva-original"],
+    title: "Mister Burguer",
+    eyebrow: { pt: "Marca fictícia · Design & Motion", en: "Fictional brand · Design & Motion", es: "Marca ficticia · Diseño y Motion" },
+    note: {
+      pt: "Marca criada para testes: fogo, tipografia pesada e personagem animado.",
+      en: "Brand created for testing: fire, heavy type and an animated character.",
+      es: "Marca creada para pruebas: fuego, tipografía pesada y personaje animado.",
+    },
+    description: {
+      pt: "Marca fictícia criada por mim para testar ideias e execuções: composição orientada ao apetite, iluminação dramática, tipografia pesada e um personagem mascote que ganha vida em vídeo.\n\nMister Burguer não existe comercialmente — é um laboratório pessoal de criação, sem vínculo com qualquer marca real.",
+      en: "A fictional brand I created to test ideas and execution: appetite-driven composition, dramatic lighting, heavy typography and a mascot character brought to life on video.\n\nMister Burguer does not exist commercially — it is a personal creative lab, with no affiliation to any real brand.",
+      es: "Marca ficticia creada por mí para probar ideas y ejecuciones: composición orientada al apetito, iluminación dramática, tipografía pesada y un personaje mascota que cobra vida en video.\n\nMister Burguer no existe comercialmente — es un laboratorio personal de creación, sin vínculo con ninguna marca real.",
+    },
+    thumb: `${C}/mister-burguer/mister-burguer-cover.webp`,
+    media: [
+      ...imgs("mister-burguer", "mister-burguer", 3),
+      im(`${C}/mister-burguer/mister-burguer-art.webp`),
+      vd(`${C}/mister-burguer/mister-burguer-video-01.mp4`, `${C}/mister-burguer/mister-burguer-cover.webp`),
+    ],
+    tools: ["devicon-photoshop-plain", "devicon-premierepro-plain", "CapCut", "FlowLabs"],
     date: "2025",
-    role: "Concept & Design",
-    link: "https://www.behance.net/gallery/242391919/Personal-Concept-Study",
+    role: { pt: "Conceito, design & motion", en: "Concept, design & motion", es: "Concepto, diseño y motion" },
   },
 
-  /* ---------- MOTION ---------- */
+  /* ---------------- MOTION ---------------- */
   {
-    id: "personal-luan",
+    id: "euvatar-motion",
     category: "motion",
-    eyebrow: "Reels · Social Media",
-    title: "Personal Luan",
-    description:
-      "Short-form reels produced for social media: dynamic cuts, rhythm-driven editing and clean motion graphics built to hold attention in the feed.",
-    thumb: `${C}/personal-luan/cover.webp`,
-    media: [vid(`${C}/personal-luan/video-01.mp4`), vid(`${C}/personal-luan/video-02.mp4`)],
-    tools: ["devicon-photoshop-plain", "devicon-premierepro-plain", "CapCut"],
-    date: "2025",
-    role: "Edit & Motion",
-  },
-  {
-    id: "melnick",
-    category: "motion",
-    eyebrow: "Reels · Social Media",
-    title: "Melnick",
-    description:
-      "Social media reel combining live footage with AI-generated sequences via OpenAI and Kling AI — a hybrid pipeline for premium real estate storytelling.",
-    thumb: `${C}/melnick/cover.webp`,
-    media: [vid(`${C}/melnick/video-01.mp4`)],
+    title: "Euvatar — Design & Motion",
+    eyebrow: { pt: "Motion · Produção audiovisual", en: "Motion · Audiovisual production", es: "Motion · Producción audiovisual" },
+    note: {
+      pt: "Peças audiovisuais de marca — produção de motion para a Euvatar.",
+      en: "Audiovisual brand pieces — motion production for Euvatar.",
+      es: "Piezas audiovisuales de marca — producción de motion para Euvatar.",
+    },
+    description: {
+      pt: "Produção audiovisual de marca: peças em motion com tratamento de imagem, edição rítmica e integração entre filmagem e visuais gerados por IA.\n\nProjeto da Euvatar, agência onde atuo hoje. O crédito criativo é integralmente da Euvatar — meu papel foi a execução.",
+      en: "Audiovisual brand production: motion pieces with image treatment, rhythm-driven editing and integration between footage and AI-generated visuals.\n\nA Euvatar project — the agency I currently work for. Full creative credit goes to Euvatar; my role was execution.",
+      es: "Producción audiovisual de marca: piezas en motion con tratamiento de imagen, edición rítmica e integración entre filmación y visuales generados con IA.\n\nProyecto de Euvatar, la agencia donde trabajo actualmente. El crédito creativo es totalmente de Euvatar; mi rol fue la ejecución.",
+    },
+    // capa opcional — se o arquivo não existir, o card mostra um placeholder elegante
+    thumb: `${C}/euvatar-motion/euvatar-motion-cover.webp`,
+    media: [
+      vd(`${C}/euvatar-motion/euvatar-motion-01.mp4`, `${C}/euvatar-motion/euvatar-motion-cover.webp`),
+      vd(`${C}/euvatar-motion/euvatar-motion-02.mp4`, `${C}/euvatar-motion/euvatar-motion-cover.webp`),
+    ],
     tools: ["devicon-photoshop-plain", "devicon-premierepro-plain", "CapCut", "OpenAI", "Kling AI"],
     date: "2025",
-    role: "Edit & Motion",
+    role: { pt: "Edição & motion", en: "Edit & motion", es: "Edición y motion" },
   },
   {
-    id: "psj",
+    id: "sebrae",
     category: "motion",
-    eyebrow: "Promo Reels · Social Media",
-    title: "PSJ",
-    description:
-      "Promotional reel for social media, blending edited footage with AI-assisted visuals to amplify reach and impact.",
-    thumb: `${C}/psj/cover.webp`,
-    media: [vid(`${C}/psj/video-01.mp4`)],
+    title: "Sebrae",
+    eyebrow: { pt: "Motion · Personagem de marca", en: "Motion · Brand character", es: "Motion · Personaje de marca" },
+    note: {
+      pt: "Mascote quero-quero ganhando vida em peças audiovisuais.",
+      en: "The quero-quero mascot brought to life in audiovisual pieces.",
+      es: "La mascota quero-quero cobrando vida en piezas audiovisuales.",
+    },
+    description: {
+      pt: "Personagem de marca em movimento: o quero-quero, símbolo do Rio Grande do Sul, transformado em mascote e animado para peças audiovisuais — do render ao corte final.\n\nProjeto da Euvatar, agência onde atuo hoje. O crédito criativo é integralmente da Euvatar — meu papel foi a execução. O cliente é da agência, não meu.",
+      en: "Brand character in motion: the quero-quero, a symbol of Rio Grande do Sul, turned into a mascot and animated for audiovisual pieces — from render to final cut.\n\nA Euvatar project — the agency I currently work for. Full creative credit goes to Euvatar; my role was execution. The client belongs to the agency, not to me.",
+      es: "Personaje de marca en movimiento: el quero-quero, símbolo de Rio Grande do Sul, convertido en mascota y animado para piezas audiovisuales — del render al corte final.\n\nProyecto de Euvatar, la agencia donde trabajo actualmente. El crédito creativo es totalmente de Euvatar; mi rol fue la ejecución. El cliente es de la agencia, no mío.",
+    },
+    thumb: `${C}/sebrae/sebrae-cover.webp`,
+    media: [
+      vd(`${C}/sebrae/sebrae-video-01.mp4`, `${C}/sebrae/sebrae-cover.webp`),
+      vd(`${C}/sebrae/sebrae-video-02.mp4`, `${C}/sebrae/sebrae-cover.webp`),
+      im(`${C}/sebrae/sebrae-01.webp`),
+    ],
     tools: ["devicon-photoshop-plain", "devicon-premierepro-plain", "CapCut", "OpenAI", "Kling AI"],
     date: "2025",
-    role: "Edit & Motion",
-  },
-  {
-    id: "rughor",
-    category: "motion",
-    eyebrow: "Character Brought to Life · Study",
-    title: "Rughor",
-    description:
-      "Study project bringing an original character to life: concept stills developed in Photoshop, animated and refined through FlowLabs, cut in Premiere and CapCut.",
-    thumb: `${C}/rughor/01.webp`,
-    media: [vid(`${C}/rughor/video-01.mp4`), ...seq("rughor", 2)],
-    tools: ["devicon-photoshop-plain", "devicon-premierepro-plain", "CapCut", "FlowLabs"],
-    date: "2025",
-    role: "Concept, Design & Motion",
-  },
-  {
-    id: "mister-burguer-motion",
-    category: "motion",
-    eyebrow: "Character Brought to Life · Study",
-    title: "Mister Burguer — Motion",
-    description:
-      "The Mister Burguer character stepping out of the still frame: a study in character animation, from concept art to a finished motion piece.",
-    thumb: `${C}/mister-burguer-motion/01.webp`,
-    media: [vid(`${C}/mister-burguer-motion/video-01.mp4`), ...seq("mister-burguer-motion", 5)],
-    tools: ["devicon-photoshop-plain", "devicon-premierepro-plain", "CapCut", "FlowLabs"],
-    date: "2025",
-    role: "Concept, Design & Motion",
-  },
-  {
-    id: "et-euvatar",
-    category: "motion",
-    eyebrow: "Mascot Study · Character in Motion",
-    title: "ET — Euvatar Mascot",
-    description:
-      "Creation study for Euvatar's mascot: character design brought to life with an AI-assisted pipeline combining OpenAI, Kling AI and traditional editing.",
-    thumb: `${C}/et-euvatar/01.webp`,
-    media: [vid(`${C}/et-euvatar/video-01.mp4`), ...seq("et-euvatar", 2)],
-    tools: ["devicon-photoshop-plain", "devicon-premierepro-plain", "CapCut", "OpenAI", "Kling AI"],
-    date: "2025",
-    role: "Concept, Design & Motion",
+    role: { pt: "Edição & motion", en: "Edit & motion", es: "Edición y motion" },
   },
   {
     id: "capi-do-agro",
     category: "motion",
-    eyebrow: "Creation Collab with @Euvatar",
     title: "Capi do Agro",
-    description:
-      "Collaborative character creation with @Euvatar: editing and refinement of the character across a series of motion pieces and supporting stills.",
-    thumb: `${C}/capi-do-agro/01.webp`,
-    media: [vid(`${C}/capi-do-agro/video-01.mp4`), vid(`${C}/capi-do-agro/video-02.mp4`), vid(`${C}/capi-do-agro/video-03.mp4`), ...seq("capi-do-agro", 5)],
+    eyebrow: { pt: "Colab de criação com @Euvatar", en: "Creation collab with @Euvatar", es: "Colab de creación con @Euvatar" },
+    note: {
+      pt: "Capivara mascote do agro: turnaround, refino e animação do personagem.",
+      en: "Agribusiness capybara mascot: turnaround, refinement and animation.",
+      es: "Capibara mascota del agro: turnaround, refinamiento y animación.",
+    },
+    description: {
+      pt: "Criação colaborativa de personagem: uma capivara mascote para o universo do agro, com colete de marca, turnaround completo (frente, lado, costas) e detalhamento de pelagem e assinatura visual. Edição e refinamento do personagem até a peça animada.\n\nColaboração com a Euvatar, agência onde atuo hoje. O crédito criativo é integralmente da Euvatar — meu papel foi a execução, edição e refinamento.",
+      en: "Collaborative character creation: a capybara mascot for the agribusiness world, in a branded vest, with a full turnaround (front, side, back) and detailing of fur and visual signature. Editing and refinement of the character through to the animated piece.\n\nA collaboration with Euvatar — the agency I currently work for. Full creative credit goes to Euvatar; my role was execution, editing and refinement.",
+      es: "Creación colaborativa de personaje: un capibara mascota para el universo del agro, con chaleco de marca, turnaround completo (frente, lado, espalda) y detalle de pelaje y firma visual. Edición y refinamiento del personaje hasta la pieza animada.\n\nColaboración con Euvatar, la agencia donde trabajo actualmente. El crédito creativo es totalmente de Euvatar; mi rol fue la ejecución, edición y refinamiento.",
+    },
+    thumb: `${C}/capi-do-agro/capi-do-agro-cover.webp`,
+    media: [
+      vd(`${C}/capi-do-agro/capi-do-agro-video-01.mp4`, `${C}/capi-do-agro/capi-do-agro-cover.webp`),
+      ...imgs("capi-do-agro", "capi-do-agro", 6),
+    ],
+    tools: ["devicon-photoshop-plain", "devicon-premierepro-plain", "CapCut", "OpenAI", "Kling AI"],
+    date: "2025",
+    role: { pt: "Edição & refinamento do personagem", en: "Editing & character refinement", es: "Edición y refinamiento del personaje" },
+  },
+  {
+    id: "personal-luan",
+    category: "motion",
+    title: "Personal Luan",
+    eyebrow: { pt: "Reels · Redes sociais", en: "Reels · Social media", es: "Reels · Redes sociales" },
+    note: {
+      pt: "Reels e peças de consultoria fitness com edição de ritmo acelerado.",
+      en: "Fitness coaching reels and pieces with fast-paced editing.",
+      es: "Reels y piezas de consultoría fitness con edición de ritmo acelerado.",
+    },
+    description: {
+      pt: "Produção de reels e peças para redes sociais de um personal trainer: cortes dinâmicos, edição guiada por ritmo, iluminação em neon e tipografia de impacto para prender a atenção no feed.",
+      en: "Reels and social media pieces for a personal trainer: dynamic cuts, rhythm-driven editing, neon lighting and impactful typography built to hold attention in the feed.",
+      es: "Producción de reels y piezas para redes sociales de un personal trainer: cortes dinámicos, edición guiada por ritmo, iluminación neón y tipografía de impacto para captar la atención en el feed.",
+    },
+    thumb: `${C}/personal-luan/personal-luan-cover.webp`,
+    media: [
+      vd(`${C}/personal-luan/personal-luan-video-01.mp4`, `${C}/personal-luan/personal-luan-cover.webp`),
+      vd(`${C}/personal-luan/personal-luan-video-02.mp4`, `${C}/personal-luan/personal-luan-cover.webp`),
+      ...imgs("personal-luan", "personal-luan", 5),
+    ],
     tools: ["devicon-photoshop-plain", "devicon-premierepro-plain", "CapCut"],
     date: "2025",
-    role: "Edit & Character Refinement",
+    role: { pt: "Design, edição & motion", en: "Design, edit & motion", es: "Diseño, edición y motion" },
+  },
+  {
+    id: "rughor",
+    category: "motion",
+    title: "Rughor",
+    eyebrow: { pt: "Personagem ganhando vida · Estudo", en: "Character brought to life · Study", es: "Personaje cobrando vida · Estudio" },
+    note: {
+      pt: "Guerreiro anão na neve: do concept art à animação completa.",
+      en: "Dwarf warrior in the snow: from concept art to full animation.",
+      es: "Guerrero enano en la nieve: del concept art a la animación completa.",
+    },
+    description: {
+      pt: "Estudo de criação de personagem original: um guerreiro anão em cenário de neve, do concept art à animação. Imagens desenvolvidas em Photoshop, animação e refino em FlowLabs, montagem final em Premiere e CapCut.\n\nProjeto pessoal de estudo, sem vínculo comercial.",
+      en: "Original character creation study: a dwarf warrior in a snowy setting, from concept art to animation. Stills developed in Photoshop, animation and refinement in FlowLabs, final cut in Premiere and CapCut.\n\nA personal study project, with no commercial ties.",
+      es: "Estudio de creación de personaje original: un guerrero enano en un escenario nevado, del concept art a la animación. Imágenes desarrolladas en Photoshop, animación y refinamiento en FlowLabs, montaje final en Premiere y CapCut.\n\nProyecto personal de estudio, sin vínculo comercial.",
+    },
+    thumb: `${C}/rughor/rughor-cover.webp`,
+    media: [
+      vd(`${C}/rughor/rughor-video-01.mp4`, `${C}/rughor/rughor-cover.webp`),
+      ...imgs("rughor", "rughor", 2),
+    ],
+    tools: ["devicon-photoshop-plain", "devicon-premierepro-plain", "CapCut", "FlowLabs"],
+    date: "2025",
+    role: { pt: "Conceito, design & motion", en: "Concept, design & motion", es: "Concepto, diseño y motion" },
   },
 ];
 
-/* ================= DOM ================= */
+/* =========================================================
+   3. DOM
+   ========================================================= */
 const panels = Array.from(document.querySelectorAll(".panel"));
 const navLinks = Array.from(document.querySelectorAll("[data-nav]"));
 const track = document.getElementById("workTrack");
@@ -276,31 +495,98 @@ const video = document.getElementById("bgVideo");
 const meter = document.getElementById("edgeMeter");
 const meterFill = meter.querySelector("i");
 const REDUCED = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const isTouch = window.matchMedia("(pointer: coarse)").matches;
 
 const HERO_INDEX = 0;
 const WORK_INDEX = panels.findIndex((p) => p.id === "work");
 const CONTACT_INDEX = panels.findIndex((p) => p.id === "contact");
 
-/* ================= RENDER ================= */
-const toolHTML = (t) =>
-  t.startsWith("devicon-") || t.startsWith("fa-")
-    ? `<i class="${t}" aria-hidden="true"></i>`
-    : `<span class="tool-tag">${t}</span>`;
+/* =========================================================
+   4. RENDER + I18N APPLY
+   ========================================================= */
+const toolHTML = (tool) =>
+  tool.startsWith("devicon-") || tool.startsWith("fa-")
+    ? `<i class="${tool}" aria-hidden="true"></i>`
+    : `<span class="tool-tag">${tool}</span>`;
 
-track.innerHTML = PROJECTS.map(
-  (p) => `
-  <button class="card" data-category="${p.category}" data-id="${p.id}" aria-haspopup="dialog" aria-label="Open case study: ${p.title}">
-    <span class="card-thumb"><img src="${p.thumb}" alt="${p.title} — project preview" loading="lazy" decoding="async" width="370" height="278" /></span>
-    <span class="card-body">
-      <span class="card-eyebrow">${p.eyebrow}</span>
-      <span class="card-title">${p.title}</span>
-      <span class="card-tools">${p.tools.map(toolHTML).join("")}</span>
-      <span class="card-cta">View case <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
-    </span>
-  </button>`
-).join("");
+function renderCards() {
+  track.innerHTML = PROJECTS.map(
+    (p) => `
+    <button class="card" data-category="${p.category}" data-id="${p.id}" aria-haspopup="dialog" aria-label="${tx(p.eyebrow)} — ${p.title}">
+      <span class="card-thumb" data-fallback="${p.title.charAt(0)}">
+        <img src="${p.thumb}" alt="${p.title}" loading="lazy" decoding="async" width="370" height="278"
+             onerror="this.parentNode.classList.add('no-img')" />
+      </span>
+      <span class="card-body">
+        <span class="card-eyebrow">${tx(p.eyebrow)}</span>
+        <span class="card-title">${p.title}</span>
+        <span class="card-note">${tx(p.note)}</span>
+        <span class="card-tools">${p.tools.map(toolHTML).join("")}</span>
+        <span class="card-cta">${t("work.cta")} <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+      </span>
+    </button>`
+  ).join("");
+  applyFilter(currentFilter, true);
+}
 
-/* ================= PANEL CONTROLLER ================= */
+function applyI18n() {
+  document.documentElement.lang = LANG_HTML[LANG];
+  document.querySelectorAll("[data-i18n]").forEach((el) => { el.textContent = t(el.dataset.i18n); });
+  document.querySelectorAll("[data-i18n-html]").forEach((el) => { el.innerHTML = t(el.dataset.i18nHtml); });
+  document.querySelectorAll("[data-i18n-aria]").forEach((el) => { el.setAttribute("aria-label", t(el.dataset.i18nAria)); });
+  renderCards();
+  if (!modal.hidden && openProject) fillModal(openProject);
+}
+
+function setLang(lang) {
+  if (!I18N[lang]) return;
+  LANG = lang;
+  try { localStorage.setItem("gp-lang", lang); } catch (e) { /* ignore */ }
+  document.querySelectorAll(".lang-opt").forEach((b) => {
+    const active = b.dataset.lang === lang;
+    b.classList.toggle("is-active", active);
+    b.setAttribute("aria-selected", active ? "true" : "false");
+  });
+  applyI18n();
+}
+
+/* =========================================================
+   5. LANGUAGE DRAWER
+   ========================================================= */
+const langWrap = document.getElementById("lang");
+const langBtn = document.getElementById("langBtn");
+const langDrawer = document.getElementById("langDrawer");
+
+function openLang() {
+  langDrawer.hidden = false;
+  requestAnimationFrame(() => langWrap.classList.add("open"));
+  langBtn.setAttribute("aria-expanded", "true");
+}
+function closeLang() {
+  if (!langWrap.classList.contains("open")) return;
+  langWrap.classList.remove("open");
+  langBtn.setAttribute("aria-expanded", "false");
+  setTimeout(() => { if (!langWrap.classList.contains("open")) langDrawer.hidden = true; }, 300);
+}
+langBtn.addEventListener("click", (e) => {
+  e.stopPropagation();
+  langWrap.classList.contains("open") ? closeLang() : openLang();
+});
+langDrawer.addEventListener("click", (e) => {
+  const opt = e.target.closest(".lang-opt");
+  if (!opt) return;
+  setLang(opt.dataset.lang);
+  closeLang();
+});
+document.addEventListener("pointerdown", (e) => {
+  if (langWrap.classList.contains("open") && !langWrap.contains(e.target)) closeLang();
+});
+window.addEventListener("wheel", closeLang, { passive: true });
+window.addEventListener("touchstart", closeLang, { passive: true });
+
+/* =========================================================
+   6. PANEL CONTROLLER
+   ========================================================= */
 let index = 0;
 let animating = false;
 let lastNavTime = 0;
@@ -325,6 +611,7 @@ function goTo(i) {
   if (i === index || animating) return;
 
   hideMeter();
+  closeLang();
   const outgoing = panels[index];
   const incoming = panels[i];
   index = i;
@@ -350,7 +637,9 @@ function goTo(i) {
   }, SWAP_MS);
 }
 
-/* ================= WORK TRACK ================= */
+/* =========================================================
+   7. WORK TRACK — desktop lerp + mobile momentum & snap
+   ========================================================= */
 let trackTarget = 0;
 let trackRAF = null;
 
@@ -364,7 +653,7 @@ function trackLoop() {
     trackRAF = null;
     return;
   }
-  track.scrollLeft += diff * 0.14;
+  track.scrollLeft += diff * 0.16;
   trackRAF = requestAnimationFrame(trackLoop);
 }
 function nudgeTrack(delta) {
@@ -372,7 +661,44 @@ function nudgeTrack(delta) {
   if (!trackRAF) trackRAF = requestAnimationFrame(trackLoop);
 }
 
-/* ================= EDGE METER ================= */
+function visibleCards() {
+  return Array.from(track.querySelectorAll(".card:not(.hide)"));
+}
+function snapTrack() {
+  const cards = visibleCards();
+  if (!cards.length) return;
+  const style = getComputedStyle(track);
+  const padLeft = parseFloat(style.paddingLeft) || 0;
+  const target = track.scrollLeft + padLeft;
+  let best = cards[0].offsetLeft;
+  let bestD = Infinity;
+  cards.forEach((c) => {
+    const d = Math.abs(c.offsetLeft - target);
+    if (d < bestD) { bestD = d; best = c.offsetLeft; }
+  });
+  trackTarget = Math.max(0, Math.min(trackMax(), best - padLeft));
+  if (!trackRAF) trackRAF = requestAnimationFrame(trackLoop);
+}
+
+/* momentum (mobile) */
+let momentumRAF = null;
+function runMomentum(velocity) {
+  cancelAnimationFrame(momentumRAF);
+  let v = velocity;
+  const step = () => {
+    v *= 0.93;
+    trackTarget = Math.max(0, Math.min(trackMax(), trackTarget + v));
+    track.scrollLeft = trackTarget;
+    if (Math.abs(v) > 0.6) momentumRAF = requestAnimationFrame(step);
+    else snapTrack();
+  };
+  if (Math.abs(v) > 0.6) momentumRAF = requestAnimationFrame(step);
+  else snapTrack();
+}
+
+/* =========================================================
+   8. EDGE METER
+   ========================================================= */
 let meterHideTimer = null;
 function showMeter(progress) {
   meter.classList.add("show");
@@ -385,33 +711,27 @@ function hideMeter() {
   meterFill.style.setProperty("--p", 0);
 }
 
-/* ================= GESTURE-INTENT NAVIGATION =================
-   Safety lock: a gesture can only change section if it STARTED while the
-   panel was already resting at that boundary. The flick that carries you
-   to the edge never navigates — a second, deliberate gesture does. The
-   hero is exempt (any downward gesture advances). */
-
-const GESTURE_GAP = 280; // ms of silence = new wheel gesture
-const NAV_ACCUM = 170;   // deliberate push needed at an edge
+/* =========================================================
+   9. GESTURE-INTENT NAVIGATION
+   ========================================================= */
+const GESTURE_GAP = 280;
+const NAV_ACCUM = 170;
 
 let lastWheelTime = 0;
 let gestureDir = 0;
 let gestureAccum = 0;
-let gestureEligible = false; // started at the boundary?
+let gestureEligible = false;
 let gestureConsumed = false;
 
 function atBoundary(dir) {
   const panel = panels[index];
-  if (index === WORK_INDEX) {
-    return dir > 0 ? trackTarget >= trackMax() - 1 : trackTarget <= 1;
-  }
+  if (index === WORK_INDEX) return dir > 0 ? trackTarget >= trackMax() - 2 : trackTarget <= 2;
   const scrollable = panel.scrollHeight - panel.clientHeight > 4;
   if (!scrollable) return true;
   return dir > 0
     ? panel.scrollTop >= panel.scrollHeight - panel.clientHeight - 1
     : panel.scrollTop <= 1;
 }
-
 const cooling = () => animating || performance.now() - lastNavTime < 450;
 
 window.addEventListener(
@@ -432,24 +752,21 @@ window.addEventListener(
     }
     gestureAccum += Math.abs(e.deltaY);
 
-    /* HERO: simple, no locks going down */
     if (index === HERO_INDEX) {
       e.preventDefault();
       if (dir > 0 && !cooling() && Math.abs(e.deltaY) >= 12) goTo(index + 1);
       return;
     }
 
-    /* WORK: drive the horizontal track */
     if (index === WORK_INDEX) {
       e.preventDefault();
-      const atEdge = atBoundary(dir);
-      if (!atEdge) {
-        gestureEligible = false; // this gesture brought us to the edge — it can't navigate
-        nudgeTrack(e.deltaY * 1.6);
+      if (!atBoundary(dir)) {
+        gestureEligible = false;
+        nudgeTrack(e.deltaY * 1.7);
         return;
       }
       if (gestureConsumed || cooling()) return;
-      if (!gestureEligible) { showMeter(0); return; } // hint: one more deliberate scroll
+      if (!gestureEligible) { showMeter(0); return; }
       showMeter(gestureAccum / NAV_ACCUM);
       if (gestureAccum >= NAV_ACCUM) {
         gestureConsumed = true;
@@ -458,13 +775,9 @@ window.addEventListener(
       return;
     }
 
-    /* OTHER PANELS: allow inner scroll, guard the section change */
     const panel = panels[index];
     const scrollable = panel.scrollHeight - panel.clientHeight > 4;
-    if (scrollable && !atBoundary(dir)) {
-      gestureEligible = false;
-      return; // native inner scroll
-    }
+    if (scrollable && !atBoundary(dir)) { gestureEligible = false; return; }
     e.preventDefault();
     if (gestureConsumed || cooling() || !gestureEligible) return;
     if (gestureAccum >= 90) {
@@ -475,65 +788,70 @@ window.addEventListener(
   { passive: false }
 );
 
-/* ================= TOUCH ================= */
-let startY = 0;
-let startX = 0;
-let lastY = 0;
-let lastX = 0;
-let touchEligibleDown = false;
-let touchEligibleUp = false;
+/* ---- touch ---- */
+const TOUCH_SPEED = 3.4; // mais rápido no mobile (roleta)
+let startY = 0, startX = 0, lastY = 0, lastX = 0, lastT = 0, velocity = 0;
+let touchEligibleDown = false, touchEligibleUp = false;
 
 window.addEventListener("touchstart", (e) => {
-  startY = lastY = e.touches[0].clientY;
-  startX = lastX = e.touches[0].clientX;
+  cancelAnimationFrame(momentumRAF);
+  const tp = e.touches[0];
+  startY = lastY = tp.clientY;
+  startX = lastX = tp.clientX;
+  lastT = performance.now();
+  velocity = 0;
   touchEligibleDown = atBoundary(1);
   touchEligibleUp = atBoundary(-1);
 }, { passive: true });
 
 window.addEventListener("touchmove", (e) => {
-  if (!modal.hidden) return;
-  if (index !== WORK_INDEX) return;
+  if (!modal.hidden || index !== WORK_INDEX) return;
   e.preventDefault();
-  const t = e.touches[0];
-  const dy = lastY - t.clientY;
-  const dx = lastX - t.clientX;
-  lastY = t.clientY;
-  lastX = t.clientX;
-  nudgeTrack((dy + dx) * 2.1);
+  const tp = e.touches[0];
+  const now = performance.now();
+  const dy = lastY - tp.clientY;
+  const dx = lastX - tp.clientX;
+  const delta = (dy + dx) * TOUCH_SPEED;
+  lastY = tp.clientY;
+  lastX = tp.clientX;
+  const dt = Math.max(8, now - lastT);
+  lastT = now;
+  velocity = delta / (dt / 16);
+  trackTarget = Math.max(0, Math.min(trackMax(), trackTarget + delta));
+  track.scrollLeft = trackTarget;
 }, { passive: false });
 
 window.addEventListener("touchend", (e) => {
-  if (!modal.hidden || animating || cooling()) return;
+  if (!modal.hidden) return;
   const dy = startY - e.changedTouches[0].clientY;
   const dx = startX - e.changedTouches[0].clientX;
   const dir = dy > 0 ? 1 : -1;
   const panel = panels[index];
 
-  /* HERO: a simple swipe up advances */
+  if (index === WORK_INDEX) {
+    if (Math.abs(dy) >= 70 && ((dir > 0 && touchEligibleDown) || (dir < 0 && touchEligibleUp)) && !animating && !cooling()) {
+      goTo(index + dir);
+      return;
+    }
+    runMomentum(velocity);
+    if (Math.abs(dy) >= 70 && atBoundary(dir)) showMeter(0);
+    return;
+  }
+
+  if (animating || cooling()) return;
   if (index === HERO_INDEX) {
     if (dir > 0 && dy > 60) goTo(index + 1);
     return;
   }
-
-  if (Math.abs(dy) < 70) return;
-
-  /* WORK: only a swipe that STARTED at the edge navigates */
-  if (index === WORK_INDEX) {
-    if ((dir > 0 && touchEligibleDown) || (dir < 0 && touchEligibleUp)) goTo(index + dir);
-    else showMeter(0);
-    return;
-  }
-
-  if (Math.abs(dx) > Math.abs(dy)) return;
+  if (Math.abs(dy) < 70 || Math.abs(dx) > Math.abs(dy)) return;
   const scrollable = panel.scrollHeight - panel.clientHeight > 4;
-  if (scrollable) {
-    if ((dir > 0 && !touchEligibleDown) || (dir < 0 && !touchEligibleUp)) return;
-  }
+  if (scrollable && ((dir > 0 && !touchEligibleDown) || (dir < 0 && !touchEligibleUp))) return;
   if ((dir > 0 && touchEligibleDown) || (dir < 0 && touchEligibleUp)) goTo(index + dir);
 }, { passive: true });
 
-/* ================= KEYBOARD & NAV ================= */
+/* ---- keyboard & nav ---- */
 document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && langWrap.classList.contains("open")) { closeLang(); return; }
   if (!modal.hidden) {
     if (e.key === "Escape") closeModal();
     if (e.key === "Tab") trapFocus(e);
@@ -551,11 +869,23 @@ document.addEventListener("click", (e) => {
   }
 });
 
-/* ================= FILTERS (same transition language as pages) ================= */
+/* =========================================================
+   10. FILTERS — layout estável
+   ========================================================= */
+let currentFilter = "all";
 let filtering = false;
 
 function stagger(cards) {
   cards.filter((c) => !c.classList.contains("hide")).forEach((c, i) => c.style.setProperty("--i", i % 7));
+}
+function applyFilter(f, silent) {
+  const cards = Array.from(track.querySelectorAll(".card"));
+  cards.forEach((c) => c.classList.toggle("hide", f !== "all" && c.dataset.category !== f));
+  stagger(cards);
+  if (silent) {
+    track.scrollLeft = 0;
+    trackTarget = 0;
+  }
 }
 
 document.querySelectorAll(".filter").forEach((btn) => {
@@ -566,28 +896,23 @@ document.querySelectorAll(".filter").forEach((btn) => {
       b.classList.toggle("is-active", b === btn);
       b.setAttribute("aria-selected", b === btn ? "true" : "false");
     });
-    const f = btn.dataset.filter;
-    const cards = Array.from(track.querySelectorAll(".card"));
+    currentFilter = btn.dataset.filter;
 
     if (REDUCED) {
-      cards.forEach((c) => c.classList.toggle("hide", f !== "all" && c.dataset.category !== f));
-      track.scrollLeft = 0;
-      trackTarget = 0;
+      applyFilter(currentFilter, true);
       filtering = false;
       return;
     }
 
+    const cards = Array.from(track.querySelectorAll(".card"));
     stagger(cards);
-    track.classList.add("leaving"); // current cards exit right
+    track.classList.add("leaving");
     setTimeout(() => {
-      cards.forEach((c) => c.classList.toggle("hide", f !== "all" && c.dataset.category !== f));
-      track.scrollLeft = 0;
-      trackTarget = 0;
-      stagger(cards);
+      applyFilter(currentFilter, true);
       track.classList.remove("leaving");
       track.classList.add("pre");
       void track.offsetWidth;
-      track.classList.add("entering"); // new cards enter from the left
+      track.classList.add("entering");
       track.classList.remove("pre");
       setTimeout(() => {
         track.classList.remove("entering");
@@ -597,7 +922,9 @@ document.querySelectorAll(".filter").forEach((btn) => {
   });
 });
 
-/* ================= MODAL (image + video gallery) ================= */
+/* =========================================================
+   11. MODAL (galeria imagem + vídeo)
+   ========================================================= */
 const refs = {
   eyebrow: document.getElementById("modalEyebrow"),
   title: document.getElementById("modalTitle"),
@@ -612,12 +939,16 @@ const refs = {
 };
 let lastFocused = null;
 let swapTimer = null;
-let currentTitle = "";
+let openProject = null;
+
+const hasLiveLink = (p) => LIVE_LINK_CATEGORIES.includes(p.category) && typeof p.link === "string" && p.link.trim() !== "";
 
 function mediaHTML(item, title) {
-  return item.t === "vid"
-    ? `<video class="g-media" src="${item.src}" controls playsinline preload="metadata"></video>`
-    : `<img class="g-media" src="${item.src}" alt="${title} — project image" decoding="async" />`;
+  if (item.t === "vid") {
+    const poster = item.poster ? ` poster="${item.poster}"` : "";
+    return `<video class="g-media" src="${item.src}" controls playsinline preload="none"${poster}></video>`;
+  }
+  return `<img class="g-media" src="${item.src}" alt="${title}" decoding="async" />`;
 }
 
 function setMainMedia(item) {
@@ -626,25 +957,31 @@ function setMainMedia(item) {
   if (old) old.pause();
   refs.main.classList.add("swapping");
   swapTimer = setTimeout(() => {
-    refs.main.innerHTML = mediaHTML(item, currentTitle);
+    refs.main.innerHTML = mediaHTML(item, openProject ? openProject.title : "");
     requestAnimationFrame(() => refs.main.classList.remove("swapping"));
   }, 220);
 }
 
-function openModal(p) {
-  currentTitle = p.title;
-  refs.eyebrow.textContent = `${CATEGORY_LABELS[p.category]} — ${p.eyebrow}`;
+function fillModal(p) {
+  refs.eyebrow.textContent = `${tx(CAT_LABELS[p.category])} — ${tx(p.eyebrow)}`;
   refs.title.textContent = p.title;
-  refs.desc.textContent = p.description;
+  refs.desc.textContent = tx(p.description);
   refs.tools.innerHTML = p.tools.map(toolHTML).join("");
   refs.date.textContent = p.date;
-  refs.role.textContent = p.role;
-  if (p.link) {
+  refs.role.textContent = tx(p.role);
+
+  if (hasLiveLink(p)) {
     refs.link.href = p.link;
-    refs.link.style.display = "";
+    refs.link.hidden = false;
   } else {
-    refs.link.style.display = "none";
+    refs.link.removeAttribute("href");
+    refs.link.hidden = true;
   }
+}
+
+function openModal(p) {
+  openProject = p;
+  fillModal(p);
 
   refs.main.classList.remove("swapping");
   refs.main.innerHTML = mediaHTML(p.media[0], p.title);
@@ -653,12 +990,11 @@ function openModal(p) {
     .map((m, i) => {
       const inner =
         m.t === "vid"
-          ? `<video src="${m.src}" muted playsinline preload="metadata"></video><span class="play-badge"><i class="fa-solid fa-play" aria-hidden="true"></i></span>`
+          ? `${m.poster ? `<img src="${m.poster}" alt="" loading="lazy" decoding="async" />` : ""}<span class="play-badge"><i class="fa-solid fa-play" aria-hidden="true"></i></span>`
           : `<img src="${m.src}" alt="" loading="lazy" decoding="async" />`;
-      return `<button class="g-thumb${i === 0 ? " is-active" : ""}" data-i="${i}" role="option" aria-selected="${i === 0}" aria-label="Media ${i + 1} of ${p.media.length}">${inner}</button>`;
+      return `<button class="g-thumb${i === 0 ? " is-active" : ""}" data-i="${i}" role="option" aria-selected="${i === 0}" aria-label="${i + 1}/${p.media.length}">${inner}</button>`;
     })
     .join("");
-  refs.thumbs.dataset.project = p.id;
 
   lastFocused = document.activeElement;
   modal.hidden = false;
@@ -675,6 +1011,7 @@ function closeModal() {
     modal.hidden = true;
     refs.main.innerHTML = "";
     refs.thumbs.innerHTML = "";
+    openProject = null;
     if (lastFocused) lastFocused.focus();
   };
   if (REDUCED) done();
@@ -682,7 +1019,8 @@ function closeModal() {
 }
 
 function trapFocus(e) {
-  const focusables = modal.querySelectorAll("button, a[href], video");
+  const focusables = Array.from(modal.querySelectorAll("button, a[href], video")).filter((el) => !el.hidden);
+  if (!focusables.length) return;
   const first = focusables[0];
   const last = focusables[focusables.length - 1];
   if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
@@ -691,15 +1029,13 @@ function trapFocus(e) {
 
 refs.thumbs.addEventListener("click", (e) => {
   const thumb = e.target.closest(".g-thumb");
-  if (!thumb) return;
-  const p = PROJECTS.find((x) => x.id === refs.thumbs.dataset.project);
-  if (!p) return;
-  refs.thumbs.querySelectorAll(".g-thumb").forEach((t) => {
-    const active = t === thumb;
-    t.classList.toggle("is-active", active);
-    t.setAttribute("aria-selected", active ? "true" : "false");
+  if (!thumb || !openProject) return;
+  refs.thumbs.querySelectorAll(".g-thumb").forEach((el) => {
+    const active = el === thumb;
+    el.classList.toggle("is-active", active);
+    el.setAttribute("aria-selected", active ? "true" : "false");
   });
-  setMainMedia(p.media[Number(thumb.dataset.i)]);
+  setMainMedia(openProject.media[Number(thumb.dataset.i)]);
 });
 
 track.addEventListener("click", (e) => {
@@ -713,19 +1049,18 @@ modal.addEventListener("click", (e) => {
   if (e.target.closest("[data-close]")) closeModal();
 });
 
-/* ================= CONTACT TITLE FONT SWAP (touch/keyboard) ================= */
-const swapTitle = document.querySelector(".swap-font");
-if (swapTitle) {
-  swapTitle.addEventListener("click", () => swapTitle.classList.toggle("flip"));
-  swapTitle.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      swapTitle.classList.toggle("flip");
-    }
-  });
+/* =========================================================
+   12. CTA FLIP (toque/teclado — hover é CSS)
+   ========================================================= */
+const ctaFlip = document.getElementById("ctaFlip");
+if (ctaFlip && isTouch) {
+  ctaFlip.addEventListener("touchstart", () => ctaFlip.classList.add("flip"), { passive: true });
+  ctaFlip.addEventListener("touchend", () => setTimeout(() => ctaFlip.classList.remove("flip"), 700), { passive: true });
 }
 
-/* ================= INTRO (rising curtain) ================= */
+/* =========================================================
+   13. INTRO
+   ========================================================= */
 const curtain = document.getElementById("curtain");
 const introLogo = document.getElementById("introLogo");
 const brandImg = document.getElementById("brandImg");
@@ -744,7 +1079,6 @@ function runIntro() {
     finishIntro();
     return;
   }
-
   introLogo.classList.add("pulsing");
 
   setTimeout(() => {
@@ -770,16 +1104,23 @@ function runIntro() {
   }, 2550);
 }
 
+/* =========================================================
+   14. BOOT
+   ========================================================= */
+let stored = null;
+try { stored = localStorage.getItem("gp-lang"); } catch (e) { /* ignore */ }
+setLang(stored && I18N[stored] ? stored : "pt");
+
 window.addEventListener("load", () => {
   if (video) video.play().catch(() => {});
   runIntro();
 });
 
-/* ================= RESIZE ================= */
 let resizeTimer;
 window.addEventListener("resize", () => {
   clearTimeout(resizeTimer);
   resizeTimer = setTimeout(() => {
     trackTarget = Math.min(trackTarget, trackMax());
+    track.scrollLeft = trackTarget;
   }, 150);
 });

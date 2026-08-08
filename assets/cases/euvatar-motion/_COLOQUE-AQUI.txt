@@ -1,0 +1,4 @@
+Coloque nesta pasta os 2 videos pesados, com estes nomes exatos:
+euvatar-motion-01.mp4
+euvatar-motion-02.mp4
+E (opcional, recomendado) uma capa: euvatar-motion-cover.webp
