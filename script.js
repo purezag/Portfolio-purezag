@@ -642,58 +642,108 @@ function goTo(i) {
    ========================================================= */
 let trackTarget = 0;
 let trackRAF = null;
+let dragging = false;
+let momentumRAF = null;
+let snapRAF = null;
 
 const trackMax = () => Math.max(0, track.scrollWidth - track.clientWidth);
 const resetTrack = () => { trackTarget = track.scrollLeft; };
+const clampTrack = (x) => Math.max(0, Math.min(trackMax(), x));
 
+function stopTrackAnims() {
+  cancelAnimationFrame(momentumRAF);
+  cancelAnimationFrame(snapRAF);
+  momentumRAF = null;
+  snapRAF = null;
+}
+
+/* render loop: a posicao real persegue o alvo — nunca escrevemos scrollLeft "seco" */
 function trackLoop() {
   const diff = trackTarget - track.scrollLeft;
-  if (Math.abs(diff) < 0.5) {
+  const ease = dragging ? 0.28 : 0.16;
+  if (!dragging && Math.abs(diff) < 0.4) {
     track.scrollLeft = trackTarget;
     trackRAF = null;
     return;
   }
-  track.scrollLeft += diff * 0.16;
+  track.scrollLeft += diff * ease;
   trackRAF = requestAnimationFrame(trackLoop);
 }
-function nudgeTrack(delta) {
-  trackTarget = Math.max(0, Math.min(trackMax(), trackTarget + delta));
+function startTrackLoop() {
   if (!trackRAF) trackRAF = requestAnimationFrame(trackLoop);
+}
+function nudgeTrack(delta) {
+  trackTarget = clampTrack(trackTarget + delta);
+  startTrackLoop();
 }
 
 function visibleCards() {
   return Array.from(track.querySelectorAll(".card:not(.hide)"));
 }
-function snapTrack() {
+function trackPadLeft() {
+  return parseFloat(getComputedStyle(track).paddingLeft) || 0;
+}
+
+/* alvo de snap: card mais proximo, com leve peso na direcao do movimento */
+function snapPosition(bias) {
   const cards = visibleCards();
-  if (!cards.length) return;
-  const style = getComputedStyle(track);
-  const padLeft = parseFloat(style.paddingLeft) || 0;
-  const target = track.scrollLeft + padLeft;
+  if (!cards.length) return null;
+  const padLeft = trackPadLeft();
+  const ref = trackTarget + padLeft + (bias || 0);
   let best = cards[0].offsetLeft;
   let bestD = Infinity;
   cards.forEach((c) => {
-    const d = Math.abs(c.offsetLeft - target);
+    const d = Math.abs(c.offsetLeft - ref);
     if (d < bestD) { bestD = d; best = c.offsetLeft; }
   });
-  trackTarget = Math.max(0, Math.min(trackMax(), best - padLeft));
-  if (!trackRAF) trackRAF = requestAnimationFrame(trackLoop);
+  return clampTrack(best - padLeft);
 }
 
-/* momentum (mobile) */
-let momentumRAF = null;
-function runMomentum(velocity) {
-  cancelAnimationFrame(momentumRAF);
-  let v = velocity;
-  const step = () => {
-    v *= 0.93;
-    trackTarget = Math.max(0, Math.min(trackMax(), trackTarget + v));
-    track.scrollLeft = trackTarget;
-    if (Math.abs(v) > 0.6) momentumRAF = requestAnimationFrame(step);
-    else snapTrack();
+const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+
+/* snap por tween (nao por lerp) — chegada macia, sem "puxao" no fim */
+function snapTrack(bias, duration) {
+  stopTrackAnims();
+  const to = snapPosition(bias);
+  if (to === null) return;
+  const from = track.scrollLeft;
+  const dist = to - from;
+  const dur = Math.max(240, Math.min(duration || 520, 200 + Math.abs(dist) * 0.6));
+  if (Math.abs(dist) < 1) { trackTarget = to; return; }
+  const t0 = performance.now();
+  const step = (now) => {
+    const p = Math.min(1, (now - t0) / dur);
+    const v = from + dist * easeOutCubic(p);
+    track.scrollLeft = v;
+    trackTarget = v;
+    if (p < 1) snapRAF = requestAnimationFrame(step);
+    else { trackTarget = to; snapRAF = null; }
   };
-  if (Math.abs(v) > 0.6) momentumRAF = requestAnimationFrame(step);
-  else snapTrack();
+  snapRAF = requestAnimationFrame(step);
+}
+
+/* inercia: desacelera com atrito e entrega no snap sem corte */
+function runMomentum(velocity) {
+  stopTrackAnims();
+  let v = velocity;
+  if (Math.abs(v) < 0.8) { snapTrack(0, 420); return; }
+  let projected = trackTarget;
+  const step = () => {
+    v *= 0.945;
+    projected = trackTarget + v;
+    const clamped = clampTrack(projected);
+    /* resistencia elastica ao passar das bordas */
+    if (projected !== clamped) v *= 0.4;
+    trackTarget = clamped;
+    track.scrollLeft = trackTarget;
+    if (Math.abs(v) > 1.1 && trackTarget > 0 && trackTarget < trackMax()) {
+      momentumRAF = requestAnimationFrame(step);
+    } else {
+      momentumRAF = null;
+      snapTrack(v * 6, 480);
+    }
+  };
+  momentumRAF = requestAnimationFrame(step);
 }
 
 /* =========================================================
@@ -789,12 +839,12 @@ window.addEventListener(
 );
 
 /* ---- touch ---- */
-const TOUCH_SPEED = 3.4; // mais rápido no mobile (roleta)
+const TOUCH_SPEED = 1.35;   /* arrasto quase 1:1 no dedo — a suavidade vem do lerp */
+const TOUCH_BOOST = 1.9;    /* ganho aplicado a inercia, nao ao arrasto */
 let startY = 0, startX = 0, lastY = 0, lastX = 0, lastT = 0, velocity = 0;
 let touchEligibleDown = false, touchEligibleUp = false;
 
 window.addEventListener("touchstart", (e) => {
-  cancelAnimationFrame(momentumRAF);
   const tp = e.touches[0];
   startY = lastY = tp.clientY;
   startX = lastX = tp.clientX;
@@ -802,6 +852,12 @@ window.addEventListener("touchstart", (e) => {
   velocity = 0;
   touchEligibleDown = atBoundary(1);
   touchEligibleUp = atBoundary(-1);
+  if (index === WORK_INDEX) {
+    stopTrackAnims();
+    dragging = true;
+    trackTarget = track.scrollLeft;
+    startTrackLoop();
+  }
 }, { passive: true });
 
 window.addEventListener("touchmove", (e) => {
@@ -811,29 +867,47 @@ window.addEventListener("touchmove", (e) => {
   const now = performance.now();
   const dy = lastY - tp.clientY;
   const dx = lastX - tp.clientX;
-  const delta = (dy + dx) * TOUCH_SPEED;
   lastY = tp.clientY;
   lastX = tp.clientX;
+
+  /* o gesto vertical vira horizontal; o horizontal continua valendo */
+  let delta = (dy + dx) * TOUCH_SPEED;
+
+  /* rubber band: alem da borda o conteudo resiste em vez de travar */
+  const next = trackTarget + delta;
+  if (next < 0 || next > trackMax()) delta *= 0.32;
+
+  trackTarget = clampTrack(trackTarget + delta);
+
   const dt = Math.max(8, now - lastT);
   lastT = now;
-  velocity = delta / (dt / 16);
-  trackTarget = Math.max(0, Math.min(trackMax(), trackTarget + delta));
-  track.scrollLeft = trackTarget;
+  /* velocidade suavizada — evita picos de um frame solto */
+  velocity = velocity * 0.7 + (delta / (dt / 16.67)) * 0.3;
+
+  startTrackLoop();
 }, { passive: false });
 
 window.addEventListener("touchend", (e) => {
-  if (!modal.hidden) return;
+  if (!modal.hidden) { dragging = false; return; }
+
   const dy = startY - e.changedTouches[0].clientY;
   const dx = startX - e.changedTouches[0].clientX;
   const dir = dy > 0 ? 1 : -1;
   const panel = panels[index];
 
   if (index === WORK_INDEX) {
-    if (Math.abs(dy) >= 70 && ((dir > 0 && touchEligibleDown) || (dir < 0 && touchEligibleUp)) && !animating && !cooling()) {
+    dragging = false;
+    const wantsSection =
+      Math.abs(dy) >= 70 &&
+      Math.abs(dy) > Math.abs(dx) &&
+      ((dir > 0 && touchEligibleDown) || (dir < 0 && touchEligibleUp));
+
+    if (wantsSection && !animating && !cooling()) {
+      stopTrackAnims();
       goTo(index + dir);
       return;
     }
-    runMomentum(velocity);
+    runMomentum(velocity * TOUCH_BOOST);
     if (Math.abs(dy) >= 70 && atBoundary(dir)) showMeter(0);
     return;
   }
@@ -847,6 +921,13 @@ window.addEventListener("touchend", (e) => {
   const scrollable = panel.scrollHeight - panel.clientHeight > 4;
   if (scrollable && ((dir > 0 && !touchEligibleDown) || (dir < 0 && !touchEligibleUp))) return;
   if ((dir > 0 && touchEligibleDown) || (dir < 0 && touchEligibleUp)) goTo(index + dir);
+}, { passive: true });
+
+window.addEventListener("touchcancel", () => {
+  if (index === WORK_INDEX && dragging) {
+    dragging = false;
+    runMomentum(velocity * TOUCH_BOOST);
+  }
 }, { passive: true });
 
 /* ---- keyboard & nav ---- */
