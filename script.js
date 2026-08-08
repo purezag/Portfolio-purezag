@@ -529,19 +529,21 @@ const toolHTML = (tool) =>
 function renderCards() {
   track.innerHTML = PROJECTS.map(
     (p) => `
-    <button class="card" data-category="${p.category}" data-id="${p.id}" aria-haspopup="dialog" aria-label="${tx(p.eyebrow)} — ${p.title}">
+    <article class="card" data-category="${p.category}" data-id="${p.id}">
       <span class="card-thumb" data-fallback="${p.title.charAt(0)}">
-        <img src="${p.thumb}" alt="${p.title}" loading="lazy" decoding="async" width="370" height="278"
+        <img src="${p.thumb}" alt="${p.title}" loading="lazy" decoding="async" draggable="false" width="370" height="278"
              onerror="this.parentNode.classList.add('no-img')" />
       </span>
       <span class="card-body">
         <span class="card-eyebrow">${tx(p.eyebrow)}</span>
-        <span class="card-title">${p.title}</span>
+        <h3 class="card-title">${p.title}</h3>
         <span class="card-note">${tx(p.note)}</span>
         <span class="card-tools">${p.tools.map(toolHTML).join("")}</span>
-        <span class="card-cta">${t("work.cta")} <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+        <button class="card-cta" type="button" aria-haspopup="dialog" aria-label="${t("work.cta")}: ${p.title}">
+          ${t("work.cta")} <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        </button>
       </span>
-    </button>`
+    </article>`
   ).join("");
   applyFilter(currentFilter, true);
 }
@@ -718,6 +720,8 @@ function snapPosition(bias) {
 }
 
 const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+/* acelera e desacelera como uma mão arrastando o carrossel */
+const easeInOutCubic = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
 /* snap por tween (nao por lerp) — chegada macia, sem "puxao" no fim */
 function snapTrack(bias, duration) {
@@ -768,20 +772,34 @@ function runMomentum(velocity) {
 const trackPrev = document.getElementById("trackPrev");
 const trackNext = document.getElementById("trackNext");
 
+/* quantos cases cabem na tela = tamanho de um "bloco" */
+function cardsPerView(cards) {
+  if (!cards.length) return 1;
+  const w = cards[0].getBoundingClientRect().width + (parseFloat(getComputedStyle(track).columnGap) || 22);
+  return Math.max(1, Math.floor(track.clientWidth / w));
+}
+
 function stepTrack(dir) {
   const cards = visibleCards();
   if (!cards.length) return;
   const padLeft = trackPadLeft();
   const ref = trackTarget + padLeft;
-  let target = null;
-  if (dir > 0) {
-    for (const c of cards) if (c.offsetLeft > ref + 8) { target = c.offsetLeft; break; }
-    if (target === null) target = cards[cards.length - 1].offsetLeft;
-  } else {
-    for (let i = cards.length - 1; i >= 0; i--) if (cards[i].offsetLeft < ref - 8) { target = cards[i].offsetLeft; break; }
-    if (target === null) target = cards[0].offsetLeft;
-  }
-  tweenTrack(clampTrack(target - padLeft), 620);
+
+  /* índice do case atualmente encostado na margem esquerda */
+  let current = 0;
+  let bestD = Infinity;
+  cards.forEach((c, i) => {
+    const d = Math.abs(c.offsetLeft - ref);
+    if (d < bestD) { bestD = d; current = i; }
+  });
+
+  const jump = cardsPerView(cards);
+  const nextIndex = Math.max(0, Math.min(cards.length - 1, current + dir * jump));
+  const to = clampTrack(cards[nextIndex].offsetLeft - padLeft);
+  const distance = Math.abs(to - track.scrollLeft);
+
+  /* duração proporcional: sensação de arrasto contínuo, não de salto */
+  tweenTrack(to, Math.max(620, Math.min(1250, 420 + distance * 0.55)));
 }
 
 function tweenTrack(to, duration) {
@@ -792,7 +810,7 @@ function tweenTrack(to, duration) {
   const t0 = performance.now();
   const step = (now) => {
     const pr = Math.min(1, (now - t0) / duration);
-    const v = from + dist * easeOutCubic(pr);
+    const v = from + dist * easeInOutCubic(pr);
     track.scrollLeft = v;
     trackTarget = v;
     if (pr < 1) snapRAF = requestAnimationFrame(step);
@@ -818,6 +836,8 @@ let suppressCardClick = false;
 
 track.addEventListener("pointerdown", (e) => {
   if (e.pointerType !== "mouse" || e.button !== 0) return;
+  if (e.target.closest(".card-cta")) return;   /* o botão precisa receber o clique */
+  e.preventDefault();                          /* evita o drag nativo de imagem */
   stopTrackAnims();
   pointerDragging = true;
   pointerMoved = 0;
@@ -1227,9 +1247,12 @@ refs.thumbs.addEventListener("click", (e) => {
   setMainMedia(openProject.media[Number(thumb.dataset.i)]);
 });
 
+/* o modal abre apenas pelo botão "Ver case" — o resto do card é área de arraste */
 track.addEventListener("click", (e) => {
+  const cta = e.target.closest(".card-cta");
+  if (!cta) return;
   if (suppressCardClick) { e.preventDefault(); return; }
-  const card = e.target.closest(".card");
+  const card = cta.closest(".card");
   if (!card) return;
   const project = PROJECTS.find((p) => p.id === card.dataset.id);
   if (project) openModal(project);
