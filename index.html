@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -46,14 +46,14 @@
 
     <div class="lang" id="lang">
       <div class="lang-drawer" id="langDrawer" role="listbox" data-i18n-aria="lang.listAria" aria-label="Selecionar idioma" hidden>
-        <button class="lang-opt is-active" role="option" aria-selected="true" data-lang="pt">
-          <span class="fi fi-br" aria-hidden="true"></span><span class="lang-name">Português</span>
+        <button class="lang-opt" role="option" aria-selected="false" data-lang="pt" aria-label="Português" title="Português">
+          <span class="fi fi-br" aria-hidden="true"></span>
         </button>
-        <button class="lang-opt" role="option" aria-selected="false" data-lang="en">
-          <span class="fi fi-us" aria-hidden="true"></span><span class="lang-name">English</span>
+        <button class="lang-opt is-active" role="option" aria-selected="true" data-lang="en" aria-label="English" title="English">
+          <span class="fi fi-us" aria-hidden="true"></span>
         </button>
-        <button class="lang-opt" role="option" aria-selected="false" data-lang="es">
-          <span class="fi fi-es" aria-hidden="true"></span><span class="lang-name">Español</span>
+        <button class="lang-opt" role="option" aria-selected="false" data-lang="es" aria-label="Español" title="Español">
+          <span class="fi fi-es" aria-hidden="true"></span>
         </button>
       </div>
       <button class="lang-btn" id="langBtn" aria-haspopup="listbox" aria-expanded="false" aria-controls="langDrawer" data-i18n-aria="lang.btnAria" aria-label="Idioma">
@@ -91,10 +91,20 @@
           <div class="track reveal" id="workTrack" style="--d:.22s" tabindex="0" data-i18n-aria="work.trackAria" aria-label="Projetos, role para navegar"></div>
         </div>
 
-        <p class="track-hint reveal shell" style="--d:.3s">
-          <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-          <span data-i18n="work.hint">Role para explorar os cases</span>
-        </p>
+        <div class="track-bar reveal shell" style="--d:.3s">
+          <p class="track-hint">
+            <i class="fa-regular fa-hand" aria-hidden="true"></i>
+            <span data-i18n="work.hint">Arraste ou use as setas</span>
+          </p>
+          <div class="track-nav">
+            <button class="track-btn" id="trackPrev" data-i18n-aria="work.prevAria" aria-label="Case anterior" aria-controls="workTrack">
+              <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+            </button>
+            <button class="track-btn" id="trackNext" data-i18n-aria="work.nextAria" aria-label="Próximo case" aria-controls="workTrack">
+              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
       </div>
     </section>
 

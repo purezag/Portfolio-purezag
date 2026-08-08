@@ -11,7 +11,8 @@ const I18N = {
     "hero.aria": "Introdução",
     "work.eyebrow": "Trabalhos selecionados", "work.title": "<em class='serif'>Work</em>space",
     "work.all": "Todos", "work.web": "Web & Interface", "work.design": "Design", "work.motion": "Motion",
-    "work.hint": "Role para explorar os cases", "work.filterAria": "Filtrar projetos",
+    "work.hint": "Arraste ou use as setas", "work.filterAria": "Filtrar projetos",
+    "work.prevAria": "Case anterior", "work.nextAria": "Próximo case",
     "work.trackAria": "Projetos, role para navegar", "work.cta": "Ver case",
     "about.eyebrow": "Sobre",
     "about.statement": "Eu <em class='serif'>desenho</em> interfaces<br />&amp; <em class='serif'>construo</em> o código<br />por trás delas.",
@@ -34,7 +35,8 @@ const I18N = {
     "hero.aria": "Introduction",
     "work.eyebrow": "Selected work", "work.title": "<em class='serif'>Work</em>space",
     "work.all": "All", "work.web": "Web & Interface", "work.design": "Design", "work.motion": "Motion",
-    "work.hint": "Scroll to explore cases", "work.filterAria": "Filter projects",
+    "work.hint": "Drag or use the arrows", "work.filterAria": "Filter projects",
+    "work.prevAria": "Previous case", "work.nextAria": "Next case",
     "work.trackAria": "Projects, scroll to browse", "work.cta": "View case",
     "about.eyebrow": "About",
     "about.statement": "I <em class='serif'>design</em> interfaces<br />&amp; <em class='serif'>build</em> the code<br />behind them.",
@@ -57,7 +59,8 @@ const I18N = {
     "hero.aria": "Introducción",
     "work.eyebrow": "Trabajos seleccionados", "work.title": "<em class='serif'>Work</em>space",
     "work.all": "Todos", "work.web": "Web e Interfaz", "work.design": "Diseño", "work.motion": "Motion",
-    "work.hint": "Desplaza para explorar los casos", "work.filterAria": "Filtrar proyectos",
+    "work.hint": "Arrastra o usa las flechas", "work.filterAria": "Filtrar proyectos",
+    "work.prevAria": "Caso anterior", "work.nextAria": "Siguiente caso",
     "work.trackAria": "Proyectos, desplaza para navegar", "work.cta": "Ver caso",
     "about.eyebrow": "Sobre mí",
     "about.statement": "Yo <em class='serif'>diseño</em> interfaces<br />y <em class='serif'>construyo</em> el código<br />detrás de ellas.",
@@ -76,7 +79,8 @@ const I18N = {
 };
 
 const LANG_HTML = { pt: "pt-BR", en: "en", es: "es" };
-let LANG = "pt";
+const DEFAULT_LANG = "en";   /* idioma padrão a cada carregamento */
+let LANG = DEFAULT_LANG;
 const t = (key) => (I18N[LANG] && I18N[LANG][key]) || I18N.pt[key] || "";
 const tx = (obj) => (obj ? obj[LANG] || obj.pt : "");
 
@@ -89,6 +93,19 @@ const CAT_LABELS = {
   motion: { pt: "Motion", en: "Motion", es: "Motion" },
 };
 const LIVE_LINK_CATEGORIES = ["web", "interface"]; // regra do botão "Ver projeto online"
+
+/* ---------------------------------------------------------
+   URLs dos projetos online — PREENCHA AQUI.
+   Todo case de web/interface com URL aqui exibe o botão
+   "Ver projeto online". Deixe "" para esconder o botão.
+   --------------------------------------------------------- */
+const CASE_LINKS = {
+  "laboratorio-criativo": "https://www.laboratoriocriativo.com",
+  "euvatar-institucional": "https://www.euvatar.com.br",
+  "euvatar-landing": "",
+  "colonial-site": "",
+  "super-tratores-site": "",
+};
 
 const C = "./assets/cases";
 const im = (s) => ({ t: "img", src: s });
@@ -541,7 +558,6 @@ function applyI18n() {
 function setLang(lang) {
   if (!I18N[lang]) return;
   LANG = lang;
-  try { localStorage.setItem("gp-lang", lang); } catch (e) { /* ignore */ }
   document.querySelectorAll(".lang-opt").forEach((b) => {
     const active = b.dataset.lang === lang;
     b.classList.toggle("is-active", active);
@@ -575,8 +591,10 @@ langBtn.addEventListener("click", (e) => {
 langDrawer.addEventListener("click", (e) => {
   const opt = e.target.closest(".lang-opt");
   if (!opt) return;
-  setLang(opt.dataset.lang);
-  closeLang();
+  const lang = opt.dataset.lang;
+  if (lang === LANG || replaying) { closeLang(); return; }
+  closeLang();                                  /* gaveta desce suave... */
+  setTimeout(() => replayIntro(lang), 340);     /* ...e o preloader assume */
 });
 document.addEventListener("pointerdown", (e) => {
   if (langWrap.classList.contains("open") && !langWrap.contains(e.target)) closeLang();
@@ -717,7 +735,7 @@ function snapTrack(bias, duration) {
     track.scrollLeft = v;
     trackTarget = v;
     if (p < 1) snapRAF = requestAnimationFrame(step);
-    else { trackTarget = to; snapRAF = null; }
+    else { trackTarget = to; snapRAF = null; updateTrackButtons(); }
   };
   snapRAF = requestAnimationFrame(step);
 }
@@ -745,6 +763,94 @@ function runMomentum(velocity) {
   };
   momentumRAF = requestAnimationFrame(step);
 }
+
+/* ---- setas + arrasto com o mouse (desktop) ---- */
+const trackPrev = document.getElementById("trackPrev");
+const trackNext = document.getElementById("trackNext");
+
+function stepTrack(dir) {
+  const cards = visibleCards();
+  if (!cards.length) return;
+  const padLeft = trackPadLeft();
+  const ref = trackTarget + padLeft;
+  let target = null;
+  if (dir > 0) {
+    for (const c of cards) if (c.offsetLeft > ref + 8) { target = c.offsetLeft; break; }
+    if (target === null) target = cards[cards.length - 1].offsetLeft;
+  } else {
+    for (let i = cards.length - 1; i >= 0; i--) if (cards[i].offsetLeft < ref - 8) { target = cards[i].offsetLeft; break; }
+    if (target === null) target = cards[0].offsetLeft;
+  }
+  tweenTrack(clampTrack(target - padLeft), 620);
+}
+
+function tweenTrack(to, duration) {
+  stopTrackAnims();
+  const from = track.scrollLeft;
+  const dist = to - from;
+  if (Math.abs(dist) < 1) { trackTarget = to; updateTrackButtons(); return; }
+  const t0 = performance.now();
+  const step = (now) => {
+    const pr = Math.min(1, (now - t0) / duration);
+    const v = from + dist * easeOutCubic(pr);
+    track.scrollLeft = v;
+    trackTarget = v;
+    if (pr < 1) snapRAF = requestAnimationFrame(step);
+    else { trackTarget = to; snapRAF = null; updateTrackButtons(); }
+  };
+  snapRAF = requestAnimationFrame(step);
+}
+
+function updateTrackButtons() {
+  if (!trackPrev || !trackNext) return;
+  const max = trackMax();
+  trackPrev.disabled = track.scrollLeft <= 2;
+  trackNext.disabled = track.scrollLeft >= max - 2;
+}
+track.addEventListener("scroll", updateTrackButtons, { passive: true });
+if (trackPrev) trackPrev.addEventListener("click", () => stepTrack(-1));
+if (trackNext) trackNext.addEventListener("click", () => stepTrack(1));
+
+/* arrasto com a mão no desktop */
+let pointerDragging = false;
+let pointerMoved = 0;
+let suppressCardClick = false;
+
+track.addEventListener("pointerdown", (e) => {
+  if (e.pointerType !== "mouse" || e.button !== 0) return;
+  stopTrackAnims();
+  pointerDragging = true;
+  pointerMoved = 0;
+  velocity = 0;
+  dragging = true;
+  trackTarget = track.scrollLeft;
+  track.classList.add("dragging");
+  track.setPointerCapture(e.pointerId);
+  startTrackLoop();
+});
+
+track.addEventListener("pointermove", (e) => {
+  if (!pointerDragging) return;
+  const delta = -e.movementX * 1.15;
+  pointerMoved += Math.abs(e.movementX);
+  trackTarget = clampTrack(trackTarget + delta);
+  velocity = velocity * 0.7 + delta * 0.3;
+  startTrackLoop();
+});
+
+function endPointerDrag(e) {
+  if (!pointerDragging) return;
+  pointerDragging = false;
+  dragging = false;
+  track.classList.remove("dragging");
+  if (e && track.hasPointerCapture && track.hasPointerCapture(e.pointerId)) track.releasePointerCapture(e.pointerId);
+  suppressCardClick = pointerMoved > 6;
+  runMomentum(velocity * 1.6);
+  setTimeout(() => { suppressCardClick = false; }, 60);
+}
+track.addEventListener("pointerup", endPointerDrag);
+track.addEventListener("pointercancel", endPointerDrag);
+track.addEventListener("pointerleave", endPointerDrag);
 
 /* =========================================================
    8. EDGE METER
@@ -967,6 +1073,7 @@ function applyFilter(f, silent) {
     track.scrollLeft = 0;
     trackTarget = 0;
   }
+  requestAnimationFrame(updateTrackButtons);
 }
 
 document.querySelectorAll(".filter").forEach((btn) => {
@@ -1022,7 +1129,8 @@ let lastFocused = null;
 let swapTimer = null;
 let openProject = null;
 
-const hasLiveLink = (p) => LIVE_LINK_CATEGORIES.includes(p.category) && typeof p.link === "string" && p.link.trim() !== "";
+const caseLink = (p) => (CASE_LINKS[p.id] || p.link || "").trim();
+const hasLiveLink = (p) => LIVE_LINK_CATEGORIES.includes(p.category) && caseLink(p) !== "";
 
 function mediaHTML(item, title) {
   if (item.t === "vid") {
@@ -1052,7 +1160,7 @@ function fillModal(p) {
   refs.role.textContent = tx(p.role);
 
   if (hasLiveLink(p)) {
-    refs.link.href = p.link;
+    refs.link.href = caseLink(p);
     refs.link.hidden = false;
   } else {
     refs.link.removeAttribute("href");
@@ -1120,6 +1228,7 @@ refs.thumbs.addEventListener("click", (e) => {
 });
 
 track.addEventListener("click", (e) => {
+  if (suppressCardClick) { e.preventDefault(); return; }
   const card = e.target.closest(".card");
   if (!card) return;
   const project = PROJECTS.find((p) => p.id === card.dataset.id);
@@ -1153,24 +1262,32 @@ function finishIntro() {
   document.body.classList.add("ready");
 }
 
-function runIntro() {
+let replaying = false;
+
+function runIntro(short) {
   if (REDUCED) {
     panels[0].classList.add("is-active");
     syncChrome(0);
     finishIntro();
+    replaying = false;
     return;
   }
-  introLogo.classList.add("pulsing");
+
+  const T = short
+    ? { hold: 320, curtain: 320, panel: 900, logo: 1100 }
+    : { hold: 1800, curtain: 1800, panel: 2350, logo: 2550 };
+
+  if (!short) introLogo.classList.add("pulsing");
 
   setTimeout(() => {
     introLogo.classList.remove("pulsing");
     curtain.classList.add("up");
-  }, 1800);
+  }, T.curtain);
 
   setTimeout(() => {
     panels[0].classList.add("is-active");
     syncChrome(0);
-  }, 2350);
+  }, T.panel);
 
   setTimeout(() => {
     const from = introLogo.getBoundingClientRect();
@@ -1180,17 +1297,44 @@ function runIntro() {
     const scale = to.width / from.width;
     introLogo.classList.add("fly");
     introLogo.style.transform = `translate(${dx}px, ${dy}px) scale(${scale})`;
-    introLogo.addEventListener("transitionend", finishIntro, { once: true });
-    setTimeout(finishIntro, 1300);
-  }, 2550);
+    introLogo.addEventListener("transitionend", () => { finishIntro(); replaying = false; }, { once: true });
+    setTimeout(() => { finishIntro(); replaying = false; }, 1300);
+  }, T.logo);
+}
+
+/* troca de idioma: cortina desce, idioma troca atrás dela, cortina sobe de novo */
+function replayIntro(lang) {
+  if (replaying) return;
+  if (REDUCED) { setLang(lang); return; }
+  replaying = true;
+
+  stopTrackAnims();
+  if (!modal.hidden) closeModal();
+
+  curtain.classList.remove("gone", "up");
+  introLogo.classList.remove("gone", "fly");
+  introLogo.style.transform = "";
+  document.body.classList.remove("ready");
+  document.body.classList.add("intro");
+  void curtain.offsetWidth;
+  curtain.classList.add("down");
+
+  setTimeout(() => {
+    setLang(lang);                       /* tudo trocado atrás da cortina */
+    panels.forEach((pl) => pl.classList.remove("is-active", "is-leaving"));
+    index = 0;
+    animating = false;
+    syncChrome(0);
+    curtain.classList.remove("down");
+    void curtain.offsetWidth;
+    runIntro(true);
+  }, 780);
 }
 
 /* =========================================================
    14. BOOT
    ========================================================= */
-let stored = null;
-try { stored = localStorage.getItem("gp-lang"); } catch (e) { /* ignore */ }
-setLang(stored && I18N[stored] ? stored : "pt");
+setLang(DEFAULT_LANG);   /* sempre volta ao padrão a cada F5 */
 
 window.addEventListener("load", () => {
   if (video) video.play().catch(() => {});
