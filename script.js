@@ -376,31 +376,7 @@ const PROJECTS = [
   },
 
   /* ---------------- MOTION ---------------- */
-  {
-    id: "euvatar-motion",
-    category: "motion",
-    title: "Euvatar — Design & Motion",
-    eyebrow: { pt: "Motion · Produção audiovisual", en: "Motion · Audiovisual production", es: "Motion · Producción audiovisual" },
-    note: {
-      pt: "Peças audiovisuais de marca — produção de motion para a Euvatar.",
-      en: "Audiovisual brand pieces — motion production for Euvatar.",
-      es: "Piezas audiovisuales de marca — producción de motion para Euvatar.",
-    },
-    description: {
-      pt: "Produção audiovisual de marca: peças em motion com tratamento de imagem, edição rítmica e integração entre filmagem e visuais gerados por IA.\n\nProjeto da Euvatar, agência onde atuo hoje. O crédito criativo é integralmente da Euvatar — meu papel foi a execução.",
-      en: "Audiovisual brand production: motion pieces with image treatment, rhythm-driven editing and integration between footage and AI-generated visuals.\n\nA Euvatar project — the agency I currently work for. Full creative credit goes to Euvatar; my role was execution.",
-      es: "Producción audiovisual de marca: piezas en motion con tratamiento de imagen, edición rítmica e integración entre filmación y visuales generados con IA.\n\nProyecto de Euvatar, la agencia donde trabajo actualmente. El crédito creativo es totalmente de Euvatar; mi rol fue la ejecución.",
-    },
-    // capa opcional — se o arquivo não existir, o card mostra um placeholder elegante
-    thumb: `${C}/euvatar-motion/euvatar-motion-cover.webp`,
-    media: [
-      vd(`${C}/euvatar-motion/euvatar-motion-01.mp4`, `${C}/euvatar-motion/euvatar-motion-cover.webp`),
-      vd(`${C}/euvatar-motion/euvatar-motion-02.mp4`, `${C}/euvatar-motion/euvatar-motion-cover.webp`),
-    ],
-    tools: ["devicon-photoshop-plain", "devicon-premierepro-plain", "CapCut", "OpenAI", "Kling AI"],
-    date: "2025",
-    role: { pt: "Edição & motion", en: "Edit & motion", es: "Edición y motion" },
-  },
+  
   {
     id: "sebrae",
     category: "motion",
