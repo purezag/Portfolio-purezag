@@ -101,10 +101,10 @@ const LIVE_LINK_CATEGORIES = ["web", "interface"]; // regra do botão "Ver proje
    --------------------------------------------------------- */
 const CASE_LINKS = {
   "laboratorio-criativo": "https://www.laboratoriocriativo.com",
-  "euvatar-institucional": "https://www.euvatar.com.br",
-  "euvatar-landing": "",
+  "euvatar-institucional": "https://euvatar-web.vercel.app/",
+  "euvatar-landing": "https://videos-todos.vercel.app/",
   "colonial-site": "",
-  "super-tratores-site": "",
+  "super-tratores-site": "https://super-tratores.vercel.app/",
 };
 
 const C = "./assets/cases";
