@@ -426,31 +426,7 @@ const PROJECTS = [
     date: "2025",
     role: { pt: "Edição & refinamento do personagem", en: "Editing & character refinement", es: "Edición y refinamiento del personaje" },
   },
-  {
-    id: "personal-luan",
-    category: "motion",
-    title: "Personal Luan",
-    eyebrow: { pt: "Reels · Redes sociais", en: "Reels · Social media", es: "Reels · Redes sociales" },
-    note: {
-      pt: "Reels e peças de consultoria fitness com edição de ritmo acelerado.",
-      en: "Fitness coaching reels and pieces with fast-paced editing.",
-      es: "Reels y piezas de consultoría fitness con edición de ritmo acelerado.",
-    },
-    description: {
-      pt: "Produção de reels e peças para redes sociais de um personal trainer: cortes dinâmicos, edição guiada por ritmo, iluminação em neon e tipografia de impacto para prender a atenção no feed.",
-      en: "Reels and social media pieces for a personal trainer: dynamic cuts, rhythm-driven editing, neon lighting and impactful typography built to hold attention in the feed.",
-      es: "Producción de reels y piezas para redes sociales de un personal trainer: cortes dinámicos, edición guiada por ritmo, iluminación neón y tipografía de impacto para captar la atención en el feed.",
-    },
-    thumb: `${C}/personal-luan/personal-luan-cover.webp`,
-    media: [
-      vd(`${C}/personal-luan/personal-luan-video-01.mp4`, `${C}/personal-luan/personal-luan-cover.webp`),
-      vd(`${C}/personal-luan/personal-luan-video-02.mp4`, `${C}/personal-luan/personal-luan-cover.webp`),
-      ...imgs("personal-luan", "personal-luan", 5),
-    ],
-    tools: ["devicon-photoshop-plain", "devicon-premierepro-plain", "CapCut"],
-    date: "2025",
-    role: { pt: "Design, edição & motion", en: "Design, edit & motion", es: "Diseño, edición y motion" },
-  },
+  
   {
     id: "rughor",
     category: "motion",
