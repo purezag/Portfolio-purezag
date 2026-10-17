@@ -61,13 +61,11 @@ const pt = {
   },
   about: {
     eyebrow: "Sobre",
-    statement: "Desenho, programo e lanço.",
+    statement: "Design e código.",
     bio: [
-      "Sou desenvolvedor front-end e designer de UI/UX. Crio interfaces para sites, aplicativos e sistemas: desenho as telas, escrevo o código e coloco no ar.",
-      "Meu foco é front-end e UI/UX, com React, React Native, Next.js e TypeScript. Também trabalho no back-end, com APIs e banco de dados, então consigo levar um projeto do começo ao fim.",
+      "Desenvolvedor front-end e designer de UI/UX. Crio interfaces para sites, aplicativos e sistemas — desenho, programo e lanço.",
+      "Trabalho principalmente com React, React Native, Next.js e TypeScript, e também atuo no back-end.",
     ],
-    services: ["Sites e landing pages", "E-commerce", "Sistemas web", "Aplicativos mobile"],
-    servicesLabel: "O que eu entrego",
     stack: "Stack",
     profile: {
       role: "front-end & ui/ux",
@@ -152,13 +150,11 @@ const en: Dictionary = {
   },
   about: {
     eyebrow: "About",
-    statement: "I design, code and ship.",
+    statement: "Design and code.",
     bio: [
-      "I'm a front-end developer and UI/UX designer. I build interfaces for websites, apps and systems: I design the screens, write the code and ship it.",
-      "My focus is front-end and UI/UX, with React, React Native, Next.js and TypeScript. I also work on the back-end, with APIs and databases, so I can take a project from start to finish.",
+      "Front-end developer and UI/UX designer. I build interfaces for websites, apps and systems — I design, code and ship.",
+      "I work mainly with React, React Native, Next.js and TypeScript, and also on the back-end.",
     ],
-    services: ["Websites & landing pages", "E-commerce", "Web systems", "Mobile apps"],
-    servicesLabel: "What I deliver",
     stack: "Stack",
     profile: {
       role: "front-end & ui/ux",

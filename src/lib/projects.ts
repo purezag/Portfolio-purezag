@@ -31,7 +31,7 @@ export const projects: Project[] = [
     type: { pt: "E-commerce", en: "E-commerce" },
     year: "2025",
     role: { pt: "Desenvolvimento", en: "Development" },
-    stack: ["WordPress", "HTML", "CSS", "JavaScript"],
+    stack: ["WordPress", "WooCommerce", "HTML", "CSS", "JavaScript"],
     url: "https://www.laboratoriocriativo.com",
     summary: {
       pt: "E-commerce completo em WordPress, da interface ao checkout.",
@@ -140,7 +140,7 @@ export const projects: Project[] = [
     type: { pt: "Site institucional", en: "Institutional website" },
     year: "2025",
     role: { pt: "Front-end", en: "Front-end" },
-    stack: ["Vite", "Tailwind CSS", "JavaScript"],
+    stack: ["React", "Vite", "Tailwind CSS", "Framer Motion"],
     url: "https://euvatar-web.vercel.app/",
     summary: {
       pt: "Site institucional em stack moderna, com build otimizado e componentes reutilizáveis.",
@@ -191,7 +191,7 @@ export const projects: Project[] = [
     type: { pt: "Site institucional · proposta", en: "Institutional website · proposal" },
     year: "2026",
     role: { pt: "Design & desenvolvimento", en: "Design & development" },
-    stack: ["React", "Next.js", "Tailwind CSS", "Motion", "GSAP", "Lenis"],
+    stack: ["Next.js", "React", "Tailwind CSS", "Framer Motion", "GSAP", "Lenis"],
     url: "https://montebello-xi.vercel.app/",
     summary: {
       pt: "Proposta de site para uma construtora de alto padrão de Torres/RS.",
@@ -286,14 +286,18 @@ export const stack = [
   "React",
   "Next.js",
   "React Native",
+  "Expo",
+  "Vite",
   "Tailwind CSS",
-  "Motion",
+  "Framer Motion",
   "GSAP",
   "Lenis",
-  "Vite",
+  "Supabase",
+  "PostgreSQL",
   "WordPress",
+  "WooCommerce",
   "Git",
-  "SQL",
+  "Vercel",
 ];
 
 export const socials = [

@@ -1,6 +1,6 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { Fragment, type ReactNode } from "react";
 import { PixelPortrait } from "@/components/portrait/portraits";
 import { FadeIn, SectionTag } from "@/components/reveal";
 import { VelocityMarquee } from "@/components/velocity-marquee";
@@ -15,10 +15,30 @@ export function About() {
   const { t } = useApp();
   const profile = t.about.profile;
 
-  const lines: [string, string][] = [
-    ["role", profile.role],
-    ["focus", profile.focus],
-    ["base", profile.base],
+  const rows: { indent: number; content: ReactNode }[] = [
+    { indent: 0, content: <><span className="text-muted">export const</span> gui <span className="text-muted">=</span> {"{"}</> },
+    ...(["role", "focus", "base"] as const).map((key) => ({
+      indent: 1,
+      content: <><span className="text-muted">{key}:</span> &quot;{profile[key]}&quot;,</>,
+    })),
+    { indent: 1, content: <><span className="text-muted">stack:</span> [</> },
+    {
+      indent: 2,
+      content: stack.map((item, i) => (
+        <Fragment key={item}>
+          <span className="whitespace-nowrap">
+            &quot;{item}&quot;{i < stack.length - 1 ? "," : ""}
+          </span>
+          {i < stack.length - 1 ? " " : ""}
+        </Fragment>
+      )),
+    },
+    { indent: 1, content: "]," },
+    { indent: 1, content: <><span className="text-muted">languages:</span> [</> },
+    ...profile.languages.map((language) => ({ indent: 2, content: `"${language}",` })),
+    { indent: 1, content: "]," },
+    { indent: 1, content: <><span className="text-muted">available:</span> <span className="text-signal">true</span>,</> },
+    { indent: 0, content: "};" },
   ];
 
   return (
@@ -63,17 +83,6 @@ export function About() {
               <p key={paragraph}>{paragraph}</p>
             ))}
           </FadeIn>
-          <FadeIn inView delay={0.18} className="flex flex-col gap-4">
-            <span className="mono-label text-faint">{t.about.servicesLabel}</span>
-            <ul className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line">
-              {t.about.services.map((service, index) => (
-                <li key={service} className="flex items-center gap-3 bg-bg px-4 py-4 text-[15px] font-medium tracking-[-0.02em]">
-                  <span className="mono-label text-faint">0{index + 1}</span>
-                  {service}
-                </li>
-              ))}
-            </ul>
-          </FadeIn>
           <FadeIn inView delay={0.2}>
             <div className="overflow-hidden rounded-2xl border border-line bg-surface">
               <div className="flex items-center gap-1.5 border-b border-line px-4 py-3">
@@ -82,36 +91,13 @@ export function About() {
                 <span className="size-2 rounded-full bg-line-strong" />
                 <span className="mono-label ml-3 text-faint normal-case">about.ts</span>
               </div>
-              <pre className="no-scrollbar overflow-x-auto p-4 font-mono text-[12.5px] leading-[1.75] md:p-5 md:text-[13px]">
+              <pre className="p-4 font-mono text-[12.5px] leading-[1.75] md:p-5 md:text-[13px]">
                 <code>
-                  <Line n={1}>
-                    <span className="text-muted">export const</span> gui <span className="text-muted">=</span> {"{"}
-                  </Line>
-                  {lines.map(([key, value], i) => (
-                    <Line key={key} n={i + 2}>
-                      {"  "}
-                      <span className="text-muted">{key}:</span> <span>&quot;{value}&quot;</span>,
+                  {rows.map((row, i) => (
+                    <Line key={i} n={i + 1} indent={row.indent}>
+                      {row.content}
                     </Line>
                   ))}
-                  <Line n={lines.length + 2}>
-                    {"  "}
-                    <span className="text-muted">stack:</span> [&quot;React&quot;, &quot;React Native&quot;, &quot;Next.js&quot;, &quot;TypeScript&quot;],
-                  </Line>
-                  <Line n={lines.length + 3}>
-                    {"  "}
-                    <span className="text-muted">languages:</span> [
-                  </Line>
-                  {profile.languages.map((language, i) => (
-                    <Line key={language} n={lines.length + 4 + i}>
-                      {"    "}&quot;{language}&quot;,
-                    </Line>
-                  ))}
-                  <Line n={lines.length + 4 + profile.languages.length}>{"  ],"}</Line>
-                  <Line n={lines.length + 5 + profile.languages.length}>
-                    {"  "}
-                    <span className="text-muted">available:</span> <span className="text-signal">true</span>,
-                  </Line>
-                  <Line n={lines.length + 6 + profile.languages.length}>{"};"}</Line>
                 </code>
               </pre>
             </div>
@@ -137,11 +123,13 @@ export function About() {
   );
 }
 
-function Line({ n, children }: { n: number; children: ReactNode }) {
+function Line({ n, indent, children }: { n: number; indent: number; children: ReactNode }) {
   return (
-    <span className="block">
-      <span className="mr-4 inline-block w-4 select-none text-right text-faint">{n}</span>
-      {children}
+    <span className="flex">
+      <span className="mr-4 w-5 shrink-0 select-none text-right text-faint">{n}</span>
+      <span className="min-w-0 flex-1 whitespace-pre-wrap break-words" style={{ paddingLeft: `${indent * 2}ch` }}>
+        {children}
+      </span>
     </span>
   );
 }
