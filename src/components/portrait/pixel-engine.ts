@@ -1,6 +1,6 @@
 import {
   DPR_CAP,
-  coverCenter,
+  containBottom,
   coord,
   drawReticle,
   observeTheme,
@@ -19,6 +19,7 @@ type Options = {
 export class PixelEngine {
   private ctx: CanvasRenderingContext2D;
   private source: HTMLCanvasElement = document.createElement("canvas");
+  private coarse = window.matchMedia("(pointer: coarse)").matches;
   private pointer: Pointer = { x: 0, y: 0, inside: false, lastMove: 0 };
   private width = 0;
   private height = 0;
@@ -82,28 +83,33 @@ export class PixelEngine {
     if (!width || !height) return;
     this.width = width;
     this.height = height;
-    this.dpr = Math.min(window.devicePixelRatio || 1, DPR_CAP);
+    this.dpr = Math.min(window.devicePixelRatio || 1, this.coarse ? 1.5 : DPR_CAP);
     canvas.width = Math.round(width * this.dpr);
     canvas.height = Math.round(height * this.dpr);
     this.source.width = canvas.width;
     this.source.height = canvas.height;
-    const fit = coverCenter(width, height, options.image);
-    const sourceCtx = this.source.getContext("2d", { willReadFrequently: true })!;
+    const fit = containBottom(width, height, options.image, 1.04);
+    const sourceCtx = this.source.getContext("2d")!;
     sourceCtx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
     sourceCtx.drawImage(options.image, fit.x, fit.y, fit.w, fit.h);
 
-    this.cell = width < 480 ? 9 : 8;
+    this.cell = this.coarse ? 14 : width < 480 ? 9 : 8;
     const cols = Math.ceil(width / this.cell);
     const rows = Math.ceil(height / this.cell);
-    const sw = this.source.width;
-    const sh = this.source.height;
-    const pixels = sourceCtx.getImageData(0, 0, sw, sh).data;
-    const span = this.cell * this.dpr;
+    const probe = document.createElement("canvas");
+    probe.width = cols * 4;
+    probe.height = rows * 4;
+    const probeCtx = probe.getContext("2d", { willReadFrequently: true })!;
+    probeCtx.drawImage(options.image, (fit.x / width) * probe.width, (fit.y / height) * probe.height, (fit.w / width) * probe.width, (fit.h / height) * probe.height);
+    const sw = probe.width;
+    const sh = probe.height;
+    const pixels = probeCtx.getImageData(0, 0, sw, sh).data;
+    const span = 4;
     const covered = (col: number, row: number) => {
       for (let iy = 0; iy < 4; iy++) {
         for (let ix = 0; ix < 4; ix++) {
-          const x = Math.min(sw - 1, Math.floor(col * span + ((ix + 0.5) * span) / 4));
-          const y = Math.min(sh - 1, Math.floor(row * span + ((iy + 0.5) * span) / 4));
+          const x = Math.min(sw - 1, col * span + ix);
+          const y = Math.min(sh - 1, row * span + iy);
           if (pixels[(y * sw + x) * 4 + 3]! > 0) return true;
         }
       }
@@ -152,7 +158,7 @@ export class PixelEngine {
     }
     this.settled = false;
 
-    const radius = Math.min(170, Math.max(90, width * 0.26));
+    const radius = this.coarse ? Math.min(120, Math.max(80, width * 0.24)) : Math.min(170, Math.max(90, width * 0.26));
     const r2 = radius * radius;
     this.presence += ((active ? 1 : 0) - this.presence) * 0.12;
     const snap = this.presence < 0.05 ? 1 : 0.3;

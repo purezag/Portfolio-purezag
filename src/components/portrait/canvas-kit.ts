@@ -16,13 +16,6 @@ export function containBottom(width: number, height: number, image: HTMLImageEle
   return { x: (width - w) / 2, y: height - h, w, h };
 }
 
-export function coverCenter(width: number, height: number, image: HTMLImageElement): Fit {
-  const scale = Math.max(width / image.naturalWidth, height / image.naturalHeight);
-  const w = image.naturalWidth * scale;
-  const h = image.naturalHeight * scale;
-  return { x: (width - w) / 2, y: (height - h) / 2, w, h };
-}
-
 export function trackPointer(element: HTMLElement, pointer: Pointer) {
   const update = (clientX: number, clientY: number) => {
     const rect = element.getBoundingClientRect();

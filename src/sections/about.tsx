@@ -30,7 +30,7 @@ export function About() {
 
         <FadeIn inView delay={0.05} className="w-full md:mx-auto md:max-w-[520px] lg:col-span-5 lg:row-span-2 lg:mx-0 lg:max-w-none">
           <figure className="relative">
-            <div data-tone="dark" className="relative aspect-[4/5] overflow-hidden rounded-[22px] border border-line bg-[#0b0b0c]">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[22px] border border-line bg-surface">
               <div
                 aria-hidden="true"
                 className="grid-backdrop absolute inset-0 opacity-80 [--cell:32px] [mask-image:linear-gradient(to_bottom,black,transparent_85%)]"

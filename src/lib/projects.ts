@@ -187,11 +187,12 @@ export const projects: Project[] = [
     name: "Montebello",
     logo: "/media/logos/montebello.svg",
     platform: "web",
-    status: "soon",
+    status: "study",
     type: { pt: "Site institucional · proposta", en: "Institutional website · proposal" },
     year: "2026",
     role: { pt: "Design & desenvolvimento", en: "Design & development" },
-    stack: ["React", "Tailwind CSS", "Motion", "GSAP", "Lenis"],
+    stack: ["React", "Next.js", "Tailwind CSS", "Motion", "GSAP", "Lenis"],
+    url: "https://montebello-xi.vercel.app/",
     summary: {
       pt: "Proposta de site para uma construtora de alto padrão de Torres/RS.",
       en: "Website proposal for a high-end construction company in Torres, Brazil.",
@@ -210,7 +211,7 @@ export const projects: Project[] = [
       pt: "Projeto de proposta, criado por iniciativa própria. Não é um trabalho oficial e não possui vínculo com a Construtora Montebello.",
       en: "A proposal project created on my own initiative. It is not official work and has no affiliation with Construtora Montebello.",
     },
-    screens: 0,
+    screens: 5,
   },
   {
     id: "no-esquema",
