@@ -64,7 +64,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const toggleLang = useCallback(() => {
-    circleReveal(() => setLang((current) => (current === "pt" ? "en" : "pt")));
+    circleReveal(() => setLang((current) => (current === "pt" ? "en" : "pt")), { ring: true });
   }, []);
 
   const markReady = useCallback(() => {
