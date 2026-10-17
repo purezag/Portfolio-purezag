@@ -45,7 +45,7 @@ export function Contact() {
         <SectionTag index="04">{t.contact.eyebrow}</SectionTag>
       </FadeIn>
 
-      <FadeIn inView delay={0.08} className="relative mt-10 md:mt-14">
+      <FadeIn inView delay={0.08} className="relative mt-10 pb-12 md:mt-14 md:pb-16">
         <a
           href={`mailto:${email}`}
           className="group inline-flex flex-col text-[clamp(3.1rem,13vw,10rem)] font-medium leading-[0.92] tracking-[-0.06em] outline-none"
@@ -73,7 +73,7 @@ export function Contact() {
         </a>
       </FadeIn>
 
-      <FadeIn inView delay={0.2} className="relative mt-14 grid gap-px overflow-hidden rounded-[22px] border border-line bg-line md:grid-cols-2 lg:mt-auto">
+      <FadeIn inView delay={0.2} className="relative grid gap-px overflow-hidden rounded-[22px] border border-line bg-line md:grid-cols-2 lg:mt-auto">
         <div className="flex flex-col gap-6 bg-bg p-5 md:p-7">
           <span className="mono-label text-faint">{t.contact.social}</span>
           <ul className="flex flex-col">
