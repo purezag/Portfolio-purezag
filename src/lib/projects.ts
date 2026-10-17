@@ -31,7 +31,7 @@ export const projects: Project[] = [
     type: { pt: "E-commerce", en: "E-commerce" },
     year: "2025",
     role: { pt: "Desenvolvimento", en: "Development" },
-    stack: ["WordPress", "WooCommerce", "HTML", "CSS", "JavaScript"],
+    stack: ["WordPress", "WooCommerce", "PHP", "HTML", "CSS", "JavaScript"],
     url: "https://www.laboratoriocriativo.com",
     summary: {
       pt: "E-commerce completo em WordPress, da interface ao checkout.",
@@ -168,7 +168,7 @@ export const projects: Project[] = [
     type: { pt: "Aplicativo 360°", en: "360° app" },
     year: "2026",
     role: { pt: "Desenvolvimento mobile", en: "Mobile development" },
-    stack: ["React Native"],
+    stack: [],
     summary: {
       pt: "Aplicativo mobile com experiência 360° desenvolvido para a Euvatar.",
       en: "Mobile app with a 360° experience built for Euvatar.",
@@ -296,6 +296,7 @@ export const stack = [
   "PostgreSQL",
   "WordPress",
   "WooCommerce",
+  "PHP",
   "Git",
   "Vercel",
 ];

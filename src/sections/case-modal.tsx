@@ -93,7 +93,7 @@ function CaseSheet({
     { label: t.modal.year, value: project.year },
     { label: t.modal.type, value: project.type[lang] },
     { label: t.modal.role, value: project.role[lang] },
-    { label: t.modal.stack, value: project.stack.join(" · ") },
+    { label: t.modal.stack, value: project.stack.length ? project.stack.join(" · ") : t.work.status.soon },
   ];
 
   return (
