@@ -287,8 +287,6 @@ export const stack = [
   "Tailwind CSS",
   "Framer Motion",
   "GSAP",
-  "Supabase",
-  "PostgreSQL",
 ];
 
 export const socials = [

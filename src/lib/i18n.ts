@@ -77,11 +77,6 @@ const pt = {
   contact: {
     eyebrow: "Contato",
     ctaFront: ["Vamos criar", "algo", "incrível."],
-    email: "E-mail",
-    copy: "Copiar e-mail",
-    copied: "Copiado",
-    openTo: "Aberto a",
-    openToItems: ["Projetos freelance", "Vagas", "Trabalho remoto", "PT · EN · ES"],
     social: "Redes",
     time: "Horário local",
     status: "Disponível para novos projetos",
@@ -166,11 +161,6 @@ const en: Dictionary = {
   contact: {
     eyebrow: "Contact",
     ctaFront: ["Let's create", "something", "amazing."],
-    email: "Email",
-    copy: "Copy email",
-    copied: "Copied",
-    openTo: "Open to",
-    openToItems: ["Freelance projects", "Full-time roles", "Remote work", "PT · EN · ES"],
     social: "Social",
     time: "Local time",
     status: "Available for new projects",

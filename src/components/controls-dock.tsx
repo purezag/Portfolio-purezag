@@ -66,7 +66,7 @@ export function ControlsDock() {
       animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
       transition={{ duration: 0.9, ease: EXPO, delay: 0.9 }}
     >
-      <div data-vt="site-dock" className="pointer-events-auto flex items-center gap-1 rounded-full border border-line-strong bg-surface/80 p-1 shadow-[0_8px_30px_-12px_rgb(var(--shade)/0.35)] backdrop-blur-xl [view-transition-name:site-dock]">
+      <div data-vt="site-dock" className="pointer-events-auto flex items-center gap-1 rounded-full border border-line-strong bg-surface/80 p-1 shadow-[0_8px_30px_-12px_rgb(var(--shade)/0.35)] backdrop-blur-xl">
         <button
           type="button"
           onClick={toggleTheme}

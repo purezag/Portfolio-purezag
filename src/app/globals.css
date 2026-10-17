@@ -148,6 +148,14 @@ html.is-locked {
   z-index: 2;
 }
 
+html[data-transition] [data-vt="site-nav"] {
+  view-transition-name: site-nav;
+}
+
+html[data-transition] [data-vt="site-dock"] {
+  view-transition-name: site-dock;
+}
+
 ::view-transition-group(site-nav),
 ::view-transition-group(site-dock) {
   animation: none;

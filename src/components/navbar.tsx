@@ -59,7 +59,7 @@ export function Navbar() {
         )}
       </AnimatePresence>
 
-      <header data-vt="site-nav" className="fixed inset-x-0 top-0 z-50 [view-transition-name:site-nav]" data-tone={inverted && !open ? "invert" : undefined}>
+      <header data-vt="site-nav" className="fixed inset-x-0 top-0 z-50" data-tone={inverted && !open ? "invert" : undefined}>
         <motion.nav
           aria-label="Principal"
           className={cn(

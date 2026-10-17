@@ -1,10 +1,9 @@
 "use client";
 
-import { useRef, useState, type ReactNode } from "react";
-import { ArrowUp, ArrowUpRight, Copy, CopyCheck } from "@/components/icons";
+import type { ReactNode } from "react";
+import { ArrowUp, ArrowUpRight } from "@/components/icons";
 import { FadeIn, SectionTag } from "@/components/reveal";
 import { useLocalTime } from "@/hooks/use-local-time";
-import { cn } from "@/lib/cn";
 import { email, socials } from "@/lib/projects";
 import { useApp } from "@/providers/app-provider";
 
@@ -33,20 +32,7 @@ const soft = "text-faint";
 export function Contact() {
   const { t, scrollTo } = useApp();
   const time = useLocalTime();
-  const [copied, setCopied] = useState(false);
-  const copyTimer = useRef<number | undefined>(undefined);
   const [first, word, accent] = t.contact.ctaFront;
-
-  const copy = async () => {
-    try {
-      await navigator.clipboard.writeText(email);
-      setCopied(true);
-      window.clearTimeout(copyTimer.current);
-      copyTimer.current = window.setTimeout(() => setCopied(false), 3000);
-    } catch {
-      window.location.href = `mailto:${email}`;
-    }
-  };
 
   return (
     <div className="relative flex min-h-[100svh] flex-col px-5 pb-24 pt-24 md:px-8 md:pb-24 md:pt-28">
@@ -87,40 +73,8 @@ export function Contact() {
         </a>
       </FadeIn>
 
-      <FadeIn inView delay={0.2} className="relative mt-14 grid gap-px overflow-hidden rounded-[22px] border border-line bg-line md:grid-cols-2 lg:mt-auto lg:grid-cols-12">
-        <div className="flex flex-col justify-between gap-8 bg-bg p-5 md:col-span-2 md:p-7 lg:col-span-6">
-          <span className="mono-label text-faint">{t.contact.email}</span>
-          <div className="flex flex-col gap-4">
-            <a href={`mailto:${email}`} className="break-all font-mono text-[clamp(1.1rem,2.6vw,1.75rem)] tracking-[-0.04em] underline-offset-[6px] hover:underline">
-              {email}
-            </a>
-            <div className="flex gap-2">
-              <button
-                type="button"
-                onClick={copy}
-                className="flex h-10 items-center gap-2 rounded-full border border-line-strong px-4 text-[13px] transition-colors hover:bg-card"
-              >
-                <span className="relative size-4">
-                  <Copy className={cn("absolute inset-0 size-4 transition-all duration-300", copied ? "scale-50 opacity-0" : "opacity-100")} />
-                  <CopyCheck className={cn("absolute inset-0 size-4 text-signal transition-all duration-300", copied ? "opacity-100" : "scale-50 opacity-0")} />
-                </span>
-                <span aria-live="polite">{copied ? t.contact.copied : t.contact.copy}</span>
-              </button>
-            </div>
-            <div className="mt-2 flex flex-col gap-3 border-t border-line pt-5">
-              <span className="mono-label text-faint">{t.contact.openTo}</span>
-              <ul className="flex flex-wrap gap-1.5">
-                {t.contact.openToItems.map((item) => (
-                  <li key={item} className="rounded-full border border-line-strong px-3 py-1.5 font-mono text-[11px] text-muted">
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-6 bg-bg p-5 lg:col-span-3 md:p-7">
+      <FadeIn inView delay={0.2} className="relative mt-14 grid gap-px overflow-hidden rounded-[22px] border border-line bg-line md:grid-cols-2 lg:mt-auto">
+        <div className="flex flex-col gap-6 bg-bg p-5 md:p-7">
           <span className="mono-label text-faint">{t.contact.social}</span>
           <ul className="flex flex-col">
             {socials.map((social) => (
@@ -142,7 +96,7 @@ export function Contact() {
           </ul>
         </div>
 
-        <div className="flex flex-col justify-between gap-6 bg-bg p-5 lg:col-span-3 md:p-7">
+        <div className="flex flex-col justify-between gap-6 bg-bg p-5 md:p-7">
           <span className="mono-label text-faint">{t.contact.time}</span>
           <div className="flex flex-col gap-1">
             <span className="font-mono text-[clamp(1.6rem,3vw,2.25rem)] tabular-nums tracking-[-0.04em]">{time}</span>
