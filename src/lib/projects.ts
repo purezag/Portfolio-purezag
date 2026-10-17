@@ -279,26 +279,17 @@ export const screenSrc = (id: string, index: number, width: 800 | 1600) =>
   `/media/work/${id}/${String(index).padStart(2, "0")}-${width}.webp`;
 
 export const stack = [
-  "HTML",
-  "CSS",
-  "JavaScript",
   "TypeScript",
+  "JavaScript",
   "React",
   "Next.js",
   "React Native",
-  "Expo",
-  "Vite",
   "Tailwind CSS",
   "Framer Motion",
   "GSAP",
-  "Lenis",
   "Supabase",
   "PostgreSQL",
-  "WordPress",
-  "WooCommerce",
-  "PHP",
   "Git",
-  "Vercel",
 ];
 
 export const socials = [
