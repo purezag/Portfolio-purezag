@@ -289,7 +289,6 @@ export const stack = [
   "GSAP",
   "Supabase",
   "PostgreSQL",
-  "Git",
 ];
 
 export const socials = [
