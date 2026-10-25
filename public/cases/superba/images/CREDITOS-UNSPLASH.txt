@@ -1,0 +1,42 @@
+Fotografias do Unsplash (unsplash.com) — Licença Unsplash: uso gratuito, comercial e não comercial, sem necessidade de atribuição.
+Marcas e logotipos de terceiros visíveis nas fotos originais foram removidos ou substituídos pelas marcas fictícias do projeto.
+
+hero.webp	https://unsplash.com/photos/r0k4DzxnLFg
+historia.webp	https://unsplash.com/photos/5rKyHGdcKaA
+novos/axion-11.webp	https://unsplash.com/photos/zyjfbHHNHvI
+novos/mp-9.webp	https://unsplash.com/photos/xAhHMujq8Gw
+novos/nf4-100.webp	https://unsplash.com/photos/zKNuE9NJaZg
+novos/nf5-110.webp	https://unsplash.com/photos/9NOTGAryw2Y
+novos/nf6-180.webp	https://unsplash.com/photos/M9fvD3QujXg
+novos/nf7-315.webp	https://unsplash.com/photos/GCdlSuPoohs
+novos/pa-9.webp	https://unsplash.com/photos/_dnc3j1oVlk
+novos/sp-9.webp	https://unsplash.com/photos/hEgUyejsnTk
+novos/vertex-590.webp	https://unsplash.com/photos/pj4khpc19Rg
+novos/vertex-890.webp	https://unsplash.com/photos/AzPJoQTEPPE
+novos/vigia-2750.webp	https://unsplash.com/photos/elA_XM9Zqzo
+novos/vigia-4000.webp	https://unsplash.com/photos/DTCbPeCF-HY
+onca/filhote.webp	https://unsplash.com/photos/3BdN0PfDA24
+onca/geral.webp	https://unsplash.com/photos/AQqV2dXtAy8
+onca/lida.webp	https://unsplash.com/photos/yTU3_H-u-AU
+onca/raio.webp	https://unsplash.com/photos/9ntJJdmbtjo
+onca/rumo.webp	https://unsplash.com/photos/0DRWuRYglVo
+onca/trilha.webp	https://unsplash.com/photos/AnCaOME-8xg
+paginas/drone.webp	https://unsplash.com/photos/75HRJ8os80k
+paginas/inteligencia.webp	https://unsplash.com/photos/_XLJy3h77cw
+paginas/kids.webp	https://unsplash.com/photos/Ds8gp_7-5AM
+paginas/lastragem.webp	https://unsplash.com/photos/bO_vpu0aTC8
+paginas/pecas.webp	https://unsplash.com/photos/h3pVxOIpnzk
+sede.webp	https://unsplash.com/photos/_G10bOt74J4
+seminovos/cresta-mx135.webp	https://unsplash.com/photos/C9Slgn0Flww
+seminovos/estrela-4950.webp	https://unsplash.com/photos/KUkTDE3JGiY
+seminovos/kappel-1300.webp	https://unsplash.com/photos/eDd5t0ym97s
+seminovos/mastra-512.webp	https://unsplash.com/photos/EvqZdYNz3OU
+seminovos/nordfeld-nf5.webp	https://unsplash.com/photos/FEkbOjnK6EQ
+seminovos/nordfeld-v57.webp	https://unsplash.com/photos/GLskWOSMe8o
+seminovos/pampeira-36000.webp	https://unsplash.com/photos/9EmU19DzXxg
+seminovos/pampeira-7040.webp	https://unsplash.com/photos/PCZCHq9KoG0
+seminovos/semear-sd21.webp	https://unsplash.com/photos/Iad6TykfIYY
+treinamentos/colheita.webp	https://unsplash.com/photos/FJGZFxtQWko
+treinamentos/manutencao.webp	https://unsplash.com/photos/DNkthe3I0Zo
+treinamentos/operador.webp	https://unsplash.com/photos/FZ2wpDq8Ixk
+treinamentos/pfm.webp	https://unsplash.com/photos/O3YTqGI6fEE

@@ -1,0 +1,38 @@
+Fotografias do Unsplash (unsplash.com) — Licença Unsplash: uso gratuito, comercial e não comercial, sem necessidade de atribuição.
+Marcas e logotipos de terceiros visíveis nas fotos originais foram removidos ou substituídos pelas marcas fictícias do projeto.
+
+equipe/diego.webp	https://unsplash.com/photos/VdlCzlvy2-E
+equipe/henrique.webp	https://unsplash.com/photos/DFSKEjnamcM
+equipe/lucas.webp	https://unsplash.com/photos/5xAeXV125lM
+equipe/mateus.webp	https://unsplash.com/photos/Njkn94QnL3U
+equipe/paulo.webp	https://unsplash.com/photos/-diU9gdfkRo
+equipe/sergio.webp	https://unsplash.com/photos/qm16w0sXbQ8
+hero.webp	https://unsplash.com/photos/grmDjLTAx58
+historia/equipe.webp	https://unsplash.com/photos/4XhxYCSIzHE
+historia/filial.webp	https://unsplash.com/photos/Z6Eg_DCkLhs
+historia/fundadores.webp	https://unsplash.com/photos/fYqSsCeTMmU
+historia/matriz.webp	https://unsplash.com/photos/ZDF7iWoEj8s
+lojas/filial.webp	https://unsplash.com/photos/Z6Eg_DCkLhs
+lojas/matriz.webp	https://unsplash.com/photos/ZDF7iWoEj8s
+produtos/alpha-1.webp	https://unsplash.com/photos/-MRR3ZV5XQw
+produtos/alpha-2.webp	https://unsplash.com/photos/-MRR3ZV5XQw
+produtos/beta-1.webp	https://unsplash.com/photos/NBntkVSE1mk
+produtos/beta-2.webp	https://unsplash.com/photos/NBntkVSE1mk
+produtos/flexa-1.webp	https://unsplash.com/photos/4PzvVokylgY
+produtos/flexa-2.webp	https://unsplash.com/photos/fqoq39Jj5us
+produtos/flexa-3.webp	https://unsplash.com/photos/zawtanwz0uA
+produtos/grade-1.webp	https://unsplash.com/photos/_sf5mXymlpg
+produtos/grade-2.webp	https://unsplash.com/photos/_sf5mXymlpg
+produtos/granel-1.webp	https://unsplash.com/photos/ueR7AeDDSlA
+produtos/granel-2.webp	https://unsplash.com/photos/8r2Hip-RihA
+produtos/granel-3.webp	https://unsplash.com/photos/xuZb3tu1K7g
+produtos/milhar-1.webp	https://unsplash.com/photos/oKWUdR8dRl4
+produtos/milhar-2.webp	https://unsplash.com/photos/Y1Wgnui8czI
+produtos/milhar-3.webp	https://unsplash.com/photos/oKWUdR8dRl4
+produtos/pulverizador-1.webp	https://unsplash.com/photos/f1I6v2DmO3k
+produtos/pulverizador-2.webp	https://unsplash.com/photos/f1I6v2DmO3k
+produtos/raiz-1.webp	https://unsplash.com/photos/Jr3zZZeW1Vc
+produtos/raiz-2.webp	https://unsplash.com/photos/RbDGxahEYMc
+produtos/raiz-3.webp	https://unsplash.com/photos/1JgUGDdcWnM
+produtos/seminovo-1.webp	https://unsplash.com/photos/WBySH2j5wvQ
+produtos/seminovo-2.webp	https://unsplash.com/photos/WBySH2j5wvQ

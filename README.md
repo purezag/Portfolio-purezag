@@ -29,6 +29,7 @@ src/
   lib/            textos pt/en, dados dos projetos, logo vetorizada, transição circular
   providers/      tema, idioma, Lenis e estado global
 public/media/     retrato recortado e telas dos projetos otimizadas
+public/cases/     sites compilados dos estudos, abertos pelo botão de ver ao vivo
 ```
 
 ## Editar conteúdo
@@ -36,3 +37,4 @@ public/media/     retrato recortado e telas dos projetos otimizadas
 - Textos PT/EN: `src/lib/i18n.ts`
 - Projetos, stack, redes e e-mail: `src/lib/projects.ts`
 - Telas de um projeto: `public/media/work/<id>/NN-800.webp` e `NN-1600.webp`
+- Sites dos estudos Celeiro, Superba e Bellamonte (build estático com rotas por hash): `public/cases/<id>/`
