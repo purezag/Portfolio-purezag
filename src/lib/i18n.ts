@@ -71,7 +71,7 @@ const pt = {
       role: "front-end & ui/ux",
       focus: "sites · apps · sistemas",
       base: "Pelotas, RS",
-      languages: ["português — nativo", "inglês — avançado", "espanhol — regular"],
+      languages: ["português — nativo", "inglês — avançado", "espanhol — intermediário"],
     },
   },
   contact: {
