@@ -15,12 +15,20 @@ export const metadata: Metadata = {
   description:
     "Portfólio de Guilherme Pureza, desenvolvedor web e mobile. Sites, sistemas e aplicativos rápidos, responsivos e prontos para converter.",
   authors: [{ name: "Guilherme Pureza" }],
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
+    url: "/",
+    siteName: "Guilherme Pureza",
     locale: "pt_BR",
+    alternateLocale: ["en_US"],
     title: "Guilherme Pureza — Desenvolvedor web & mobile",
     description: "Interfaces rápidas, acessíveis e bem construídas.",
-    images: ["/media/work/euvatar-institucional/01-1600.webp"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Guilherme Pureza — Desenvolvedor web & mobile",
+    description: "Interfaces rápidas, acessíveis e bem construídas.",
   },
 };
 
