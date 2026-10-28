@@ -14,7 +14,7 @@ export type Project = {
   screens: number;
   logo?: string;
   platform: "web" | "mobile";
-  status?: "study" | "production" | "soon";
+  status?: "study" | "prototype" | "production" | "soon";
 };
 
 const euvatarNote: Localized = {
@@ -23,6 +23,37 @@ const euvatarNote: Localized = {
 };
 
 export const projects: Project[] = [
+  {
+    id: "beatframe",
+    name: "Beatframe",
+    logo: "/media/logos/beatframe.svg",
+    platform: "web",
+    status: "prototype",
+    type: { pt: "Plataforma de vídeo com IA", en: "AI video platform" },
+    year: "2026",
+    role: { pt: "Produto, design & front-end", en: "Product, design & front-end" },
+    stack: ["Preact", "JavaScript", "HTML", "CSS"],
+    url: "/cases/beatframe/index.html",
+    summary: {
+      pt: "IA que lê o ritmo de uma edição de referência e monta a sua versão com o seu material.",
+      en: "AI that reads the rhythm of a reference edit and builds your version with your own footage.",
+    },
+    description: [
+      {
+        pt: "O Beatframe assiste a um vídeo de referência, lê a estrutura da edição (cortes na batida, bpm, tempo e posição das legendas, transições e efeitos) e refaz a peça com as imagens, vídeos e a marca de quem usa. Nada da referência entra no resultado: só a estrutura é reaproveitada. O mesmo fluxo vale para posts, com o modo imagem.",
+        en: "Beatframe watches a reference video, reads the structure of the edit (cuts on the beat, bpm, caption timing and placement, transitions and effects) and rebuilds the piece with the user's own images, videos and brand. Nothing from the reference ends up in the result: only the structure is reused. The same flow works for posts in image mode.",
+      },
+      {
+        pt: "Protótipo navegável com 25 telas: entrada com vídeo, área de criação com monitor de leitura e linha do tempo, geração em segundo plano, projetos, planos e pagamento, créditos, conta, ajuda e os documentos legais. Identidade própria em grafite e creme, tema claro e escuro, atalhos de teclado e movimento que respeita a preferência de reduzir animações.",
+        en: "A clickable prototype with 25 screens: a video sign-in, a creation workspace with a reading monitor and timeline, background generation, projects, plans and checkout, credits, account, help and the legal documents. Its own graphite-and-cream identity, light and dark themes, keyboard shortcuts and motion that respects the reduced-motion preference.",
+      },
+    ],
+    note: {
+      pt: "Protótipo só de front-end: login, geração, créditos e pagamento são simulados no navegador e nenhum dado sai dele. Preços, e-mails e dados da empresa são ilustrativos.",
+      en: "Front-end-only prototype: sign-in, generation, credits and payment are simulated in the browser and no data leaves it. Prices, e-mails and company details are illustrative.",
+    },
+    screens: 5,
+  },
   {
     id: "laboratorio-criativo",
     logo: "/media/logos/laboratorio-criativo.png",

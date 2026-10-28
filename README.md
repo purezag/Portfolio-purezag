@@ -37,4 +37,4 @@ public/cases/     sites compilados dos estudos, abertos pelo botão de ver ao vi
 - Textos PT/EN: `src/lib/i18n.ts`
 - Projetos, stack, redes e e-mail: `src/lib/projects.ts`
 - Telas de um projeto: `public/media/work/<id>/NN-800.webp` e `NN-1600.webp`
-- Sites dos estudos Celeiro, Superba e Bellamonte (build estático com rotas por hash): `public/cases/<id>/`
+- Sites dos estudos Celeiro, Superba e Bellamonte e o protótipo do Beatframe (build estático com rotas por hash): `public/cases/<id>/`

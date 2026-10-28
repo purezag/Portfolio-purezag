@@ -95,7 +95,7 @@ export function Work() {
 
       <FadeIn inView delay={0.1} className="mt-12 md:mt-16 lg:mt-14 lg:flex lg:flex-1 lg:flex-col lg:justify-center">
         <div ref={area} className="relative" onPointerLeave={(event) => event.pointerType === "mouse" && hide()}>
-          <ul className="grid grid-cols-2 border-l border-t border-line md:grid-cols-5">
+          <ul className="grid grid-cols-2 border-l border-t border-line md:grid-cols-4 lg:grid-cols-6">
             {projects.map((project, index) => (
               <li key={project.id} className="border-b border-r border-line">
                 <LogoCell
@@ -114,11 +114,11 @@ export function Work() {
                 />
               </li>
             ))}
-            <li className="border-b border-r border-line">
+            <li className="col-span-2 border-b border-r border-line">
               <button
                 type="button"
                 onClick={() => scrollTo("contact")}
-                className="group relative flex aspect-[4/3] w-full flex-col md:aspect-square lg:aspect-[4/3] items-start justify-end gap-1.5 p-4 text-left transition-colors duration-500 hover:bg-fg hover:text-bg md:p-5"
+                className="group relative flex aspect-[8/3] w-full flex-col md:aspect-[2/1] lg:aspect-[8/3] items-start justify-end gap-1.5 p-4 text-left transition-colors duration-500 hover:bg-fg hover:text-bg md:p-5"
               >
                 <span className="mono-label absolute left-4 top-4 text-faint md:left-5 md:top-5">+</span>
                 <span className="text-[clamp(1.25rem,2.2vw,1.75rem)] font-medium leading-[1] tracking-[-0.04em]">{t.work.ctaTitle}</span>
