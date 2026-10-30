@@ -14,7 +14,14 @@ export function PreviewMedia({ project, className }: { project: Project; classNa
     node.play().catch(() => undefined);
   }, [project.id]);
 
-  const player = (
+  const player = project.motion === "pending" ? (
+    <img
+      src={posterSrc(project.id)}
+      alt=""
+      decoding="async"
+      className="absolute inset-0 size-full object-cover"
+    />
+  ) : (
     <video
       ref={video}
       key={project.id}

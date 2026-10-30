@@ -15,6 +15,7 @@ export type Project = {
   logo?: string;
   platform: "web" | "mobile";
   status?: "study" | "prototype" | "production" | "soon";
+  motion?: "pending";
 };
 
 const euvatarNote: Localized = {
@@ -23,6 +24,68 @@ const euvatarNote: Localized = {
 };
 
 export const projects: Project[] = [
+  {
+    id: "ohmen",
+    name: "OHMEN Electric",
+    platform: "web",
+    status: "study",
+    motion: "pending",
+    type: { pt: "Site 3D em tempo real · estudo", en: "Real-time 3D website · study" },
+    year: "2026",
+    role: { pt: "Conceito, 3D, filme, design & desenvolvimento", en: "Concept, 3D, film, design & development" },
+    stack: ["three.js", "GSAP", "Lenis", "Web Audio", "Blender", "JavaScript"],
+    url: "https://ohmen-omega.vercel.app",
+    summary: {
+      pt: "Marca fictícia de carros elétricos contada como um filme 3D guiado pela rolagem.",
+      en: "A fictional electric car marque told as a scroll-driven 3D film.",
+    },
+    description: [
+      {
+        pt: "O hipercarro ARC e o SUV UMBRA apresentados num filme em seis capítulos, desenhado em tempo real com three.js: a rolagem move a câmera, os carros e as luzes do estúdio, com piso refletivo, bloom e coreografias exportadas do Blender.",
+        en: "The ARC hypercar and the UMBRA SUV presented in a six-chapter film rendered in real time with three.js: scrolling drives the camera, the cars and the studio lights, with a reflective floor, bloom and choreography exported from Blender.",
+      },
+      {
+        pt: "A mesma cena vira uma garagem 3D para configurar pintura, rodas, pinças e interior, com troca de modelo animada. Som elétrico sintetizado com Web Audio, inglês e português com transição circular e versão leve para celular.",
+        en: "The same scene becomes a 3D garage to configure paint, wheels, calipers and interior, with an animated model swap. Synthesised electric sound with Web Audio, English and Portuguese with a circular transition and a lighter mobile version.",
+      },
+    ],
+    note: {
+      pt: "Projeto de estudo com marca e carros fictícios: OHMEN, ARC e UMBRA não existem. Modelo 3D base “Car Concept”, de Eric Chadwick, sob licença CC BY 4.0, modificado.",
+      en: "A study project with a fictional brand and cars: OHMEN, ARC and UMBRA do not exist. Base 3D model “Car Concept” by Eric Chadwick, CC BY 4.0, modified.",
+    },
+    screens: 0,
+  },
+  {
+    id: "gol-app",
+    name: "GOL App",
+    platform: "mobile",
+    status: "study",
+    motion: "pending",
+    type: { pt: "Redesign de app · estudo", en: "App redesign · study" },
+    year: "2026",
+    role: { pt: "UX/UI & front-end", en: "UX/UI & front-end" },
+    stack: ["HTML", "CSS", "JavaScript"],
+    url: "https://gol-app.vercel.app",
+    summary: {
+      pt: "Releitura do app de uma companhia aérea, com as tarefas do dia a dia a um toque.",
+      en: "A rethink of an airline app, with everyday tasks one tap away.",
+    },
+    description: [
+      {
+        pt: "Protótipo navegável dentro de uma moldura de celular: busca e compra de passagem de ida e volta, mapa de assentos, pagamento, check-in, cartão de embarque, viagens, milhas, atendimento por chat e perfil, com tema claro e escuro.",
+        en: "A clickable prototype inside a phone frame: round-trip search and booking, seat map, payment, check-in, boarding pass, trips, miles, chat support and profile, with light and dark themes.",
+      },
+      {
+        pt: "Fotos reais dos destinos, linguagem de gente e um roteiro de teste guiado ao lado do aparelho. Front-end puro, sem dependências, com tarifas calculadas e dados organizados por tela.",
+        en: "Real destination photos, human language and a guided test script beside the device. Plain front-end with no dependencies, with computed fares and data organised by screen.",
+      },
+    ],
+    note: {
+      pt: "Conceito não oficial de UX/UI, sem vínculo com a companhia. Voos, preços, reservas, documentos e cartões são fictícios.",
+      en: "An unofficial UX/UI concept with no affiliation with the airline. Flights, prices, bookings, documents and cards are fictional.",
+    },
+    screens: 0,
+  },
   {
     id: "beatframe",
     name: "Beatframe",
