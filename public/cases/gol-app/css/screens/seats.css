@@ -1,0 +1,244 @@
+.seat-top {
+  flex: none;
+  display: grid;
+  gap: 10px;
+  padding: 0 20px 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.pchips {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.pchip {
+  appearance: none;
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 6px 14px 6px 6px;
+  border-radius: 999px;
+  border: 1.5px solid var(--line);
+  background: var(--paper);
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.2s;
+}
+
+.pchip.on {
+  border-color: var(--ink);
+}
+
+.av {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--brand-tint);
+  color: var(--brand-ink);
+  display: grid;
+  place-items: center;
+  font: 750 13px var(--ui);
+  flex: none;
+}
+
+.pchip b {
+  display: block;
+  font: 700 13.5px/1.2 var(--ui);
+}
+
+.pchip small {
+  display: block;
+  font: 500 11.5px var(--ui);
+  color: var(--ink-2);
+}
+
+.seat-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  justify-content: center;
+  padding: 14px 20px 4px;
+  font: 500 12px var(--ui);
+  color: var(--ink-2);
+}
+
+.seat-legend i {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  margin-right: 6px;
+  vertical-align: -2px;
+}
+
+.lg-cf {
+  background: var(--seat-cf);
+  box-shadow: inset 0 0 0 1px var(--seat-cf-e);
+}
+
+.lg-ex {
+  background: var(--sky-tint);
+  box-shadow: inset 0 0 0 1px var(--seat-ex-e);
+}
+
+.lg-std {
+  background: var(--seat);
+  box-shadow: inset 0 0 0 1px var(--mist-2);
+}
+
+.lg-x {
+  background: var(--mist-2);
+}
+
+.win-hint {
+  margin: 6px 20px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font: 500 12.5px/1.4 var(--ui);
+  color: var(--brand-ink);
+}
+
+.cabin {
+  margin: 14px auto 30px;
+  width: 322px;
+  background: var(--mist);
+  border-radius: 150px 150px 40px 40px;
+  padding: 84px 14px 30px;
+  display: grid;
+  gap: 7px;
+  position: relative;
+}
+
+.cabin::before {
+  content: "";
+  position: absolute;
+  top: 22px;
+  left: 50%;
+  width: 90px;
+  height: 30px;
+  margin-left: -45px;
+  border-radius: 50px 50px 10px 10px;
+  background: repeating-linear-gradient(90deg, var(--mist-2) 0 26px, transparent 26px 32px);
+}
+
+.cols,
+.srow {
+  display: grid;
+  grid-template-columns: repeat(3, 38px) 22px repeat(3, 38px);
+  gap: 6px;
+  justify-content: center;
+}
+
+.cols {
+  font: 650 11.5px var(--ui);
+  color: var(--ink-3);
+  text-align: center;
+  margin-bottom: 2px;
+}
+
+.rn {
+  font: 650 11px var(--ui);
+  color: var(--ink-3);
+  text-align: center;
+  align-self: center;
+}
+
+.seat {
+  appearance: none;
+  width: 38px;
+  height: 40px;
+  border-radius: 11px 11px 8px 8px;
+  border: 0;
+  background: var(--seat);
+  box-shadow: inset 0 -3px 0 var(--mist-2);
+  cursor: pointer;
+  position: relative;
+  font: 750 13px var(--ui);
+  color: #fff;
+  transition:
+    transform 0.15s,
+    background 0.2s;
+  padding: 0;
+}
+
+.seat:active {
+  transform: scale(0.88);
+}
+
+.seat.cf {
+  background: var(--seat-cf);
+  box-shadow: inset 0 -3px 0 var(--seat-cf-e);
+}
+
+.seat.ex {
+  background: var(--sky-tint);
+  box-shadow: inset 0 -3px 0 var(--seat-ex-e);
+}
+
+.seat.x {
+  background: var(--mist-2);
+  box-shadow: none;
+  cursor: default;
+}
+
+.seat.x::before,
+.seat.x::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 12px;
+  height: 2px;
+  margin: -1px 0 0 -6px;
+  border-radius: 1px;
+  background: var(--ink-3);
+  opacity: 0.45;
+  transform: rotate(45deg);
+}
+
+.seat.x::after {
+  transform: rotate(-45deg);
+}
+
+.seat.w::after {
+  content: "";
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand);
+}
+
+.seat.me {
+  background: var(--brand);
+  box-shadow: inset 0 -3px 0 var(--brand-press);
+  animation: pop 0.35s var(--spring);
+}
+
+.zone {
+  text-align: center;
+  font: 650 11.5px var(--ui);
+  color: var(--ink-3);
+  padding: 6px 0 2px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.zone::before,
+.zone::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--mist-2);
+}
+
+.zone.exit {
+  color: var(--sky);
+}

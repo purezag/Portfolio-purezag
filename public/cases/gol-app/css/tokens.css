@@ -1,0 +1,93 @@
+:root {
+  --canvas: #0b0b0c;
+  --canvas-fg: #ece9e4;
+  --canvas-dim: #8f8a83;
+  --canvas-line: #262628;
+  --brand: #ff7020;
+  --brand-press: #e95f10;
+  --display: "Bricolage Grotesque", "Figtree", system-ui, sans-serif;
+  --ui: "Figtree", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: "DM Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --spring: cubic-bezier(0.3, 1.4, 0.55, 1);
+  --ps: 1;
+  color-scheme: dark;
+}
+
+.app {
+  --paper: #ffffff;
+  --mist: #f4f3f1;
+  --mist-2: #e9e7e3;
+  --line: #e8e5e1;
+  --ink: #18181a;
+  --ink-2: #5b5853;
+  --ink-3: #9a958e;
+  --brand-ink: #bd4b00;
+  --brand-tint: #fff0e5;
+  --brand-soft: #ffc9a5;
+  --good: #13804a;
+  --good-tint: #e4f4ea;
+  --warn: #8a5a00;
+  --warn-tint: #fdf1d6;
+  --bad: #c4372a;
+  --bad-tint: #fdeceb;
+  --sky: #2b63b0;
+  --sky-tint: #e9f1fb;
+  --deep: #18181a;
+  --bar: rgba(255, 255, 255, 0.88);
+  --thumb: #ffffff;
+  --sel: #fbfaf9;
+  --shadow: rgba(24, 24, 26, 0.3);
+  --seat: #ffffff;
+  --seat-cf: #fff4ec;
+  --seat-cf-e: #ffd3b5;
+  --seat-ex-e: #c9daf1;
+  --shimmer: rgba(255, 255, 255, 0.75);
+  --kb-bg: #d1d4da;
+  --kb-key: #ffffff;
+  --kb-fn: #abb0ba;
+  --kb-shadow: #8a8b8f;
+  --kb-ink: #000000;
+  --kb-acc: #e4e6ea;
+  --kb-line: rgba(0, 0, 0, 0.08);
+  color-scheme: light;
+}
+
+.app[data-theme="dark"] {
+  --paper: #111113;
+  --mist: #1c1c1f;
+  --mist-2: #2b2b2f;
+  --line: #27272b;
+  --ink: #f3f2ef;
+  --ink-2: #b2ada6;
+  --ink-3: #7e7973;
+  --brand-ink: #ff9a5c;
+  --brand-tint: rgba(255, 112, 32, 0.15);
+  --brand-soft: rgba(255, 112, 32, 0.45);
+  --good: #4cc38a;
+  --good-tint: rgba(76, 195, 138, 0.14);
+  --warn: #f2c14e;
+  --warn-tint: rgba(242, 193, 78, 0.13);
+  --bad: #ff6b5e;
+  --bad-tint: rgba(255, 107, 94, 0.13);
+  --sky: #86b1f2;
+  --sky-tint: rgba(134, 177, 242, 0.13);
+  --deep: #1f1f23;
+  --bar: rgba(20, 20, 22, 0.86);
+  --thumb: #2f2f34;
+  --sel: #18181b;
+  --shadow: rgba(0, 0, 0, 0.6);
+  --seat: #2a2a2f;
+  --seat-cf: rgba(255, 112, 32, 0.2);
+  --seat-cf-e: rgba(255, 112, 32, 0.4);
+  --seat-ex-e: rgba(134, 177, 242, 0.38);
+  --shimmer: rgba(255, 255, 255, 0.06);
+  --kb-bg: #2b2b2e;
+  --kb-key: #6b6b70;
+  --kb-fn: #46464a;
+  --kb-shadow: #121212;
+  --kb-ink: #ffffff;
+  --kb-acc: #343438;
+  --kb-line: rgba(255, 255, 255, 0.06);
+  color-scheme: dark;
+}

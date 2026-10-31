@@ -1,0 +1,379 @@
+#s-dest {
+  background: #111;
+}
+
+.d-hero {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 480px;
+  z-index: 0;
+  will-change: transform;
+}
+
+.d-hero .ph {
+  position: absolute;
+  inset: 0;
+}
+
+.d-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.38),
+    rgba(0, 0, 0, 0) 26%,
+    rgba(0, 0, 0, 0) 62%,
+    rgba(0, 0, 0, 0.2)
+  );
+}
+
+.d-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 52px 16px 10px;
+  transition:
+    background 0.3s,
+    box-shadow 0.3s;
+}
+
+.d-top .dt-t {
+  flex: 1;
+  min-width: 0;
+  text-align: center;
+  font: 700 16.5px var(--ui);
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 0.25s,
+    transform 0.25s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.d-top .row {
+  display: flex;
+  gap: 10px;
+}
+
+.d-top.solid {
+  background: var(--bar);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 1px 0 var(--line);
+}
+
+.d-top.solid .dt-t {
+  opacity: 1;
+  transform: none;
+}
+
+.d-top.solid .ibtn.glass {
+  background: var(--mist);
+  color: var(--ink);
+  backdrop-filter: none;
+}
+
+.d-scroll {
+  position: relative;
+  z-index: 1;
+}
+
+.d-spacer {
+  height: 408px;
+  cursor: zoom-in;
+}
+
+.d-body {
+  position: relative;
+  background: var(--paper);
+  border-radius: 30px 30px 0 0;
+  padding: 26px 20px 30px;
+  display: grid;
+  gap: 20px;
+  min-height: 520px;
+}
+
+.d-title p {
+  margin: 8px 0 0;
+  font: 600 14.5px var(--ui);
+  color: var(--ink-2);
+}
+
+.d-promo {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: var(--brand-tint);
+  color: var(--brand-ink);
+  font: 500 13.5px/1.45 var(--ui);
+}
+
+.d-promo .ic {
+  margin-top: 1px;
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+}
+
+.facts > div {
+  padding: 12px 12px 13px;
+  display: grid;
+  gap: 3px;
+  align-content: start;
+  min-width: 0;
+}
+
+.facts > div + div {
+  border-left: 1px solid var(--line);
+}
+
+.facts span {
+  font: 500 11.5px/1.25 var(--ui);
+  color: var(--ink-3);
+}
+
+.facts b {
+  font: 750 18px/1.15 var(--ui);
+  font-variant-numeric: tabular-nums;
+}
+
+.facts small {
+  font: 500 11.5px/1.3 var(--ui);
+  color: var(--ink-2);
+}
+
+.d-sec p {
+  margin: 5px 0 0;
+}
+
+.chart {
+  display: grid;
+  grid-template-columns: repeat(14, 1fr);
+  gap: 4px;
+  height: 150px;
+  align-items: end;
+  margin-top: -4px;
+}
+
+.bar {
+  appearance: none;
+  border: 0;
+  background: none;
+  padding: 0;
+  height: 100%;
+  display: grid;
+  grid-template-rows: 1fr auto auto;
+  justify-items: center;
+  gap: 3px;
+  cursor: pointer;
+  position: relative;
+}
+
+.bar i {
+  align-self: end;
+  width: 100%;
+  height: calc(var(--h) * 0.92px);
+  border-radius: 6px 6px 3px 3px;
+  background: var(--mist-2);
+  transform-origin: bottom;
+  animation: barup 0.7s var(--ease) both;
+  animation-delay: var(--d);
+  transition: background 0.25s;
+}
+
+@keyframes barup {
+  from {
+    transform: scaleY(0.05);
+  }
+}
+
+.bar.low i {
+  background: var(--brand-soft);
+}
+
+.bar.sel i {
+  background: var(--brand);
+}
+
+.bar b {
+  font: 700 12px var(--ui);
+  font-variant-numeric: tabular-nums;
+  margin-top: 3px;
+}
+
+.bar span {
+  font: 600 10px var(--ui);
+  color: var(--ink-3);
+}
+
+.bar em {
+  position: absolute;
+  bottom: calc(var(--h) * 0.92px + 38px);
+  left: 50%;
+  transform: translateX(-50%);
+  font: 750 11.5px var(--ui);
+  font-style: normal;
+  white-space: nowrap;
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: 8px;
+  padding: 4px 7px;
+  animation: rise 0.4s var(--ease) both;
+}
+
+.chart-legend {
+  display: flex;
+  gap: 16px;
+  font: 500 12px var(--ui);
+  color: var(--ink-2);
+  margin-top: -6px;
+}
+
+.chart-legend i {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  margin-right: 6px;
+  vertical-align: -1px;
+}
+
+.tips {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+}
+
+.tips li {
+  padding: 13px 0;
+  border-top: 1px solid var(--line);
+}
+
+.tips li:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.tips b {
+  display: block;
+  font: 700 15.5px/1.3 var(--ui);
+}
+
+.tips p {
+  margin: 4px 0 0;
+  font: 400 14.5px/1.5 var(--ui);
+  color: var(--ink-2);
+}
+
+.note {
+  display: flex;
+  gap: 10px;
+  padding: 13px 14px;
+  border-radius: 16px;
+  background: var(--sky-tint);
+  color: var(--sky);
+  font: 500 13.5px/1.45 var(--ui);
+}
+
+.note .ic {
+  margin-top: 1px;
+}
+
+.note p {
+  margin: 0;
+}
+
+.gallery {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  margin: 0 -20px;
+  padding: 0 20px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.gallery::-webkit-scrollbar {
+  display: none;
+}
+
+.gallery .gal {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  flex: 0 0 232px;
+  height: 168px;
+  border-radius: 18px;
+  overflow: hidden;
+  position: relative;
+  scroll-snap-align: start;
+  cursor: zoom-in;
+  background: var(--mist);
+  transition: transform 0.2s var(--ease);
+}
+
+.gallery .gal:active {
+  transform: scale(0.97);
+}
+
+.gallery .gal .ph {
+  position: absolute;
+  inset: 0;
+}
+
+.gal-ex {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(20, 20, 22, 0.38);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.d-photos {
+  position: absolute;
+  right: 16px;
+  bottom: 88px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: rgba(20, 20, 22, 0.36);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #fff;
+  font: 650 12.5px var(--ui);
+}
+
+.credit {
+  margin: -6px 0 0;
+  font: 500 12px/1.5 var(--ui);
+  color: var(--ink-3);
+}

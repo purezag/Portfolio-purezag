@@ -33,7 +33,7 @@ export const projects: Project[] = [
     year: "2026",
     role: { pt: "Conceito, 3D, filme, design & desenvolvimento", en: "Concept, 3D, film, design & development" },
     stack: ["three.js", "GSAP", "Lenis", "Web Audio", "Blender", "JavaScript"],
-    url: "https://ohmen-omega.vercel.app",
+    url: "/cases/ohmen/index.html",
     summary: {
       pt: "Marca fictícia de carros elétricos contada como um filme 3D guiado pela rolagem.",
       en: "A fictional electric car marque told as a scroll-driven 3D film.",
@@ -63,7 +63,7 @@ export const projects: Project[] = [
     year: "2026",
     role: { pt: "UX/UI & front-end", en: "UX/UI & front-end" },
     stack: ["HTML", "CSS", "JavaScript"],
-    url: "https://gol-app.vercel.app",
+    url: "/cases/gol-app/index.html",
     summary: {
       pt: "Releitura do app de uma companhia aérea, com as tarefas do dia a dia a um toque.",
       en: "A rethink of an airline app, with everyday tasks one tap away.",

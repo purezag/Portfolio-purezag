@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>OHMEN Electric</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="OHMEN is a fictional electric marque told as a film in six chapters: the ARC hypercar and the UMBRA SUV, drawn from a single line of light. Concept, 3D, design and development by purezag.">
+<meta name="author" content="purezag">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 48 48%27%3E%3Crect width=%2748%27 height=%2748%27 rx=%2710%27 fill=%27%23000%27/%3E%3Cpath d=%27M3 35.4h9.2V20.6a8.2 8.2 0 0 1 8.2-8.2h7.2a8.2 8.2 0 0 1 8.2 8.2v14.8H45%27 fill=%27none%27 stroke=%27%23f3f5f8%27 stroke-width=%273.4%27/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@50..150,100..900&family=Geist+Mono:wght@400;500&family=Geist:wght@300..700&display=swap">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="mark" viewBox="0 0 48 32">
+    <path fill="none" stroke="currentColor" stroke-width="3.2" d="M3 27.4h9.2V12.6a8.2 8.2 0 0 1 8.2-8.2h7.2a8.2 8.2 0 0 1 8.2 8.2v14.8H45"/>
+  </symbol>
+</svg>
+
+<a class="skip" href="#content">Skip to content</a>
+
+<div class="loader" data-loader>
+  <button class="lang loader__lang" type="button" data-lang-toggle data-lang="en" aria-label="Switch language to Portuguese"><span class="lang__track" aria-hidden="true"><i class="lang__thumb"></i><b data-l="en" class="is-on">EN</b><b data-l="pt">PT</b></span></button>
+  <div class="loader__rig" aria-hidden="true" data-rig><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="loader__center">
+    <svg class="loader__mark" viewBox="0 0 48 32" aria-hidden="true"><use href="#mark"/></svg>
+    <p class="loader__line" data-loader-line>A film in six chapters about machines drawn from a single line of light.</p>
+    <div class="loader__gate" data-gate>
+      <button class="btn btn--solid" type="button" data-enter="sound"><span class="btn__label" data-roll>Enter with sound</span><i class="btn__arrow" aria-hidden="true"></i></button>
+      <button class="btn" type="button" data-enter="silent"><span class="btn__label" data-roll>Enter in silence</span><i class="btn__arrow" aria-hidden="true"></i></button>
+    </div>
+  </div>
+  <p class="loader__meter" data-meter><span>Loading reel</span> <span class="loader__count" data-count>0%</span></p>
+</div>
+
+<header class="bar" data-bar>
+  <div class="bar__blur" aria-hidden="true"><i></i><i></i><i></i></div>
+  <button class="bar__sound" type="button" aria-pressed="false" data-sound><i></i><i></i><i></i><i></i><span>Sound</span></button>
+  <a class="bar__logo" href="#arrival" aria-label="OHMEN, back to the start" data-link>
+    <svg viewBox="0 0 48 32" aria-hidden="true"><use href="#mark"/></svg>
+    <span class="bar__word">OHMEN</span>
+  </a>
+  <div class="bar__end">
+    <button class="lang bar__lang" type="button" data-lang-toggle data-lang="en" aria-label="Switch language to Portuguese"><span class="lang__track" aria-hidden="true"><i class="lang__thumb"></i><b data-l="en" class="is-on">EN</b><b data-l="pt">PT</b></span></button>
+    <button class="bar__menu" type="button" aria-expanded="false" aria-controls="menu" data-menu-toggle>
+      <span class="bar__flip" aria-hidden="true"><em>Index</em><em>Close</em></span>
+      <span class="sr">Index</span>
+      <span class="bar__lines" aria-hidden="true"><i></i><i></i></span>
+    </button>
+  </div>
+</header>
+
+<nav class="menu" id="menu" aria-label="Site" data-menu>
+  <div class="menu__rig" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="menu__body">
+    <ol class="menu__list">
+      <li data-menu-item><a href="#arrival" data-link><span>01</span><em>Arrival</em></a></li>
+      <li data-menu-item><a href="#signature" data-link><span>02</span><em>Signature</em></a></li>
+      <li data-menu-item><a href="#motion" data-link><span>03</span><em>Motion</em></a></li>
+      <li data-menu-item><a href="#arc" data-link><span>04</span><em>ARC</em></a></li>
+      <li data-menu-item><a href="#umbra" data-link><span>05</span><em>UMBRA</em></a></li>
+      <li data-menu-item><a href="#departure" data-link><span>06</span><em>Departure</em></a></li>
+    </ol>
+    <ul class="menu__sub" data-menu-item>
+      <li><a href="#configure" data-dialog="configure">Reserve</a></li>
+      <li><a href="#manifesto" data-link>Manifesto</a></li>
+      <li><a href="#design-notes" data-dialog="design-notes">Design notes</a></li>
+    </ul>
+  </div>
+  <div class="menu__foot" data-menu-item>
+    <span>© 2026 OHMEN, a fictional marque</span>
+    <a href="https://purezag.vercel.app" target="_blank" rel="noopener">Designed &amp; developed by purezag</a>
+  </div>
+</nav>
+
+<div class="screen" aria-hidden="true" data-screen>
+  <img class="screen__poster" alt="" data-poster>
+  <canvas class="screen__canvas" data-canvas></canvas>
+  <div class="screen__veil"></div>
+  <div class="screen__dip" data-dip></div>
+</div>
+
+<div class="cut" aria-hidden="true" data-cut></div>
+
+<aside class="hud" aria-hidden="true" data-hud>
+  <span class="hud__corner hud__corner--tl"></span>
+  <span class="hud__corner hud__corner--tr"></span>
+  <span class="hud__corner hud__corner--bl"></span>
+  <span class="hud__corner hud__corner--br"></span>
+  <ol class="hud__rail" data-rail>
+    <li><button type="button" data-goto="#arrival" tabindex="-1"><b>01</b><em>Arrival</em><i></i></button></li>
+    <li><button type="button" data-goto="#signature" tabindex="-1"><b>02</b><em>Signature</em><i></i></button></li>
+    <li><button type="button" data-goto="#motion" tabindex="-1"><b>03</b><em>Motion</em><i></i></button></li>
+    <li><button type="button" data-goto="#arc" tabindex="-1"><b>04</b><em>ARC</em><i></i></button></li>
+    <li><button type="button" data-goto="#umbra" tabindex="-1"><b>05</b><em>UMBRA</em><i></i></button></li>
+    <li><button type="button" data-goto="#departure" tabindex="-1"><b>06</b><em>Departure</em><i></i></button></li>
+  </ol>
+  <p class="hud__pct"><i class="hud__bar"><b data-hud-bar></b></i><span class="hud__num"><span data-hud-pct>000</span>%</span></p>
+  <p class="hud__frame"><span class="roll" data-hud-name><span>Arrival</span></span><span class="hud__count"><span class="roll" data-hud-frame><span>0001</span></span><span class="hud__slash">/</span><span class="roll" data-hud-total><span>0128</span></span></span></p>
+</aside>
+
+<div class="page" data-page>
+  <main id="content">
+
+    <section class="chapter chapter--arrival" id="arrival" data-chapter="arrive" data-name="Arrival" aria-label="Chapter 1, Arrival">
+      <div class="chapter__pin">
+        <div class="hero">
+          <p class="kicker" data-hero-kicker><span>Chapter 01</span><span>Arrival</span></p>
+          <h1 class="hero__title display" data-fit data-fit-h="0.1" data-fit-max="118" data-hero-title><span class="fl">Arrive</span><span class="fl">In Silence</span></h1>
+          <p class="hero__sub" data-hero-sub>Three electric machines roll into a dark studio. You see them long before you hear them.</p>
+        </div>
+        <div class="hero__meta" data-hero-meta>
+          <span class="hero__scroll"><i></i>Scroll to step inside</span>
+          <span>ARC, flanked by two UMBRA</span>
+        </div>
+        <div class="caption caption--a" data-caption>
+          <p class="caption__index">01.1</p>
+          <h2 class="caption__title display">Light first</h2>
+          <p>A 2 mm line of LEDs, drawn before the body around it.</p>
+        </div>
+        <div class="caption caption--b" data-caption>
+          <p class="caption__index">01.2</p>
+          <h2 class="caption__title display">Weight low</h2>
+          <p>The 800-volt pack lives in the floor. Forged 21-inch wheels hold the corners.</p>
+        </div>
+        <div class="caption caption--a" data-caption>
+          <p class="caption__index">01.3</p>
+          <h2 class="caption__title display">One seat in the middle</h2>
+          <p>The driver sits on the centreline, two passengers just behind.</p>
+        </div>
+        <div class="chapter__shade" data-shade></div>
+        <h2 class="claim display" data-fit data-fit-h="0.15" data-fit-min="34" data-claim><span class="fl">Nothing burns</span><span class="fl">Everything moves</span></h2>
+      </div>
+    </section>
+
+    <section class="interlude" id="manifesto" aria-labelledby="manifesto-title" data-interlude>
+      <div class="interlude__inner">
+        <p class="kicker"><span>Interlude</span><span>Manifesto</span></p>
+        <h2 class="interlude__title display" id="manifesto-title" data-lines-title>Drawn from the light outward</h2>
+        <div class="interlude__body">
+          <p data-reveal>Every OHMEN starts as one line of light. The lamps are drawn first; bodywork, cabin and stance are shaped back from that signature until nothing is left that doesn't serve it.</p>
+          <a class="btn" href="#design-notes" data-dialog="design-notes" data-reveal><span class="btn__label" data-roll>Read the design notes</span><i class="btn__arrow" aria-hidden="true"></i></a>
+        </div>
+        <div class="marquee" aria-label="Key figures">
+          <div class="marquee__track">
+            <div class="marquee__set">
+              <span class="marquee__item">1,020 kW</span>
+              <span class="marquee__item">0–100 km/h in 1.9 s</span>
+              <span class="marquee__item">800-volt platform</span>
+              <span class="marquee__item">640 km range</span>
+              <span class="marquee__item">10–80% in 14 minutes</span>
+              <span class="marquee__item">No tailpipe</span>
+            </div>
+            <div class="marquee__set" aria-hidden="true">
+              <span class="marquee__item">1,020 kW</span>
+              <span class="marquee__item">0–100 km/h in 1.9 s</span>
+              <span class="marquee__item">800-volt platform</span>
+              <span class="marquee__item">640 km range</span>
+              <span class="marquee__item">10–80% in 14 minutes</span>
+              <span class="marquee__item">No tailpipe</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter chapter--signature" id="signature" data-chapter="signature" data-name="Signature" aria-label="Chapter 2, Signature">
+      <div class="chapter__pin">
+        <div class="opener" data-opener>
+          <p class="kicker"><span>Chapter 02</span><span>Signature</span></p>
+          <h2 class="opener__title display" data-fit-one data-fit-h="0.13" data-fit-max="150">Signature</h2>
+        </div>
+        <div class="strip" data-strip><i></i></div>
+        <div class="note note--right" data-note>
+          <p class="note__lead">At night the ARC is a thin white line and nothing else.</p>
+          <p>The signature is cut from a single LED strip running the width of the nose. Every surface around it was shaped to frame that line.</p>
+          <dl class="readout">
+            <div><dt>Line height</dt><dd>2 mm</dd></div>
+            <div><dt>Width</dt><dd>1,460 mm</dd></div>
+            <div><dt>Colour</dt><dd>6,500 K</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter chapter--motion" id="motion" data-chapter="motion" data-name="Motion" aria-label="Chapter 3, Motion">
+      <div class="chapter__pin">
+        <div class="opener" data-opener>
+          <p class="kicker"><span>Chapter 03</span><span>Motion</span></p>
+          <h2 class="opener__title display" data-fit-one data-fit-h="0.11" data-fit-max="120">Quiet at speed</h2>
+        </div>
+        <div class="pass" data-pass="0"><b>UMBRA</b><span>640 kW, five seats</span></div>
+        <div class="pass" data-pass="1"><b>ARC</b><span>1,020 kW, one central seat</span></div>
+        <div class="pass" data-pass="2"><b>UMBRA</b><span>640 km of range</span></div>
+        <div class="meter" data-meter-db>
+          <p class="meter__value"><span data-db>58</span><small>dB</small></p>
+          <p class="meter__label">Cabin at 120 km/h. Quieter than a library.</p>
+          <button class="btn" type="button" data-listen><span class="btn__label" data-roll>Hear the pass-by</span><i class="btn__arrow" aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="interlude interlude--statement" id="statement" aria-label="Philosophy" data-interlude>
+      <div class="interlude__inner">
+        <p class="kicker"><span>Interlude</span><span>No combustion</span></p>
+        <h2 class="statement display" data-fit data-fit-h="0.105" data-fit-max="104" data-fit-min="28" data-fit-mode="wrap" data-statement>
+          <span class="ln" aria-hidden="true"><span class="fl">No engine to hide behind.</span></span>
+          <span class="ln" aria-hidden="true"><span class="fl">No grille to fill the face.</span></span>
+          <span class="ln" aria-hidden="true" data-scrub><span class="fl">Every surface has to</span></span>
+          <span class="ln" aria-hidden="true" data-scrub><span class="fl">earn its place.</span></span>
+        </h2>
+        <p class="interlude__text" data-reveal>Without combustion there is nothing to cool, vent or excuse. What's left is shape, light and the silence between them.</p>
+      </div>
+    </section>
+
+    <section class="chapter chapter--model" id="arc" data-chapter="arc360" data-name="ARC" aria-labelledby="arc-title">
+      <div class="chapter__pin">
+        <div class="model">
+          <p class="kicker"><span>Chapter 04</span><span>The hypercar</span></p>
+          <h2 class="model__title display" id="arc-title" data-flare data-fit-solo data-fit-h="0.17" data-fit-max="190">ARC</h2>
+          <p class="model__text">Glass canopy, central driving seat, four motors.</p>
+          <ul class="tags" data-tags>
+            <li class="tag" data-at="0.06"><b>Light</b>One 2 mm line across the nose</li>
+            <li class="tag" data-at="0.3"><b>Wheels</b>Forged 21-inch over carbon-ceramic discs</li>
+            <li class="tag" data-at="0.55"><b>Tail</b>A single red line closes the car</li>
+            <li class="tag" data-at="0.8"><b>Paint</b>Puro Sangue, three stages, polished by hand</li>
+          </ul>
+          <div class="model__foot">
+            <dl class="specs">
+              <div><dt>Power</dt><dd>1,020 kW</dd></div>
+              <div><dt>0–100 km/h</dt><dd>1.9 s</dd></div>
+              <div><dt>Range</dt><dd>520 km</dd></div>
+            </dl>
+            <a class="btn btn--solid" href="#configure" data-dialog="configure" data-model="arc"><span class="btn__label" data-roll>Configure ARC</span><i class="btn__arrow" aria-hidden="true"></i></a>
+          </div>
+        </div>
+        <p class="turn" data-turn><span data-deg>000</span>°</p>
+      </div>
+    </section>
+
+    <section class="chapter chapter--model" id="umbra" data-chapter="umbra360" data-name="UMBRA" aria-labelledby="umbra-title">
+      <div class="chapter__pin">
+        <div class="model">
+          <p class="kicker"><span>Chapter 05</span><span>The SUV</span></p>
+          <h2 class="model__title display" id="umbra-title" data-flare data-fit-solo data-fit-h="0.17" data-fit-max="190">UMBRA</h2>
+          <p class="model__text">The ARC's light signature, room for five and our longest range.</p>
+          <ul class="tags" data-tags>
+            <li class="tag" data-at="0.06"><b>Face</b>The same line of light, a hand's width higher</li>
+            <li class="tag" data-at="0.3"><b>Stance</b>22-inch wheels pushed to the corners</li>
+            <li class="tag" data-at="0.55"><b>Gloss black</b>No colour of its own, only reflections</li>
+            <li class="tag" data-at="0.8"><b>Platform</b>800 volts, shared with the ARC</li>
+          </ul>
+          <div class="model__foot">
+            <dl class="specs">
+              <div><dt>Power</dt><dd>640 kW</dd></div>
+              <div><dt>0–100 km/h</dt><dd>3.4 s</dd></div>
+              <div><dt>Range</dt><dd>640 km</dd></div>
+            </dl>
+            <a class="btn btn--solid" href="#configure" data-dialog="configure" data-model="umbra"><span class="btn__label" data-roll>Configure UMBRA</span><i class="btn__arrow" aria-hidden="true"></i></a>
+          </div>
+        </div>
+        <p class="turn" data-turn><span data-deg>000</span>°</p>
+      </div>
+    </section>
+
+    <section class="chapter chapter--departure" id="departure" data-chapter="leave" data-name="Departure" aria-label="Chapter 6, Departure">
+      <div class="chapter__pin">
+        <div class="chapter__shade" data-shade></div>
+        <div class="finale">
+          <p class="kicker" data-finale-kicker><span>Chapter 06</span><span>Departure</span></p>
+          <p class="finale__label" data-finale-item>Reservations open for 2027 builds</p>
+          <h2 class="finale__title display" data-fit data-fit-h="0.14" data-fit-min="34" data-finale-title><span class="fl">Leave combustion</span><span class="fl">behind</span></h2>
+          <a class="btn btn--solid finale__cta" href="#configure" data-dialog="configure" data-finale-item><span class="btn__label" data-roll>Reserve yours</span><i class="btn__arrow" aria-hidden="true"></i></a>
+          <p class="finale__note" data-finale-item>OHMEN is a fictional marque, designed and built by <a href="https://purezag.vercel.app" target="_blank" rel="noopener">purezag</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="foot" aria-labelledby="foot-title">
+      <div class="foot__head">
+        <h2 class="foot__word display" id="foot-title"><svg viewBox="0 0 48 32" aria-hidden="true"><use href="#mark"/></svg><span>OHMEN</span></h2>
+        <p class="foot__line">Drawn from a single line of light.</p>
+      </div>
+      <div class="foot__grid">
+        <nav class="foot__col" aria-label="Chapters">
+          <p class="foot__label">Chapters</p>
+          <ol class="foot__list foot__list--chapters">
+            <li><a href="#arrival" data-link><b>01</b><span>Arrival</span></a></li>
+            <li><a href="#signature" data-link><b>02</b><span>Signature</span></a></li>
+            <li><a href="#motion" data-link><b>03</b><span>Motion</span></a></li>
+            <li><a href="#arc" data-link><b>04</b><span>ARC</span></a></li>
+            <li><a href="#umbra" data-link><b>05</b><span>UMBRA</span></a></li>
+            <li><a href="#departure" data-link><b>06</b><span>Departure</span></a></li>
+          </ol>
+        </nav>
+        <div class="foot__col">
+          <p class="foot__label">Explore</p>
+          <ul class="foot__list">
+            <li><a href="#configure" data-dialog="configure"><span>Reserve in the garage</span></a></li>
+            <li><a href="#design-notes" data-dialog="design-notes"><span>Design notes</span></a></li>
+            <li><a href="#manifesto" data-link><span>Manifesto</span></a></li>
+          </ul>
+        </div>
+        <div class="foot__col">
+          <p class="foot__label">Studio</p>
+          <p class="foot__studio">Concept, 3D, film, design and development</p>
+          <a class="foot__author" href="https://purezag.vercel.app" target="_blank" rel="noopener"><span>purezag</span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 10L10 2M4 2h6v6" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></a>
+        </div>
+        <div class="foot__col foot__col--end">
+          <p class="foot__label">Language</p>
+          <button class="lang foot__lang" type="button" data-lang-toggle data-lang="en" aria-label="Switch language to Portuguese"><span class="lang__track" aria-hidden="true"><i class="lang__thumb"></i><b data-l="en" class="is-on">EN</b><b data-l="pt">PT</b></span></button>
+          <button class="foot__top-btn" type="button" data-top><span>Back to the start</span><svg viewBox="0 0 10 12" aria-hidden="true"><path d="M5 11V1M1 5l4-4 4 4" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></button>
+        </div>
+      </div>
+      <div class="foot__base">
+        <p>© 2026 OHMEN, a fictional marque. Every frame rendered for this film.</p>
+        <p class="foot__license">Base 3D model “Car Concept” by Eric Chadwick, Darmstadt Graphics Group, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, modified.</p>
+      </div>
+    </footer>
+
+  </main>
+</div>
+
+<dialog class="notes" id="design-notes" aria-labelledby="notes-title" data-notes data-lenis-prevent>
+  <div class="notes__bar">
+    <p class="kicker"><span>Design notes</span><span>Four rules</span></p>
+    <div class="notes__progress" aria-hidden="true"><i data-notes-progress></i></div>
+    <button class="close" type="button" data-close><span>Close</span><i aria-hidden="true"></i></button>
+  </div>
+  <div class="notes__scroll" data-notes-scroll>
+    <header class="notes__intro">
+      <p class="notes__eyebrow">OHMEN studio, 2026</p>
+      <h2 class="notes__title display" id="notes-title" data-notes-title data-fit-h="0.2" data-fit-max="170"><span class="fl">Drawn from</span><span class="fl">the light</span><span class="fl">outward</span></h2>
+      <p class="notes__lead" data-notes-reveal>We draw the lamps before anything else. An electric car has no grille to announce it, so the light has to. Four rules came out of that, and every OHMEN follows them.</p>
+      <ol class="notes__index" data-notes-reveal>
+        <li><a href="#note-light"><b>N.01</b>Light first</a></li>
+        <li><a href="#note-paint"><b>N.02</b>Paint is a mirror</a></li>
+        <li><a href="#note-family"><b>N.03</b>One family</a></li>
+        <li><a href="#note-silence"><b>N.04</b>Silence is designed</a></li>
+      </ol>
+    </header>
+
+    <article class="entry" id="note-light" data-entry>
+      <p class="entry__num" aria-hidden="true">01</p>
+      <figure class="entry__media"><img src="assets/media/notes-light.jpg" alt="The ARC's nose at night, its LED signature a single thin line of white light" loading="lazy" decoding="async"><figcaption><span>Fig. 01</span>ARC, signature at night</figcaption></figure>
+      <div class="entry__body">
+        <p class="entry__index"><i></i>N.01</p>
+        <h3 class="entry__title display">Light first</h3>
+        <div class="entry__text">
+          <p>The ARC's front signature is a single strip of LEDs, 2 mm tall and nearly a metre and a half wide. Every surface around it was shaped to frame that line: the bonnet falls towards it and the fenders wrap it.</p>
+          <dl class="readout"><div><dt>Line height</dt><dd>2 mm</dd></div><div><dt>Width</dt><dd>1,460 mm</dd></div><div><dt>Colour</dt><dd>6,500 K</dd></div></dl>
+        </div>
+      </div>
+    </article>
+
+    <article class="entry entry--flip" id="note-paint" data-entry>
+      <p class="entry__num" aria-hidden="true">02</p>
+      <figure class="entry__media"><img src="assets/media/notes-body.jpg" alt="Light frames reflected along the ARC's red front fender" loading="lazy" decoding="async"><figcaption><span>Fig. 02</span>Puro Sangue under the light frames</figcaption></figure>
+      <div class="entry__body">
+        <p class="entry__index"><i></i>N.02</p>
+        <h3 class="entry__title display">Paint is a mirror</h3>
+        <div class="entry__text">
+          <p>Puro Sangue is a three-stage paint. A silver base gives it depth, a red-tinted lacquer gives it colour and a clear coat polished by hand lets reflections run without a ripple. We light it with rectangular frames so every curve reads as one clean edge.</p>
+          <dl class="readout"><div><dt>Stages</dt><dd>3</dd></div><div><dt>Clear coat</dt><dd>60 µm</dd></div><div><dt>Finish</dt><dd>By hand</dd></div></dl>
+        </div>
+      </div>
+    </article>
+
+    <article class="entry" id="note-family" data-entry>
+      <p class="entry__num" aria-hidden="true">03</p>
+      <figure class="entry__media"><img src="assets/media/notes-umbra.jpg" alt="The black UMBRA SUV in the dark studio, its shape drawn only by reflections" loading="lazy" decoding="async"><figcaption><span>Fig. 03</span>UMBRA, gloss black</figcaption></figure>
+      <div class="entry__body">
+        <p class="entry__index"><i></i>N.03</p>
+        <h3 class="entry__title display">One family</h3>
+        <div class="entry__text">
+          <p>UMBRA follows the same rules at a larger scale. Its gloss black body has almost no colour of its own: you only see its shape where the light catches it, which is exactly the point. Same signature, a hand's width higher.</p>
+          <dl class="readout"><div><dt>Platform</dt><dd>800 V</dd></div><div><dt>Seats</dt><dd>5</dd></div><div><dt>Range</dt><dd>640 km</dd></div></dl>
+        </div>
+      </div>
+    </article>
+
+    <article class="entry entry--flip" id="note-silence" data-entry>
+      <p class="entry__num" aria-hidden="true">04</p>
+      <figure class="entry__media"><img src="assets/media/notes-motion.jpg" alt="The OHMEN line-up passing at speed through the studio, wheels blurred" loading="lazy" decoding="async"><figcaption><span>Fig. 04</span>Pass-by, 120 km/h</figcaption></figure>
+      <div class="entry__body">
+        <p class="entry__index"><i></i>N.04</p>
+        <h3 class="entry__title display">Silence is designed</h3>
+        <div class="entry__text">
+          <p>With nothing to cool or exhaust, the loudest thing at speed is the tyres. We tuned the cabin to 58 dB and built the pass-by sound you hear on this site from the motors' own frequencies, so the car sounds like what it is.</p>
+          <dl class="readout"><div><dt>Cabin</dt><dd>58 dB</dd></div><div><dt>Tailpipe</dt><dd>None</dd></div><div><dt>Motors</dt><dd>4</dd></div></dl>
+        </div>
+      </div>
+    </article>
+
+    <footer class="notes__end">
+      <p class="notes__end-line display">Now make one yours</p>
+      <a class="btn btn--solid" href="#configure" data-dialog="configure"><span class="btn__label" data-roll>Open the garage</span><i class="btn__arrow" aria-hidden="true"></i></a>
+    </footer>
+  </div>
+</dialog>
+
+<dialog class="garage" id="configure" aria-labelledby="garage-title" data-garage data-lenis-prevent>
+  <div class="garage__stage" data-garage-stage>
+    <canvas class="garage__canvas" data-garage-canvas aria-hidden="true"></canvas>
+    <img class="garage__still" data-garage-still alt="" hidden>
+    <div class="garage__veil" aria-hidden="true"></div>
+    <div class="garage__load" data-garage-load hidden>
+      <div class="garage__tubes" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <p><span data-garage-load-label>Bringing the ARC in</span><b data-garage-pct>0%</b></p>
+    </div>
+    <div class="garage__hud">
+      <span class="garage__corner garage__corner--tl" aria-hidden="true"></span>
+      <span class="garage__corner garage__corner--tr" aria-hidden="true"></span>
+      <span class="garage__corner garage__corner--bl" aria-hidden="true"></span>
+      <span class="garage__corner garage__corner--br" aria-hidden="true"></span>
+      <p class="garage__hint" aria-hidden="true"><i></i><span>Drag to turn, pinch or scroll to zoom</span></p>
+      <p class="garage__turn" aria-hidden="true"><span>Turn</span><b><span data-garage-deg>000</span>°</b></p>
+      <div class="garage__views" role="toolbar" aria-label="Camera">
+        <button type="button" class="chip" data-view="front" aria-pressed="true">Front</button>
+        <button type="button" class="chip" data-view="side" aria-pressed="false">Side</button>
+        <button type="button" class="chip" data-view="rear" aria-pressed="false">Rear</button>
+        <button type="button" class="chip" data-view="wheel" aria-pressed="false">Wheel</button>
+        <button type="button" class="chip" data-view="cabin" aria-pressed="false">Cabin</button>
+        <button type="button" class="chip chip--lights" data-lights aria-pressed="true"><i aria-hidden="true"></i>Lights</button>
+      </div>
+    </div>
+  </div>
+
+  <header class="garage__head">
+    <p class="kicker garage__kicker"><span>Garage</span><span data-garage-kicker>The hypercar</span></p>
+    <div class="garage__name">
+      <h2 class="garage__title display" id="garage-title" data-garage-title>ARC</h2>
+      <p class="garage__count"><b data-garage-index>01</b><span>/02</span></p>
+    </div>
+    <p class="garage__line" data-garage-line>Glass canopy, central driving seat, four motors.</p>
+    <div class="garage__switch">
+      <button type="button" class="arrow" data-garage-step="-1" aria-label="Previous model"><svg viewBox="0 0 24 12" aria-hidden="true"><path d="M23 6H2M7 1L2 6l5 5" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></button>
+      <button type="button" class="arrow" data-garage-step="1" aria-label="Next model"><svg viewBox="0 0 24 12" aria-hidden="true"><path d="M1 6h21M17 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></button>
+    </div>
+  </header>
+
+  <button class="close garage__close" type="button" data-close><span>Close</span><i aria-hidden="true"></i></button>
+
+  <form class="garage__panel" data-garage-form>
+    <div class="garage__tabs" role="tablist" aria-label="Options" data-garage-tabs></div>
+    <div class="garage__groups" data-garage-groups></div>
+    <div class="garage__summary">
+      <dl class="garage__specs" data-garage-specs></dl>
+      <p class="garage__code"><span>Spec</span><b data-garage-code>OHM·ARC</b></p>
+      <button class="btn btn--solid" type="submit"><span class="btn__label" data-roll>Reserve this spec</span><i class="btn__arrow" aria-hidden="true"></i></button>
+      <p class="garage__status" data-garage-status aria-live="polite"></p>
+    </div>
+  </form>
+
+  <section class="garage__done" data-garage-done hidden aria-live="polite">
+    <p class="kicker"><span>Reserved</span><span data-garage-ref>OHM-27-0000</span></p>
+    <h3 class="garage__done-title display">Spec reserved</h3>
+    <p class="garage__final" data-garage-final></p>
+    <p class="garage__fine" data-garage-fine></p>
+    <div class="garage__actions">
+      <button class="btn" type="button" data-garage-copy><span class="btn__label" data-roll>Copy spec</span><i class="btn__arrow" aria-hidden="true"></i></button>
+      <button class="btn" type="button" data-garage-again><span class="btn__label" data-roll>Change spec</span><i class="btn__arrow" aria-hidden="true"></i></button>
+    </div>
+  </section>
+</dialog>
+
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js" crossorigin>
+<link rel="modulepreload" href="assets/js/stage.js">
+<link rel="modulepreload" href="assets/js/choreo.js">
+<link rel="preload" href="assets/garage/arc.wasm" as="fetch" crossorigin="anonymous">
+<link rel="preload" href="assets/garage/umbra.wasm" as="fetch" crossorigin="anonymous">
+<script type="module" src="assets/js/app.js"></script>
+</body>
+</html>

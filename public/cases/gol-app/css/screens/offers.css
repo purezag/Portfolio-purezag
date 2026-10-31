@@ -1,0 +1,83 @@
+.olist {
+  display: grid;
+  gap: 14px;
+  padding: 14px 16px 40px;
+}
+
+.ocard {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  position: relative;
+  height: 230px;
+  border-radius: 26px;
+  overflow: hidden;
+  cursor: pointer;
+  text-align: left;
+  color: #fff;
+  background: #222;
+  transition: transform 0.2s var(--ease);
+}
+
+.ocard:active {
+  transform: scale(0.98);
+}
+
+.ocard .ph {
+  position: absolute;
+  inset: 0;
+}
+
+.ocard::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.7));
+}
+
+.oc-tx {
+  position: absolute;
+  left: 18px;
+  bottom: 16px;
+  z-index: 2;
+  display: grid;
+  gap: 3px;
+}
+
+.oc-tx b {
+  font: 800 32px/0.95 var(--display);
+  font-stretch: 80%;
+  letter-spacing: -0.02em;
+}
+
+.oc-tx span {
+  font: 500 13px var(--ui);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.oc-p {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  z-index: 2;
+  text-align: right;
+}
+
+.oc-p small {
+  display: block;
+  font: 500 11.5px var(--ui);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.oc-p b {
+  font: 700 21px var(--display);
+  font-stretch: 90%;
+  font-variant-numeric: tabular-nums;
+}
+
+.oc-cat {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 2;
+}

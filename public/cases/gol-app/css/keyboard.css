@@ -1,0 +1,200 @@
+.kb {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 420;
+  padding: 8px 4px 0;
+  background: var(--kb-bg);
+  transform: translateY(102%);
+  transition: transform 0.38s cubic-bezier(0.2, 0.9, 0.25, 1);
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.kb.on {
+  transform: none;
+}
+
+.kb-row {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 11px;
+}
+
+.key {
+  appearance: none;
+  border: 0;
+  position: relative;
+  flex: 0 0 calc((100% - 54px) / 10);
+  height: 44px;
+  border-radius: 6px;
+  background: var(--kb-key);
+  color: var(--kb-ink);
+  box-shadow: 0 1px 0 var(--kb-shadow);
+  font: 400 23px/1 var(--ui);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+.key.fn {
+  background: var(--kb-fn);
+  font-size: 15.5px;
+}
+
+.key.wide {
+  flex-basis: 44px;
+}
+
+.r2 .key.wide:first-child {
+  margin-right: 8px;
+}
+
+.r2 .key.wide:last-child {
+  margin-left: 8px;
+}
+
+.key.mode {
+  flex: 0 0 92px;
+}
+
+.key.space {
+  flex: 1 1 auto;
+  font-size: 15.5px;
+}
+
+.key.ret {
+  flex: 0 0 92px;
+}
+
+.key.ret.go {
+  background: var(--brand);
+  color: #fff;
+}
+
+.key.shift-on {
+  background: var(--kb-key);
+}
+
+.key.down {
+  background: var(--kb-fn);
+}
+
+.key.fn.down {
+  background: var(--kb-key);
+}
+
+.key[data-pop].down::after {
+  content: attr(data-pop);
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% - 4px);
+  transform: translateX(-50%);
+  min-width: 50px;
+  height: 58px;
+  padding-bottom: 6px;
+  border-radius: 10px 10px 8px 8px;
+  background: var(--kb-key);
+  color: var(--kb-ink);
+  display: grid;
+  place-items: center;
+  font: 400 32px/1 var(--ui);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.28);
+  z-index: 3;
+}
+
+.key .ic {
+  width: 22px;
+  height: 22px;
+}
+
+.kb-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  height: 58px;
+  padding: 2px 24px 0;
+  color: var(--kb-ink);
+  opacity: 0.8;
+}
+
+.kb-foot .ic {
+  width: 25px;
+  height: 25px;
+}
+
+.kb.padmode .key {
+  flex: 1 1 0;
+  height: 47px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.kb.padmode .key b {
+  font: 400 25px/1 var(--ui);
+}
+
+.kb.padmode .key small {
+  font: 650 9.5px/1 var(--ui);
+  letter-spacing: 0.14em;
+  margin-top: 2px;
+}
+
+.key.ghost {
+  background: transparent;
+  box-shadow: none;
+}
+
+.kb-acc {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 44px;
+  margin: -8px -4px 8px;
+  padding: 0 8px;
+  background: var(--kb-acc);
+  border-bottom: 1px solid var(--kb-line);
+}
+
+.key.acc {
+  flex: none;
+  min-width: 42px;
+  height: 36px;
+  padding: 0 12px;
+  border-radius: 9px;
+  background: none;
+  box-shadow: none;
+  font: 650 16px var(--ui);
+  color: var(--kb-ink);
+}
+
+.key.acc.ok {
+  color: var(--brand-ink);
+}
+
+.key.acc.off {
+  opacity: 0.28;
+  pointer-events: none;
+}
+
+.key.acc.down {
+  background: rgba(127, 127, 127, 0.2);
+}
+
+.key.acc .ic.up {
+  transform: rotate(90deg);
+}
+
+.key.acc .ic.dn {
+  transform: rotate(-90deg);
+}
+
+.kb-acc .sp {
+  flex: 1;
+}

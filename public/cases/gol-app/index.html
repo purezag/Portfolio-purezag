@@ -1,0 +1,716 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>GOL · Conceito de app</title>
+    <meta
+      name="description"
+      content="Conceito navegável de um novo app da GOL: compra de passagens, assentos, check-in, cartão de embarque, perfil e atendimento."
+    />
+    <meta name="theme-color" content="#0b0b0c" />
+    <link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="assets/brand/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&family=DM+Mono:wght@400;500&family=Figtree:wght@400;500;600;700;800&display=swap"
+    />
+    <link rel="stylesheet" href="css/tokens.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/screens/splash.css" />
+    <link rel="stylesheet" href="css/screens/home.css" />
+    <link rel="stylesheet" href="css/screens/destination.css" />
+    <link rel="stylesheet" href="css/screens/offers.css" />
+    <link rel="stylesheet" href="css/screens/search.css" />
+    <link rel="stylesheet" href="css/screens/results.css" />
+    <link rel="stylesheet" href="css/sheets.css" />
+    <link rel="stylesheet" href="css/forms.css" />
+    <link rel="stylesheet" href="css/screens/seats.css" />
+    <link rel="stylesheet" href="css/screens/payment.css" />
+    <link rel="stylesheet" href="css/screens/processing.css" />
+    <link rel="stylesheet" href="css/screens/trips.css" />
+    <link rel="stylesheet" href="css/screens/boarding-pass.css" />
+    <link rel="stylesheet" href="css/screens/profile.css" />
+    <link rel="stylesheet" href="css/screens/chat.css" />
+    <link rel="stylesheet" href="css/keyboard.css" />
+    <link rel="stylesheet" href="css/scroll-header.css" />
+    <link rel="stylesheet" href="css/photo-viewer.css" />
+    <script src="js/core/dom.js" defer></script>
+    <script src="js/core/format.js" defer></script>
+    <script src="js/data/photos.js" defer></script>
+    <script src="js/data/catalog.js" defer></script>
+    <script src="js/core/pricing.js" defer></script>
+    <script src="js/data/account.js" defer></script>
+    <script src="js/ui/device.js" defer></script>
+    <script src="js/ui/media.js" defer></script>
+    <script src="js/ui/components.js" defer></script>
+    <script src="js/ui/toast.js" defer></script>
+    <script src="js/ui/theme.js" defer></script>
+    <script src="js/ui/tour.js" defer></script>
+    <script src="js/ui/navigation.js" defer></script>
+    <script src="js/ui/sheets.js" defer></script>
+    <script src="js/ui/keyboard.js" defer></script>
+    <script src="js/ui/photo-viewer.js" defer></script>
+    <script src="js/screens/splash.js" defer></script>
+    <script src="js/screens/home.js" defer></script>
+    <script src="js/screens/destination.js" defer></script>
+    <script src="js/screens/offers.js" defer></script>
+    <script src="js/screens/search.js" defer></script>
+    <script src="js/screens/results.js" defer></script>
+    <script src="js/screens/checkout.js" defer></script>
+    <script src="js/screens/seats.js" defer></script>
+    <script src="js/screens/payment.js" defer></script>
+    <script src="js/screens/trips.js" defer></script>
+    <script src="js/screens/check-in.js" defer></script>
+    <script src="js/screens/boarding-pass.js" defer></script>
+    <script src="js/screens/profile.js" defer></script>
+    <script src="js/screens/chat.js" defer></script>
+    <script src="js/main.js" defer></script>
+  </head>
+  <body>
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <symbol id="i-home" viewBox="0 0 24 24">
+        <path d="M3.5 10.5 12 3.8l8.5 6.7" />
+        <path d="M5.5 9v10.2a.8.8 0 0 0 .8.8H10v-5.5h4V20h3.7a.8.8 0 0 0 .8-.8V9" />
+      </symbol>
+      <symbol id="i-trips" viewBox="0 0 24 24">
+        <rect x="3.5" y="7" width="17" height="13" rx="2.5" />
+        <path d="M9 7V5.2A1.2 1.2 0 0 1 10.2 4h3.6A1.2 1.2 0 0 1 15 5.2V7M3.5 12.5h17" />
+      </symbol>
+      <symbol id="i-ticket" viewBox="0 0 24 24">
+        <path
+          d="M4 6.5h16a1 1 0 0 1 1 1V10a2 2 0 0 0 0 4v2.5a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V14a2 2 0 0 0 0-4V7.5a1 1 0 0 1 1-1z"
+        />
+        <path d="M15 7v1.5M15 11.2v1.6M15 15.5V17" />
+      </symbol>
+      <symbol id="i-user" viewBox="0 0 24 24">
+        <circle cx="12" cy="8.5" r="4" />
+        <path d="M4.5 20c.8-3.6 3.7-5.7 7.5-5.7s6.7 2.1 7.5 5.7" />
+      </symbol>
+      <symbol id="i-bell" viewBox="0 0 24 24">
+        <path d="M6 10a6 6 0 1 1 12 0c0 4.5 1.6 6.3 2.2 7H3.8c.6-.7 2.2-2.5 2.2-7z" />
+        <path d="M10 20a2.2 2.2 0 0 0 4 0" />
+      </symbol>
+      <symbol id="i-search" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="6.5" />
+        <path d="m20 20-4.2-4.2" />
+      </symbol>
+      <symbol id="i-back" viewBox="0 0 24 24"><path d="M14.5 5.5 8 12l6.5 6.5" /></symbol>
+      <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" /></symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" /></symbol>
+      <symbol id="i-send" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6" /></symbol>
+      <symbol id="i-chev" viewBox="0 0 24 24"><path d="m9.5 5.5 6.5 6.5-6.5 6.5" /></symbol>
+      <symbol id="i-swap" viewBox="0 0 24 24">
+        <path d="M8 4v15M8 19l-3.5-3.5M8 19l3.5-3.5M16 20V5M16 5l-3.5 3.5M16 5l3.5 3.5" />
+      </symbol>
+      <symbol id="i-cal" viewBox="0 0 24 24">
+        <rect x="3.5" y="5" width="17" height="15.5" rx="2.5" />
+        <path d="M3.5 10h17M8 3v4M16 3v4" />
+      </symbol>
+      <symbol id="i-users" viewBox="0 0 24 24">
+        <circle cx="9" cy="8.5" r="3.5" />
+        <path d="M2.8 19.5c.6-3.2 3-5 6.2-5s5.6 1.8 6.2 5" />
+        <path d="M15.5 5.3a3.5 3.5 0 0 1 0 6.4M17.6 14.7c2 .6 3.3 2.2 3.6 4.8" />
+      </symbol>
+      <symbol id="i-bag" viewBox="0 0 24 24">
+        <rect x="5.5" y="7" width="13" height="13.5" rx="2.5" />
+        <path d="M9.5 7V4.8a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1V7M9.5 11v6M14.5 11v6M8 20.5v1M16 20.5v1" />
+      </symbol>
+      <symbol id="i-pack" viewBox="0 0 24 24">
+        <path d="M7 8.5a5 5 0 0 1 10 0V19a1.5 1.5 0 0 1-1.5 1.5h-7A1.5 1.5 0 0 1 7 19z" />
+        <path d="M10 6.2V4.8a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v1.4M9.5 13h5v3h-5z" />
+      </symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24">
+        <path d="M12 3.5 5 6v5.5c0 4.3 2.9 7.9 7 9 4.1-1.1 7-4.7 7-9V6z" />
+        <path d="m9 12 2.2 2.2L15.5 10" />
+      </symbol>
+      <symbol id="i-leaf" viewBox="0 0 24 24">
+        <path d="M5 19c0-8 5-13.5 15-14-.4 9.8-5.8 15-13 15" />
+        <path d="M5 19c3-4 6-6.5 9.5-8" />
+      </symbol>
+      <symbol id="i-seat" viewBox="0 0 24 24">
+        <path
+          d="M7 4.5h3.5a1 1 0 0 1 1 1V13h5.2a1.8 1.8 0 0 1 1.8 1.8V18H8.5A2.5 2.5 0 0 1 6 15.5v-10a1 1 0 0 1 1-1z"
+        />
+        <path d="M8 18v2.5M16.5 18v2.5" />
+      </symbol>
+      <symbol id="i-clock" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="8.5" />
+        <path d="M12 7.5V12l3 2" />
+      </symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5" /></symbol>
+      <symbol id="i-checkin" viewBox="0 0 24 24">
+        <rect x="4" y="3.5" width="16" height="17" rx="2.5" />
+        <path d="m8.5 12.5 2.5 2.5 4.5-5" />
+      </symbol>
+      <symbol id="i-pin" viewBox="0 0 24 24">
+        <path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11z" />
+        <circle cx="12" cy="10" r="2.3" />
+      </symbol>
+      <symbol id="i-heart" viewBox="0 0 24 24">
+        <path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.2a4.3 4.3 0 0 1 7.5 2.6C19.5 15.4 12 20 12 20z" />
+      </symbol>
+      <symbol id="i-share" viewBox="0 0 24 24">
+        <path d="M12 15V4M8 7.5 12 3.5l4 4" />
+        <path
+          d="M7 11H6a1.5 1.5 0 0 0-1.5 1.5v6A1.5 1.5 0 0 0 6 20h12a1.5 1.5 0 0 0 1.5-1.5v-6A1.5 1.5 0 0 0 18 11h-1"
+        />
+      </symbol>
+      <symbol id="i-star" viewBox="0 0 24 24">
+        <path d="m12 3.8 2.5 5.1 5.6.8-4 4 .9 5.6-5-2.7-5 2.7.9-5.6-4-4 5.6-.8z" />
+      </symbol>
+      <symbol id="i-chat" viewBox="0 0 24 24">
+        <path d="M5 18.5V7a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v7.5a2 2 0 0 1-2 2H8.5z" />
+        <path d="M8.5 9.5h7M8.5 12.5h4.5" />
+      </symbol>
+      <symbol id="i-card" viewBox="0 0 24 24">
+        <rect x="3" y="5.5" width="18" height="13" rx="2.5" />
+        <path d="M3 10h18M6.5 14.5h3" />
+      </symbol>
+      <symbol id="i-pix" viewBox="0 0 24 24">
+        <path d="M12 3.5 20.5 12 12 20.5 3.5 12z" />
+        <path d="m8.2 9.8 2.6 2.6a1.7 1.7 0 0 0 2.4 0l2.6-2.6M8.2 14.2l2.6-2.6a1.7 1.7 0 0 1 2.4 0l2.6 2.6" />
+      </symbol>
+      <symbol id="i-copy" viewBox="0 0 24 24">
+        <rect x="8.5" y="8.5" width="11" height="11" rx="2" />
+        <path d="M15.5 8.5V6a1.5 1.5 0 0 0-1.5-1.5H6A1.5 1.5 0 0 0 4.5 6v8A1.5 1.5 0 0 0 6 15.5h2.5" />
+      </symbol>
+      <symbol id="i-wallet" viewBox="0 0 24 24">
+        <path d="M4 7.5A2.5 2.5 0 0 1 6.5 5H18v3" />
+        <rect x="4" y="8" width="16.5" height="11.5" rx="2.5" />
+        <circle cx="16" cy="13.8" r="1.2" />
+      </symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" /></symbol>
+      <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14" /></symbol>
+      <symbol id="i-sliders" viewBox="0 0 24 24">
+        <path d="M4 7h9M17 7h3M4 17h3M11 17h9" />
+        <circle cx="15" cy="7" r="2" />
+        <circle cx="9" cy="17" r="2" />
+      </symbol>
+      <symbol id="i-info" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="8.5" />
+        <path d="M12 11v5.5M12 7.8v.4" />
+      </symbol>
+      <symbol id="i-logout" viewBox="0 0 24 24">
+        <path d="M14 4.5H7A1.5 1.5 0 0 0 5.5 6v12A1.5 1.5 0 0 0 7 19.5h7M10.5 12h10M17 8.5l3.5 3.5-3.5 3.5" />
+      </symbol>
+      <symbol id="i-lock" viewBox="0 0 24 24">
+        <rect x="5" y="10.5" width="14" height="10" rx="2.5" />
+        <path d="M8.5 10.5V7.8a3.5 3.5 0 0 1 7 0v2.7" />
+      </symbol>
+      <symbol id="i-doc" viewBox="0 0 24 24">
+        <path d="M7 3.5h7l4.5 4.5v11a1.5 1.5 0 0 1-1.5 1.5H7A1.5 1.5 0 0 1 5.5 19V5A1.5 1.5 0 0 1 7 3.5z" />
+        <path d="M13.5 3.5v5h5M8.5 13h7M8.5 16.5h5" />
+      </symbol>
+      <symbol id="i-id" viewBox="0 0 24 24">
+        <rect x="3" y="5" width="18" height="14" rx="2.5" />
+        <circle cx="9" cy="11" r="2.2" />
+        <path d="M5.8 16c.5-1.6 1.7-2.4 3.2-2.4s2.7.8 3.2 2.4M14.5 10h4M14.5 13.5h3" />
+      </symbol>
+      <symbol id="i-spark" viewBox="0 0 24 24">
+        <path d="M12 3.5c.6 4.2 2.3 5.9 6.5 6.5-4.2.6-5.9 2.3-6.5 6.5-.6-4.2-2.3-5.9-6.5-6.5 4.2-.6 5.9-2.3 6.5-6.5z" />
+        <path d="M18.5 15.5c.3 1.6 1 2.3 2.5 2.5-1.5.2-2.2.9-2.5 2.5-.3-1.6-1-2.3-2.5-2.5 1.5-.2 2.2-.9 2.5-2.5z" />
+      </symbol>
+      <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 3 5.5 13.5H11l-1 7.5 7.5-10.5H12z" /></symbol>
+      <symbol id="i-globe" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="8.5" />
+        <path d="M3.5 12h17M12 3.5c2.4 2.3 3.5 5.2 3.5 8.5s-1.1 6.2-3.5 8.5c-2.4-2.3-3.5-5.2-3.5-8.5S9.6 5.8 12 3.5z" />
+      </symbol>
+      <symbol id="i-mic" viewBox="0 0 24 24">
+        <rect x="9" y="3.5" width="6" height="11" rx="3" />
+        <path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v2.5" />
+      </symbol>
+      <symbol id="i-window" viewBox="0 0 24 24">
+        <rect x="6" y="3" width="12" height="18" rx="6" />
+        <path d="M8.5 13.5c2-1.5 5-1.5 7 0" />
+      </symbol>
+      <symbol id="i-edit" viewBox="0 0 24 24">
+        <path d="M4.5 19.5 5.3 16 15.8 5.5a1.8 1.8 0 0 1 2.6 0l.1.1a1.8 1.8 0 0 1 0 2.6L8 18.7z" />
+      </symbol>
+      <symbol id="i-moon" viewBox="0 0 24 24">
+        <path d="M19.5 14.5A7.5 7.5 0 0 1 9.5 4.5a7.5 7.5 0 1 0 10 10z" />
+      </symbol>
+      <symbol id="i-expand" viewBox="0 0 24 24">
+        <path d="M14.5 4.5h5v5M9.5 19.5h-5v-5M19.5 4.5l-6 6M4.5 19.5l6-6" />
+      </symbol>
+      <symbol id="i-photos" viewBox="0 0 24 24">
+        <rect x="3.5" y="5.5" width="14" height="13" rx="2.5" />
+        <path d="M7 3.5h11a2.5 2.5 0 0 1 2.5 2.5v10M3.5 15.5l3.8-3.8a1.5 1.5 0 0 1 2.1 0l4.6 4.6" />
+        <circle cx="13" cy="10" r="1.4" />
+      </symbol>
+      <symbol id="i-plane" viewBox="0 0 24 24">
+        <path
+          fill="currentColor"
+          stroke="none"
+          d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"
+        />
+      </symbol>
+    </svg>
+
+    <div class="stage">
+      <aside class="panel" aria-label="Sobre o protótipo">
+        <div class="brandplate"><img src="assets/brand/gol-logo.png" alt="GOL" /></div>
+        <h1 class="p-title">App GOL, repensado</h1>
+        <p class="p-sub">Conceito de redesign · protótipo navegável</p>
+        <p class="p-text">Fotos reais dos destinos, linguagem de gente e as tarefas do dia a dia a um toque.</p>
+        <div class="p-h">Tema do app</div>
+        <div class="p-seg" id="pTheme">
+          <button data-t="light" onclick="setTheme('light')">Claro</button
+          ><button data-t="dark" onclick="setTheme('dark')">Escuro</button
+          ><button data-t="auto" onclick="setTheme('auto')">Automático</button>
+        </div>
+        <div class="p-h">Roteiro de teste</div>
+        <ol class="tour" id="tour">
+          <li data-k="promo" onclick="runTourStep('promo')">Abra uma promoção do carrossel</li>
+          <li data-k="buy" onclick="runTourStep('buy')">Compre uma passagem de ida e volta</li>
+          <li data-k="seat" onclick="runTourStep('buy')">Escolha os assentos no mapa</li>
+          <li data-k="checkin" onclick="runTourStep('checkin')">Faça o check-in do próximo voo</li>
+          <li data-k="pass" onclick="runTourStep('pass')">Abra o cartão de embarque</li>
+          <li data-k="miles" onclick="runTourStep('miles')">Veja um destino pago com milhas</li>
+          <li data-k="chat" onclick="runTourStep('chat')">Escreva pro atendimento pelo teclado</li>
+          <li data-k="profile" onclick="runTourStep('profile')">Edite seus dados no perfil</li>
+          <li data-k="dark" onclick="runTourStep('dark')">Experimente o tema escuro</li>
+        </ol>
+      </aside>
+
+      <div class="center">
+        <div class="phone-wrap">
+          <div class="phone">
+            <span class="side s-act"></span><span class="side s-vu"></span><span class="side s-vd"></span
+            ><span class="side s-pow"></span>
+            <div class="app" id="app" data-sb="light" data-hb="light" data-theme="light">
+              <div class="statusbar" aria-hidden="true">
+                <span id="clock">9:41</span>
+                <span class="sb-ic">
+                  <svg width="19" height="12" viewBox="0 0 19 12" fill="currentColor">
+                    <rect y="8" width="3.2" height="4" rx="1" />
+                    <rect x="5.2" y="5.5" width="3.2" height="6.5" rx="1" />
+                    <rect x="10.4" y="3" width="3.2" height="9" rx="1" />
+                    <rect x="15.6" y="0" width="3.2" height="12" rx="1" />
+                  </svg>
+                  <svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor">
+                    <path
+                      d="M8.5 2.6c2.4 0 4.6.9 6.2 2.5l1.2-1.2A10.4 10.4 0 0 0 8.5.9 10.4 10.4 0 0 0 1.1 3.9l1.2 1.2a8.7 8.7 0 0 1 6.2-2.5zm0 3.4c1.5 0 2.8.6 3.8 1.5l1.2-1.2A7.1 7.1 0 0 0 8.5 4.3a7.1 7.1 0 0 0-5 2l1.2 1.2c1-.9 2.3-1.5 3.8-1.5zm0 3.3c.6 0 1.1.2 1.5.6L8.5 11.4 7 9.9c.4-.4.9-.6 1.5-.6z"
+                    />
+                  </svg>
+                  <svg width="27" height="13" viewBox="0 0 27 13">
+                    <rect
+                      x=".5"
+                      y=".5"
+                      width="23"
+                      height="12"
+                      rx="3.8"
+                      fill="none"
+                      stroke="currentColor"
+                      opacity=".4"
+                    />
+                    <rect x="2" y="2" width="17" height="9" rx="2.4" fill="currentColor" />
+                    <path d="M25 4.5v4c.8-.3 1.3-1.1 1.3-2s-.5-1.7-1.3-2z" fill="currentColor" opacity=".45" />
+                  </svg>
+                </span>
+              </div>
+              <div class="island"></div>
+
+              <section class="screen on" id="s-splash">
+                <canvas id="splashSky" aria-hidden="true"></canvas>
+                <div class="splash">
+                  <img class="splash-logo" src="assets/brand/gol-logo-white.png" alt="GOL" />
+                  <div class="splash-run" role="progressbar" aria-label="Carregando"><i id="splashBar"></i></div>
+                </div>
+              </section>
+
+              <section class="screen" id="s-home">
+                <div class="sbg" aria-hidden="true">
+                  <span class="lgw"
+                    ><img class="lg-l" src="assets/brand/gol-logo.png" alt="" /><img
+                      class="lg-d"
+                      src="assets/brand/gol-logo-dark.png"
+                      alt=""
+                  /></span>
+                </div>
+                <div class="scroll" id="homeScroll"></div>
+              </section>
+
+              <section class="screen" id="s-dest">
+                <div class="d-hero" id="dHero"></div>
+                <div class="d-top" id="dTop">
+                  <button class="ibtn glass" onclick="goBack()" aria-label="Voltar">
+                    <svg class="ic"><use href="#i-back" /></svg>
+                  </button>
+                  <span class="dt-t" id="dTopT"></span>
+                  <div class="row">
+                    <span id="dFav"></span
+                    ><button
+                      class="ibtn glass"
+                      onclick="showToast('Link da oferta copiado','share')"
+                      aria-label="Compartilhar"
+                    >
+                      <svg class="ic"><use href="#i-share" /></svg>
+                    </button>
+                  </div>
+                </div>
+                <div class="scroll d-scroll" id="dScroll">
+                  <div class="d-spacer" onclick="openDestinationHero()" aria-hidden="true"></div>
+                  <div class="d-body" id="dBody"></div>
+                </div>
+                <div class="cta-bar" id="dCta"></div>
+              </section>
+
+              <section class="screen" id="s-offers">
+                <header class="nav line">
+                  <button class="ibtn" onclick="goBack()" aria-label="Voltar">
+                    <svg class="ic"><use href="#i-back" /></svg>
+                  </button>
+                  <div class="nav-t"><b>Ofertas</b><small>Saindo de Porto Alegre · ida e volta por pessoa</small></div>
+                  <span class="nav-sp"></span>
+                </header>
+                <div class="scroll" id="offersBody"></div>
+              </section>
+
+              <section class="screen" id="s-search">
+                <header class="nav">
+                  <button class="ibtn" onclick="goBack()" aria-label="Fechar">
+                    <svg class="ic"><use href="#i-close" /></svg>
+                  </button>
+                  <div class="nav-t"><b>Comprar passagem</b></div>
+                  <span class="nav-sp"></span>
+                </header>
+                <div class="scroll" id="searchBody"></div>
+                <div class="cta-bar">
+                  <button class="btn block" onclick="searchFlights()">
+                    Buscar voos <svg class="ic s"><use href="#i-arrow" /></svg>
+                  </button>
+                </div>
+              </section>
+
+              <section class="screen" id="s-results">
+                <header class="nav">
+                  <button class="ibtn" onclick="goBackFromResults()" aria-label="Voltar">
+                    <svg class="ic"><use href="#i-back" /></svg>
+                  </button>
+                  <div class="nav-t" id="rTitle"></div>
+                  <button class="ibtn" onclick="openSheet('sort')" aria-label="Ordenar voos">
+                    <svg class="ic"><use href="#i-sliders" /></svg>
+                  </button>
+                </header>
+                <div class="prog" id="prog-results"></div>
+                <div class="scroll" id="rBody"></div>
+              </section>
+
+              <section class="screen" id="s-pax">
+                <header class="nav">
+                  <button class="ibtn" onclick="goBack()" aria-label="Voltar">
+                    <svg class="ic"><use href="#i-back" /></svg>
+                  </button>
+                  <div class="nav-t"><b>Quem vai viajar</b><small id="paxSub"></small></div>
+                  <span class="nav-sp"></span>
+                </header>
+                <div class="prog" id="prog-pax"></div>
+                <div class="scroll" id="paxBody"></div>
+                <div class="cta-bar">
+                  <div class="cta-sum"><small>Total</small><b class="tTotal">R$ 0</b></div>
+                  <button class="btn" onclick="savePassengers()">Continuar</button>
+                </div>
+              </section>
+
+              <section class="screen" id="s-extras">
+                <header class="nav">
+                  <button class="ibtn" onclick="goBack()" aria-label="Voltar">
+                    <svg class="ic"><use href="#i-back" /></svg>
+                  </button>
+                  <div class="nav-t"><b>Deixe do seu jeito</b><small>Bagagem e extras</small></div>
+                  <span class="nav-sp"></span>
+                </header>
+                <div class="prog" id="prog-extras"></div>
+                <div class="scroll" id="exBody"></div>
+                <div class="cta-bar">
+                  <div class="cta-sum"><small>Total</small><b class="tTotal">R$ 0</b></div>
+                  <button class="btn" onclick="openSeatMap()">Escolher assentos</button>
+                </div>
+              </section>
+
+              <section class="screen" id="s-seats">
+                <header class="nav">
+                  <button class="ibtn" onclick="goBack()" aria-label="Voltar">
+                    <svg class="ic"><use href="#i-back" /></svg>
+                  </button>
+                  <div class="nav-t"><b>Assentos</b><small id="seatSub"></small></div>
+                  <button class="ibtn" onclick="autoAssignSeats()" aria-label="Escolher assentos pra mim">
+                    <svg class="ic"><use href="#i-spark" /></svg>
+                  </button>
+                </header>
+                <div class="prog" id="prog-seats"></div>
+                <div class="seat-top" id="seatTop"></div>
+                <div class="scroll" id="seatBody"></div>
+                <div class="cta-bar">
+                  <div class="cta-sum"><small>Total</small><b class="tTotal">R$ 0</b></div>
+                  <button class="btn" id="seatBtn" onclick="continueFromSeats()">Continuar</button>
+                </div>
+              </section>
+
+              <section class="screen" id="s-pay">
+                <header class="nav">
+                  <button class="ibtn" onclick="goBack()" aria-label="Voltar">
+                    <svg class="ic"><use href="#i-back" /></svg>
+                  </button>
+                  <div class="nav-t"><b>Pagamento</b><small id="paySub"></small></div>
+                  <span class="nav-sp"></span>
+                </header>
+                <div class="prog" id="prog-pay"></div>
+                <div class="scroll" id="payBody"></div>
+                <div class="cta-bar">
+                  <div class="cta-sum"><small id="payLbl">Total</small><b class="tTotal">R$ 0</b></div>
+                  <button class="btn" id="payBtn" onclick="payNow()">Pagar</button>
+                </div>
+              </section>
+
+              <section class="screen" id="s-proc">
+                <div class="proc">
+                  <span class="lgw"
+                    ><img class="lg-l" src="assets/brand/gol-logo.png" alt="GOL" /><img
+                      class="lg-d"
+                      src="assets/brand/gol-logo-dark.png"
+                      alt=""
+                      aria-hidden="true"
+                  /></span>
+                  <div class="proc-run">
+                    <svg class="ic"><use href="#i-plane" /></svg>
+                  </div>
+                  <ol class="proc-steps" id="procSteps"></ol>
+                </div>
+              </section>
+
+              <section class="screen" id="s-done">
+                <div class="done-bg" id="doneBg"></div>
+                <canvas id="confetti" width="390" height="844"></canvas>
+                <div class="done-body" id="doneBody"></div>
+              </section>
+
+              <section class="screen" id="s-trips">
+                <div class="sbg" aria-hidden="true"><b>Minhas viagens</b></div>
+                <div class="scroll" id="tripsBody"></div>
+              </section>
+
+              <section class="screen" id="s-trip">
+                <div class="d-top" id="tTop">
+                  <button class="ibtn glass" onclick="goBack()" aria-label="Voltar">
+                    <svg class="ic"><use href="#i-back" /></svg>
+                  </button>
+                  <span class="dt-t" id="tTopT"></span>
+                  <button
+                    class="ibtn glass"
+                    onclick="showToast('Link da viagem copiado','share')"
+                    aria-label="Compartilhar viagem"
+                  >
+                    <svg class="ic"><use href="#i-share" /></svg>
+                  </button>
+                </div>
+                <div class="scroll" id="tripBody"></div>
+              </section>
+
+              <section class="screen" id="s-pass">
+                <div class="bp-bg" id="bpBg"></div>
+                <div class="bp-wrap" id="passBody"></div>
+              </section>
+
+              <section class="screen" id="s-account">
+                <div class="sbg" aria-hidden="true"><b>Perfil</b></div>
+                <div class="scroll" id="accBody"></div>
+              </section>
+
+              <section class="screen" id="s-me">
+                <header class="nav">
+                  <button class="ibtn" onclick="goBack()" aria-label="Voltar">
+                    <svg class="ic"><use href="#i-back" /></svg>
+                  </button>
+                  <div class="nav-t"><b>Dados pessoais</b></div>
+                  <span class="nav-sp"></span>
+                </header>
+                <div class="scroll" id="meBody"></div>
+                <div class="cta-bar"><button class="btn block" onclick="saveProfile()">Salvar alterações</button></div>
+              </section>
+
+              <section class="screen" id="s-docs">
+                <header class="nav">
+                  <button class="ibtn" onclick="goBack()" aria-label="Voltar">
+                    <svg class="ic"><use href="#i-back" /></svg>
+                  </button>
+                  <div class="nav-t"><b>Documentos de viagem</b></div>
+                  <span class="nav-sp"></span>
+                </header>
+                <div class="scroll" id="docsBody"></div>
+              </section>
+
+              <section class="screen" id="s-pays">
+                <header class="nav">
+                  <button class="ibtn" onclick="goBack()" aria-label="Voltar">
+                    <svg class="ic"><use href="#i-back" /></svg>
+                  </button>
+                  <div class="nav-t"><b>Formas de pagamento</b></div>
+                  <span class="nav-sp"></span>
+                </header>
+                <div class="scroll" id="paysBody"></div>
+              </section>
+
+              <section class="screen" id="s-travelers">
+                <header class="nav">
+                  <button class="ibtn" onclick="goBack()" aria-label="Voltar">
+                    <svg class="ic"><use href="#i-back" /></svg>
+                  </button>
+                  <div class="nav-t"><b>Viajantes salvos</b></div>
+                  <span class="nav-sp"></span>
+                </header>
+                <div class="scroll" id="travBody"></div>
+              </section>
+
+              <section class="screen" id="s-extrato">
+                <header class="nav">
+                  <button class="ibtn" onclick="goBack()" aria-label="Voltar">
+                    <svg class="ic"><use href="#i-back" /></svg>
+                  </button>
+                  <div class="nav-t"><b>Extrato Smiles</b></div>
+                  <span class="nav-sp"></span>
+                </header>
+                <div class="scroll" id="extBody"></div>
+              </section>
+
+              <section class="screen" id="s-chat">
+                <header class="chat-head">
+                  <button class="ibtn" onclick="goBack()" aria-label="Fechar conversa">
+                    <svg class="ic"><use href="#i-close" /></svg>
+                  </button>
+                  <span class="agent"
+                    ><svg class="ic"><use href="#i-chat" /></svg
+                  ></span>
+                  <div class="grow">
+                    <b>Atendimento GOL</b><small><i class="online"></i>Online agora · responde em minutos</small>
+                  </div>
+                </header>
+                <div class="chat-list" id="chatList" role="log" aria-live="polite"></div>
+                <div class="chat-quick" id="chatQuick"></div>
+                <form class="composer" onsubmit="event.preventDefault();sendChatMessage()">
+                  <input
+                    id="chatIn"
+                    placeholder="Escreva sua mensagem"
+                    autocomplete="off"
+                    autocapitalize="sentences"
+                    data-ret="enviar"
+                    aria-label="Mensagem"
+                    oninput="updateSendButton()"
+                  />
+                  <button
+                    class="send"
+                    id="chatSend"
+                    aria-label="Enviar mensagem"
+                    onmousedown="event.preventDefault()"
+                    disabled
+                  >
+                    <svg class="ic"><use href="#i-send" /></svg>
+                  </button>
+                </form>
+              </section>
+
+              <nav class="tabbar off" id="tabbar" aria-label="Navegação principal">
+                <button class="tb" onclick="switchTab('home')">
+                  <svg class="ic"><use href="#i-home" /></svg><span>Início</span>
+                </button>
+                <button class="tb" onclick="switchTab('trips')">
+                  <svg class="ic"><use href="#i-trips" /></svg><span>Viagens</span>
+                </button>
+                <button class="tb tb-buy" onclick="openSearch()" aria-label="Comprar passagem">
+                  <span class="buy"><img src="assets/brand/gol-logo-white.png" alt="" /></span><span>Comprar</span>
+                </button>
+                <button class="tb" onclick="switchTab('pass')">
+                  <svg class="ic"><use href="#i-ticket" /></svg><span>Cartão</span>
+                </button>
+                <button class="tb" onclick="switchTab('account')">
+                  <svg class="ic"><use href="#i-user" /></svg><span>Perfil</span>
+                </button>
+              </nav>
+
+              <div class="scrim" id="scrim" onclick="closeSheet()"></div>
+              <div class="sheet" id="sheet" role="dialog" aria-modal="true">
+                <div class="sh-grab" id="shGrab"><i></i></div>
+                <div class="sh-body" id="shBody"></div>
+              </div>
+
+              <div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-label="Fotos" aria-hidden="true">
+                <div class="vw-bg"></div>
+                <div class="vw-stage" id="vwStage"><div class="vw-track" id="vwTrack"></div></div>
+                <div class="vw-top">
+                  <button class="vw-btn" id="vwClose" onclick="closePhotoViewer()" aria-label="Fechar foto">
+                    <svg class="ic"><use href="#i-close" /></svg>
+                  </button>
+                  <span class="vw-count" id="vwCount" aria-live="polite"></span>
+                  <button
+                    class="vw-btn"
+                    onclick="showToast('Foto pronta pra compartilhar','share')"
+                    aria-label="Compartilhar foto"
+                  >
+                    <svg class="ic"><use href="#i-share" /></svg>
+                  </button>
+                </div>
+                <button
+                  class="vw-btn vw-nav prev"
+                  id="vwPrev"
+                  onclick="showViewerPhoto(viewer.i-1)"
+                  aria-label="Foto anterior"
+                >
+                  <svg class="ic"><use href="#i-back" /></svg>
+                </button>
+                <button
+                  class="vw-btn vw-nav next"
+                  id="vwNext"
+                  onclick="showViewerPhoto(viewer.i+1)"
+                  aria-label="Próxima foto"
+                >
+                  <svg class="ic"><use href="#i-chev" /></svg>
+                </button>
+                <div class="vw-bot">
+                  <p class="vw-hint" id="vwHint" hidden></p>
+                  <div class="vw-cap"><b id="vwTitle"></b><small id="vwCredit"></small></div>
+                  <div class="vw-thumbs" id="vwThumbs"></div>
+                </div>
+              </div>
+
+              <div class="kb" id="kb" aria-hidden="true"></div>
+              <div class="toast" id="toast" role="status" aria-live="polite"><div class="tx" id="toastTx"></div></div>
+              <div class="homebar"></div>
+            </div>
+          </div>
+        </div>
+        <p class="caption" id="caption">Conceito não oficial de UX/UI. Voos, preços e reservas são fictícios.</p>
+      </div>
+
+      <aside class="panel" aria-label="Sistema visual">
+        <div class="p-h" style="margin-top: 0">Cores</div>
+        <div class="sw-row">
+          <div class="swatch"><i style="background: #ff7020"></i>Laranja GOL</div>
+          <div class="swatch"><i style="background: #18181a"></i>Grafite</div>
+          <div class="swatch"><i style="background: #f4f3f1"></i>Névoa</div>
+          <div class="swatch"><i style="background: #cdccca"></i>Cinza da marca</div>
+        </div>
+        <div class="p-h">Tipografia</div>
+        <div class="ts">
+          <b style="font-family: var(--display); font-stretch: 80%">Aa</b
+          ><span><em>Bricolage Grotesque</em>Destinos e títulos</span>
+        </div>
+        <div class="ts">
+          <b style="font-family: var(--ui)">Aa</b><span><em>Figtree</em>Interface e textos</span>
+        </div>
+        <div class="ts">
+          <b style="font-family: var(--mono); font-size: 21px; font-weight: 500">G3</b
+          ><span><em>DM Mono</em>Códigos e cartão de embarque</span>
+        </div>
+        <div class="p-h">Fotografia</div>
+        <p class="credits" id="credits"></p>
+      </aside>
+    </div>
+  </body>
+</html>

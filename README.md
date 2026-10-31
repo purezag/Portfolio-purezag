@@ -39,4 +39,4 @@ public/cases/     sites compilados dos estudos, abertos pelo botão de ver ao vi
 - Ordem dos cases: é a ordem do array `projects`. Case novo entra sempre no topo (vira o 01) e os demais descem uma posição. Ordem atual: OHMEN, GOL App, Beatframe, Open, No Esquema, Bellamonte, Euvatar 360 (mobile), Euvatar landing, Euvatar institucional, Superba, Celeiro, Laboratório Criativo
 - Motion de divulgação: `public/media/previews/<id>.mp4` com pôster `<id>.webp` (1280×800). Enquanto o vídeo não existe, `motion: "pending"` no projeto mostra só o pôster
 - Telas de um projeto: `public/media/work/<id>/NN-800.webp` e `NN-1600.webp`
-- Sites dos estudos Celeiro, Superba e Bellamonte e o protótipo do Beatframe (build estático com rotas por hash): `public/cases/<id>/`
+- Sites dos estudos OHMEN, Celeiro, Superba e Bellamonte e os protótipos do GOL App e do Beatframe (estáticos, com caminhos relativos): `public/cases/<id>/`

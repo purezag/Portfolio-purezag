@@ -1,0 +1,44 @@
+.sbg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  height: 100px;
+  padding-top: 54px;
+  display: grid;
+  place-items: center;
+  background: var(--bar);
+  backdrop-filter: blur(22px) saturate(1.6);
+  -webkit-backdrop-filter: blur(22px) saturate(1.6);
+  border-bottom: 1px solid var(--line);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s var(--ease);
+  cursor: pointer;
+}
+
+.sbg b {
+  font: 700 16.5px var(--ui);
+  transform: translateY(6px);
+  transition: transform 0.35s var(--ease);
+}
+
+.sbg img {
+  height: 20px;
+}
+
+.sbg .lgw {
+  transform: translateY(6px);
+  transition: transform 0.35s var(--ease);
+}
+
+.screen.scrolled .sbg {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.screen.scrolled .sbg b,
+.screen.scrolled .sbg .lgw {
+  transform: none;
+}
