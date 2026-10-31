@@ -81,27 +81,6 @@ body {
   overflow-x: clip;
 }
 
-.grain {
-  position: fixed;
-  inset: -40px;
-  z-index: 80;
-  pointer-events: none;
-  opacity: 0.05;
-  background: url("../media/grain.png") repeat;
-  background-size: 180px 180px;
-  animation: grain 0.6s steps(5) infinite;
-  will-change: transform;
-}
-
-@keyframes grain {
-  0% { transform: translate3d(0, 0, 0); }
-  20% { transform: translate3d(-23px, 11px, 0); }
-  40% { transform: translate3d(17px, -29px, 0); }
-  60% { transform: translate3d(-31px, -7px, 0); }
-  80% { transform: translate3d(9px, 27px, 0); }
-  100% { transform: translate3d(0, 0, 0); }
-}
-
 ::selection {
   background: var(--lumen);
   color: var(--void);
@@ -4306,7 +4285,6 @@ button {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .grain,
   .marquee__track,
   .hero__scroll i::after,
   .hud__time::before {
