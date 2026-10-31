@@ -27,6 +27,7 @@ export const projects: Project[] = [
   {
     id: "ohmen",
     name: "OHMEN Electric",
+    logo: "/media/logos/ohmen.png",
     platform: "web",
     status: "study",
     type: { pt: "Site 3D em tempo real · estudo", en: "Real-time 3D website · study" },
@@ -57,6 +58,7 @@ export const projects: Project[] = [
   {
     id: "gol-app",
     name: "GOL App",
+    logo: "/media/logos/gol-app.png",
     platform: "mobile",
     status: "study",
     type: { pt: "Redesign de app · estudo", en: "App redesign · study" },
