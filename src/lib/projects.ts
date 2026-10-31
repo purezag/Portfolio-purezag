@@ -53,7 +53,7 @@ export const projects: Project[] = [
       pt: "Projeto de estudo com marca e carros fictícios: OHMEN, ARC e UMBRA não existem. Modelo 3D base “Car Concept”, de Eric Chadwick, sob licença CC BY 4.0, modificado.",
       en: "A study project with a fictional brand and cars: OHMEN, ARC and UMBRA do not exist. Base 3D model “Car Concept” by Eric Chadwick, CC BY 4.0, modified.",
     },
-    screens: 0,
+    screens: 5,
   },
   {
     id: "gol-app",
