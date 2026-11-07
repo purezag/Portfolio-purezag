@@ -25,6 +25,102 @@ const euvatarNote: Localized = {
 
 export const projects: Project[] = [
   {
+    id: "oriel-one",
+    name: "Oriel One",
+    logo: "/media/logos/oriel-one.png",
+    platform: "web",
+    status: "study",
+    type: { pt: "Site de lançamento 3D · estudo", en: "3D launch website · study" },
+    year: "2026",
+    role: { pt: "Conceito, 3D, design & desenvolvimento", en: "Concept, 3D, design & development" },
+    stack: ["three.js", "JavaScript", "Vite", "Blender"],
+    url: "https://oriel-one-nine.vercel.app",
+    motion: "pending",
+    summary: {
+      pt: "Lançamento de um smartphone contado como um filme 3D que mergulha na tela até os subpixels.",
+      en: "A smartphone launch told as a 3D film that dives into the screen down to the subpixels.",
+    },
+    description: [
+      {
+        pt: "A rolagem dirige o filme em tempo real com three.js: um anel de cinco aparelhos, a desmontagem camada por camada com pinos e lista de peças, a remontagem e um mergulho na tela até os subpixels. Ao atravessar o subpixel, a cor dele vira a cor da primeira seção e o site se monta sobre ela.",
+        en: "Scrolling drives a real-time three.js film: a ring of five phones, a layer-by-layer teardown with pins and a parts list, reassembly and a dive into the screen down to the subpixels. Passing through a subpixel, its colour becomes the first section's colour and the site builds itself on top of it.",
+      },
+      {
+        pt: "Cinco acabamentos com materiais físicos trocados no arraste, preços, armazenamento e reserva, inglês e português, tema claro e escuro e uma versão sem 3D para aparelhos sem WebGL 2. Modelo do aparelho gerado no Blender, sem framework de interface.",
+        en: "Five finishes with physical materials swapped by dragging, pricing, storage and reservation, English and Portuguese, light and dark themes and a no-3D version for devices without WebGL 2. The phone model was generated in Blender, with no UI framework.",
+      },
+    ],
+    note: {
+      pt: "Projeto de estudo com marca e aparelho fictícios: a Oriel e o Oriel One não existem. Ambiente de estúdio “Brown Photostudio 02”, da Poly Haven (CC0).",
+      en: "A study project with a fictional brand and device: Oriel and the Oriel One do not exist. Studio environment “Brown Photostudio 02” by Poly Haven (CC0).",
+    },
+    screens: 0,
+  },
+  {
+    id: "santander-agora",
+    name: "Santander Agora",
+    logo: "/media/logos/santander-agora.png",
+    platform: "mobile",
+    status: "study",
+    type: { pt: "Redesign de app · estudo", en: "App redesign · study" },
+    year: "2026",
+    role: { pt: "Produto, UX/UI & front-end", en: "Product, UX/UI & front-end" },
+    stack: ["JavaScript", "CSS", "Vite"],
+    url: "https://santander-agora.vercel.app",
+    motion: "pending",
+    summary: {
+      pt: "Releitura do app de um banco organizado pelo tempo: o saldo acompanha o dia que você escolhe.",
+      en: "A rethink of a bank app organised by time: the balance follows the day you pick.",
+    },
+    description: [
+      {
+        pt: "A tela inicial é uma linha do tempo arrastável. Para trás fica o que já aconteceu, em papel claro; para a frente, o que vai acontecer (salário, contas, Pix agendados e gastos estimados), em noite. O saldo grande acompanha o dia escolhido, e extrato e agenda viram um gesto só.",
+        en: "The home screen is a draggable timeline. Behind you is what already happened, on light paper; ahead is what's coming (salary, bills, scheduled Pix and estimated spending), at night. The big balance follows the chosen day, and statement and calendar become a single gesture.",
+      },
+      {
+        pt: "Pix, pagamento por leitura de código, cartões, impostos, comprovantes, chat e perfil a um toque. Front-end puro, sem dependências em produção, publicado como um único arquivo com fontes e imagens embutidas.",
+        en: "Pix, code-scan payments, cards, taxes, receipts, chat and profile one tap away. Plain front-end with no production dependencies, shipped as a single file with fonts and images embedded.",
+      },
+    ],
+    note: {
+      pt: "Conceito independente de UX/UI, sem vínculo com o banco. Não acessa contas reais e todos os valores, pessoas e transações são fictícios.",
+      en: "An independent UX/UI concept with no affiliation with the bank. It does not access real accounts and all amounts, people and transactions are fictional.",
+    },
+    screens: 0,
+  },
+  {
+    id: "gol-app",
+    name: "GOL App",
+    logo: "/media/logos/gol-app.png",
+    platform: "mobile",
+    status: "study",
+    type: { pt: "Redesign de app · estudo", en: "App redesign · study" },
+    year: "2026",
+    role: { pt: "Direção de arte, UX/UI & front-end", en: "Art direction, UX/UI & front-end" },
+    stack: ["JavaScript", "CSS", "Vite"],
+    url: "https://gol-app.vercel.app",
+    motion: "pending",
+    summary: {
+      pt: "Os dois Os do logo de uma companhia aérea viram a linguagem do app inteiro.",
+      en: "The two Os of an airline's logo become the language of the whole app.",
+    },
+    description: [
+      {
+        pt: "O O laranja é você agindo, o cinza é o eco, e os dois só se entrelaçam quando algo se completa: check-in, pagamento aprovado, a chegada do próximo voo. Todo o resto é retângulo, como a sinalização de um aeroporto, com painel split-flap, fichas de voo e a cabine desenhada como a planta do 737.",
+        en: "The orange O is you acting, the grey one is the echo, and they only interlock when something completes: check-in, an approved payment, the next flight drawing near. Everything else is a rectangle, like airport signage, with a split-flap board, flight strips and the cabin drawn as a 737 floor plan.",
+      },
+      {
+        pt: "Compra completa com adultos, crianças e bebês, filtros de voo, tarifas, assentos, check-in, cartão de embarque, milhas, perfil e chat, além de um globo em pontos para explorar destinos. Front-end puro, sem dependências em produção, com logo refeito em vetor e tema claro e escuro.",
+        en: "Full booking with adults, children and infants, flight filters, fares, seats, check-in, boarding pass, miles, profile and chat, plus a dotted globe to explore destinations. Plain front-end with no production dependencies, a logo redrawn in vector and light and dark themes.",
+      },
+    ],
+    note: {
+      pt: "Conceito não oficial de UX/UI, sem vínculo com a companhia. Voos, preços e reservas são fictícios. Fotos dos destinos do Unsplash, com os autores creditados no próprio app.",
+      en: "An unofficial UX/UI concept with no affiliation with the airline. Flights, prices and bookings are fictional. Destination photos from Unsplash, with authors credited in the app.",
+    },
+    screens: 0,
+  },
+  {
     id: "ohmen",
     name: "OHMEN Electric",
     logo: "/media/logos/ohmen.png",
@@ -54,37 +150,6 @@ export const projects: Project[] = [
       en: "A study project with a fictional brand and cars: OHMEN, ARC and UMBRA do not exist. Base 3D model “Car Concept” by Eric Chadwick, CC BY 4.0, modified.",
     },
     screens: 5,
-  },
-  {
-    id: "gol-app",
-    name: "GOL App",
-    logo: "/media/logos/gol-app.png",
-    platform: "mobile",
-    status: "study",
-    type: { pt: "Redesign de app · estudo", en: "App redesign · study" },
-    year: "2026",
-    role: { pt: "UX/UI & front-end", en: "UX/UI & front-end" },
-    stack: ["HTML", "CSS", "JavaScript"],
-    url: "/cases/gol-app/index.html",
-    summary: {
-      pt: "Releitura do app de uma companhia aérea, com as tarefas do dia a dia a um toque.",
-      en: "A rethink of an airline app, with everyday tasks one tap away.",
-    },
-    description: [
-      {
-        pt: "Protótipo navegável dentro de uma moldura de celular: busca e compra de passagem de ida e volta, mapa de assentos, pagamento, check-in, cartão de embarque, viagens, milhas, atendimento por chat e perfil, com tema claro e escuro.",
-        en: "A clickable prototype inside a phone frame: round-trip search and booking, seat map, payment, check-in, boarding pass, trips, miles, chat support and profile, with light and dark themes.",
-      },
-      {
-        pt: "Fotos reais dos destinos, linguagem de gente e um roteiro de teste guiado ao lado do aparelho. Front-end puro, sem dependências, com tarifas calculadas e dados organizados por tela.",
-        en: "Real destination photos, human language and a guided test script beside the device. Plain front-end with no dependencies, with computed fares and data organised by screen.",
-      },
-    ],
-    note: {
-      pt: "Conceito não oficial de UX/UI, sem vínculo com a companhia. Voos, preços, reservas, documentos e cartões são fictícios.",
-      en: "An unofficial UX/UI concept with no affiliation with the airline. Flights, prices, bookings, documents and cards are fictional.",
-    },
-    screens: 0,
   },
   {
     id: "beatframe",
@@ -236,7 +301,6 @@ export const projects: Project[] = [
     year: "2025",
     role: { pt: "Front-end", en: "Front-end" },
     stack: ["HTML", "CSS", "JavaScript"],
-    url: "https://videos-todos.vercel.app/",
     summary: {
       pt: "Landing page de conversão para mercado imobiliário e eventos.",
       en: "Conversion landing page for real estate and events.",
@@ -263,7 +327,6 @@ export const projects: Project[] = [
     year: "2025",
     role: { pt: "Front-end", en: "Front-end" },
     stack: ["React", "Vite", "Tailwind CSS", "Framer Motion"],
-    url: "https://euvatar-web.vercel.app/",
     summary: {
       pt: "Site institucional em stack moderna, com build otimizado e componentes reutilizáveis.",
       en: "Institutional website on a modern stack, with an optimized build and reusable components.",
@@ -291,7 +354,6 @@ export const projects: Project[] = [
     year: "2026",
     role: { pt: "Marca, design & desenvolvimento", en: "Brand, design & development" },
     stack: ["React", "TypeScript", "Vite", "Tailwind CSS", "Motion"],
-    url: "/cases/superba/index.html",
     summary: {
       pt: "Concessionária de máquinas com vitrine de seminovos, linha off-road e 11 filiais no mapa.",
       en: "Machinery dealership with a used stock showcase, an off-road line and 11 branches on the map.",
@@ -321,7 +383,6 @@ export const projects: Project[] = [
     year: "2026",
     role: { pt: "Marca, design & desenvolvimento", en: "Brand, design & development" },
     stack: ["React", "TypeScript", "Vite", "Tailwind CSS", "Motion"],
-    url: "/cases/celeiro/index.html",
     summary: {
       pt: "Revenda de máquinas e implementos agrícolas com catálogo, seminovos e equipe por região.",
       en: "Agricultural machinery and implements dealer with a catalogue, used stock and a team by region.",
@@ -341,32 +402,6 @@ export const projects: Project[] = [
       en: "A reinterpretation of a real project under a fictional brand: I created Celeiro and its partner Halden to show the work without using the client's brand. People, phone numbers and addresses are fictional.",
     },
     screens: 5,
-  },
-  {
-    id: "laboratorio-criativo",
-    logo: "/media/logos/laboratorio-criativo.png",
-    platform: "web",
-    name: "Laboratório Criativo",
-    type: { pt: "E-commerce", en: "E-commerce" },
-    year: "2025",
-    role: { pt: "Desenvolvimento", en: "Development" },
-    stack: ["WordPress", "WooCommerce", "PHP", "HTML", "CSS", "JavaScript"],
-    url: "https://www.laboratoriocriativo.com",
-    summary: {
-      pt: "E-commerce completo em WordPress, da interface ao checkout.",
-      en: "Full WordPress e-commerce, from interface to checkout.",
-    },
-    description: [
-      {
-        pt: "E-commerce construído de ponta a ponta em WordPress, com front-end responsivo e focado em performance.",
-        en: "E-commerce built end to end on WordPress, with a responsive, performance-focused front-end.",
-      },
-      {
-        pt: "Hierarquia de produto clara, navegação rápida e um checkout sem atrito.",
-        en: "Clear product hierarchy, fast navigation and a frictionless checkout.",
-      },
-    ],
-    screens: 3,
   },
 ];
 
