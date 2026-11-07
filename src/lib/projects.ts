@@ -53,7 +53,7 @@ export const projects: Project[] = [
       pt: "Projeto de estudo com marca e aparelho fictícios: a Oriel e o Oriel One não existem. Ambiente de estúdio “Brown Photostudio 02”, da Poly Haven (CC0).",
       en: "A study project with a fictional brand and device: Oriel and the Oriel One do not exist. Studio environment “Brown Photostudio 02” by Poly Haven (CC0).",
     },
-    screens: 0,
+    screens: 11,
   },
   {
     id: "santander-agora",
@@ -84,7 +84,7 @@ export const projects: Project[] = [
       pt: "Conceito independente de UX/UI, sem vínculo com o banco. Não acessa contas reais e todos os valores, pessoas e transações são fictícios.",
       en: "An independent UX/UI concept with no affiliation with the bank. It does not access real accounts and all amounts, people and transactions are fictional.",
     },
-    screens: 0,
+    screens: 12,
   },
   {
     id: "gol-app",
@@ -115,7 +115,7 @@ export const projects: Project[] = [
       pt: "Conceito não oficial de UX/UI, sem vínculo com a companhia. Voos, preços e reservas são fictícios. Fotos dos destinos do Unsplash, com os autores creditados no próprio app.",
       en: "An unofficial UX/UI concept with no affiliation with the airline. Flights, prices and bookings are fictional. Destination photos from Unsplash, with authors credited in the app.",
     },
-    screens: 0,
+    screens: 12,
   },
   {
     id: "ohmen",
