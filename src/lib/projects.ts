@@ -35,7 +35,6 @@ export const projects: Project[] = [
     role: { pt: "Conceito, 3D, design & desenvolvimento", en: "Concept, 3D, design & development" },
     stack: ["three.js", "JavaScript", "Vite", "Blender"],
     url: "https://oriel-one-nine.vercel.app",
-    motion: "pending",
     summary: {
       pt: "Lançamento de um smartphone contado como um filme 3D que mergulha na tela até os subpixels.",
       en: "A smartphone launch told as a 3D film that dives into the screen down to the subpixels.",
@@ -67,7 +66,6 @@ export const projects: Project[] = [
     role: { pt: "Produto, UX/UI & front-end", en: "Product, UX/UI & front-end" },
     stack: ["JavaScript", "CSS", "Vite"],
     url: "https://santander-agora.vercel.app",
-    motion: "pending",
     summary: {
       pt: "Releitura do app de um banco organizado pelo tempo: o saldo acompanha o dia que você escolhe.",
       en: "A rethink of a bank app organised by time: the balance follows the day you pick.",
@@ -99,7 +97,6 @@ export const projects: Project[] = [
     role: { pt: "Direção de arte, UX/UI & front-end", en: "Art direction, UX/UI & front-end" },
     stack: ["JavaScript", "CSS", "Vite"],
     url: "https://gol-app.vercel.app",
-    motion: "pending",
     summary: {
       pt: "Os dois Os do logo de uma companhia aérea viram a linguagem do app inteiro.",
       en: "The two Os of an airline's logo become the language of the whole app.",
