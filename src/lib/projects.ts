@@ -35,7 +35,6 @@ export const projects: Project[] = [
     role: { pt: "Marca, design & desenvolvimento", en: "Brand, design & development" },
     stack: ["Next.js", "React", "TypeScript", "Zustand", "CSS Modules"],
     url: "https://vulto-loja.vercel.app",
-    motion: "pending",
     summary: {
       pt: "Loja de roupas de corrida que vende a madrugada: do preloader ao checkout, a compra é uma prova.",
       en: "A running apparel store that sells the early hours: from preloader to checkout, buying is a race.",
