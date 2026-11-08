@@ -25,6 +25,38 @@ const euvatarNote: Localized = {
 
 export const projects: Project[] = [
   {
+    id: "vulto",
+    name: "VULTO",
+    logo: "/media/logos/vulto.svg",
+    platform: "web",
+    status: "study",
+    type: { pt: "E-commerce de moda esportiva · estudo", en: "Sportswear e-commerce · study" },
+    year: "2026",
+    role: { pt: "Marca, design & desenvolvimento", en: "Brand, design & development" },
+    stack: ["Next.js", "React", "TypeScript", "Zustand", "CSS Modules"],
+    url: "https://vulto-loja.vercel.app",
+    motion: "pending",
+    summary: {
+      pt: "Loja de roupas de corrida que vende a madrugada: do preloader ao checkout, a compra é uma prova.",
+      en: "A running apparel store that sells the early hours: from preloader to checkout, buying is a race.",
+    },
+    description: [
+      {
+        pt: "E-commerce completo de uma grife de corrida, treino e bike de São Paulo: vitrine, categorias, linhas de treino, página de produto com ficha técnica e guia de medidas, sacola, busca e favoritos. O checkout tem três etapas contadas como quilômetros, com cronômetro de prova, e a confirmação entrega um número de peito com o pedido e o Pix.",
+        en: "A complete e-commerce for a São Paulo running, training and cycling label: storefront, categories, training lines, product pages with specs and a size guide, bag, search and favourites. Checkout has three steps counted as kilometres, with a race clock, and the confirmation hands over a race bib with the order and the Pix code.",
+      },
+      {
+        pt: "Identidade própria em preto e lime, com relógio do nascer do sol em São Paulo, lookbook por horário da madrugada, conta com rastreio de pedidos e as páginas da marca. Mobile first de 320 a 1920 px, 49 páginas estáticas em Next.js 16 e React 19, estado em Zustand e 78 fotos de campanha.",
+        en: "Its own black-and-lime identity, with a São Paulo sunrise clock, a lookbook told by the hour, an account with order tracking and the brand pages. Mobile first from 320 to 1920 px, 49 static pages in Next.js 16 and React 19, state in Zustand and 78 campaign photos.",
+      },
+    ],
+    note: {
+      pt: "Projeto de estudo com marca fictícia criada por mim: a VULTO não existe. Pagamento, conta e pedidos são simulados no navegador e nenhum valor é cobrado.",
+      en: "A study project with a fictional brand I created: VULTO does not exist. Payment, account and orders are simulated in the browser and nothing is charged.",
+    },
+    screens: 11,
+  },
+  {
     id: "oriel-one",
     name: "Oriel One",
     logo: "/media/logos/oriel-one.png",

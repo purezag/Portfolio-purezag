@@ -36,8 +36,8 @@ public/cases/     sites compilados dos estudos hospedados aqui, abertos pelo bot
 
 - Textos PT/EN: `src/lib/i18n.ts`
 - Projetos, stack, redes e e-mail: `src/lib/projects.ts`
-- Ordem dos cases: é a ordem do array `projects`. Case novo entra sempre no topo (vira o 01) e os demais descem uma posição. Ordem atual: Oriel One, Santander Agora, GOL App, OHMEN, Beatframe, Open, No Esquema, Bellamonte, Euvatar 360 (mobile), Euvatar landing, Euvatar institucional, Superba, Celeiro
+- Ordem dos cases: é a ordem do array `projects`. Case novo entra sempre no topo (vira o 01) e os demais descem uma posição. Ordem atual: VULTO, Oriel One, Santander Agora, GOL App, OHMEN, Beatframe, Open, No Esquema, Bellamonte, Euvatar 360 (mobile), Euvatar landing, Euvatar institucional, Superba, Celeiro
 - Motion de divulgação: `public/media/previews/<id>.mp4` com pôster `<id>.webp` (1280×800). Enquanto o vídeo não existe, `motion: "pending"` no projeto mostra só o pôster
 - Telas de um projeto: `public/media/work/<id>/NN-800.webp` e `NN-1600.webp`, com `screens` no projeto igual ao total. Web em 1600×997 e 800×499 (a 01 ocupa a largura toda); mobile em 780×1688 e 400×866, em grade de 4 colunas (use múltiplos de 4)
 - Sites dos estudos OHMEN e Bellamonte e o protótipo do Beatframe (estáticos, com caminhos relativos): `public/cases/<id>/`
-- Oriel One, Santander Agora e GOL App rodam em projetos próprios no Vercel (`url` no projeto). Celeiro, Superba e os sites da Euvatar ficam sem `url`: o case mostra o aviso de projeto sem link público
+- VULTO, Oriel One, Santander Agora e GOL App rodam em projetos próprios no Vercel (`url` no projeto). Celeiro, Superba e os sites da Euvatar ficam sem `url`: o case mostra o aviso de projeto sem link público
